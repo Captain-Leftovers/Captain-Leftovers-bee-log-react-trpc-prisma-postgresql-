@@ -1,0 +1,86 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// testing schema models
+
+model BeekeeperUser {
+  id       String    @id @unique @default(cuid())
+  userName String
+  email    String    @unique
+  image    String?
+  farms    BeeFarm[]
+}
+
+model BeeFarm {
+  id              String        @id @unique @default(cuid())
+  farmName        String
+  hives           Hive[]
+  BeekeeperUser   BeekeeperUser @relation(fields: [beekeeperUserId], references: [id])
+  beekeeperUserId String
+}
+
+model Hive {
+  id          String       @id @unique @default(cuid())
+  BeeFarm     BeeFarm      @relation(fields: [beeFarmId], references: [id])
+  name        String       @unique
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime?    @updatedAt
+  hiveSystem  String
+  inspections Inspection[]
+  supers      Super[]
+  queen       Queen?       @relation(fields: [queenId], references: [id])
+  beeFarmId   String
+  queenId     String?
+}
+
+model Super {
+  id              String  @id @unique @default(cuid())
+  numberFrames    Int
+  fullHoneyFrames Int
+  emptyOrHalfFull Int
+  superNumberName Int
+  Hive            Hive?   @relation(fields: [hiveId], references: [id])
+  hiveId          String?
+}
+
+model Inspection {
+  id                         String    @id @unique @default(cuid())
+  inspectionDate             DateTime
+  updatedAt                  DateTime? @updatedAt
+  beeEnterExitHive           Boolean   @default(true)
+  bringingPollen             Boolean   @default(true)
+  signsOfRobbing             Boolean   @default(false)
+  animalDisturbing           Boolean   @default(false)
+  beesCalmOnOpen             Boolean   @default(true)
+  isBroodPatternGood         Boolean   @default(true)
+  areLarvaeHealthyWhiteShiny Boolean   @default(true)
+  isJellyPresent             Boolean?
+  broodCappedUncappedCells   Boolean   @default(true)
+  oneEggPerCell              Boolean   @default(true)
+  antsPresent                Boolean   @default(false)
+  mothsPresent               Boolean   @default(false)
+  unusualNumberDeadBees      Boolean   @default(false)
+  odor                       Boolean   @default(false)
+  tracheal                   Boolean   @default(false)
+  varroa                     Boolean   @default(false)
+  framesCoveredWithBees      Int
+  framesUsedForBrood         Int
+  spaceForNectar             Boolean   @default(true)
+  comments                   String?
+  queenSeen                  Boolean?  @default(false)
+  Hive                       Hive?     @relation(fields: [hiveId], references: [id])
+  hiveId                     String?
+}
+
+model Queen {
+  id      String   @id @unique @default(cuid())
+  addedOn DateTime @default(now())
+  bornOn  DateTime @default(now())
+  Hive    Hive[]
+}
