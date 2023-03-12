@@ -13,3 +13,4 @@ export default  function TestTrpc() {
 		</div>
 	)
 }
+// test database query
