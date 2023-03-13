@@ -24,5 +24,7 @@
 		"editor.selectionBackground": "#2d4c77",
 		"input.background": "#7c0000",
 		"editor.findMatchBackground": "#128ae1"
-	}
+	},
+	"todo-tree.tree.showBadges": true,
+	"todo-tree.tree.showCountsInTree": false
 }

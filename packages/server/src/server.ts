@@ -2,9 +2,13 @@ import { createHTTPServer } from '@trpc/server/adapters/standalone'
 import z from 'zod'
 import { router, publicProcedure } from './trpc'
 import cors from 'cors'
-import * as trpc from '@trpc/server';
-import http from 'http';
+import dotenv from 'dotenv'
 
+if (process.env.NODE_ENV !== 'production') {
+	dotenv.config()
+}
+
+const PORT: number = Number(process.env.PORT) || 3000
 
 const appRouter = router({
 	greeting: publicProcedure
@@ -17,19 +21,19 @@ const appRouter = router({
 			}
 		}),
 
-		hello: publicProcedure
+	hello: publicProcedure
 		// using zod schema to validate and infer input values
 		.input(
-		  z
-			.object({
-			  text: z.string().nullish(),
-			})
-			.nullish(),
+			z
+				.object({
+					text: z.string().nullish(),
+				})
+				.nullish()
 		)
 		.query(({ input }) => {
-		  return {
-			greeting: `hello ${input?.text ?? 'world'}`,
-		  };
+			return {
+				greeting: `hello ${input?.text ?? 'world'}`,
+			}
 		}),
 
 	'': publicProcedure.query(() => {
@@ -41,10 +45,11 @@ const appRouter = router({
 
 export type AppRouter = typeof appRouter
 
-const { listen } = createHTTPServer({
-	middleware:cors(),
+const { listen, server } = createHTTPServer({
+	middleware: cors(),
 	router: appRouter,
-	
 })
-// The API will now be listening on port 3000!
-listen(3000)
+// listen(PORT)
+server.listen(PORT, () => {
+	console.log(`Server started on \x1b[36m%s\x1b[0m`,`http://localhost:${PORT}`)
+})
