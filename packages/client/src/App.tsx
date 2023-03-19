@@ -1,8 +1,9 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { httpBatchLink } from '@trpc/client'
-import  { useState } from 'react'
-import TestTrpc from './TestTrpc'
+import { useState } from 'react'
 import { trpc } from './utils/trpc'
+import { RouterProvider } from 'react-router-dom'
+import router from './router/router'
 
 export default function App() {
 	const [queryClient] = useState(() => new QueryClient())
@@ -10,14 +11,16 @@ export default function App() {
 		trpc.createClient({
 			links: [
 				httpBatchLink({
-					url: `http://localhost:3005`,
+					url: `http://localhost:${
+						import.meta.env.VITE_API_PORT
+					}`,
 					// optional
 					fetch(url, options) {
 						return fetch(url, {
-						  ...options,
-						//   credentials: 'include',
-						});
-					  },
+							...options,
+							//   credentials: 'include',
+						})
+					},
 				}),
 			],
 		})
@@ -25,7 +28,7 @@ export default function App() {
 	return (
 		<trpc.Provider client={trpcClient} queryClient={queryClient}>
 			<QueryClientProvider client={queryClient}>
-				{<TestTrpc />}
+				<RouterProvider router={router} />
 			</QueryClientProvider>
 		</trpc.Provider>
 	)
