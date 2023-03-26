@@ -70,11 +70,14 @@ export default function Home() {
 		})
 	}
 	return (
-		<div className="h-full bg-orange-600">
-			<h1 className="text-8xl">Register Component</h1>
-			<div>
+		<div className="h-full flex flex-col justify-center items-center bg-yellow-300  ">
+			<h1 className="text-3xl text-center mb-4">Register Component</h1>
+
+			<div className="container  max-w-xl bg-lime-400 shadow-xl rounded-md px-6 py-10" >
+
+			<div className=''>
 				<form action="POST">
-					<h1 className="text-4xl">{title}</h1>
+					<h1 className="text-4xl text-center pb-4">{title}</h1>
 					{inputFields.map((inputField) => (
 						<FormInput
 							key={inputField.id}
@@ -86,6 +89,7 @@ export default function Home() {
 						/>
 					))}
 				</form>
+			</div>
 			</div>
 		</div>
 	)

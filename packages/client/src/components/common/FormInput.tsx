@@ -11,9 +11,9 @@ export default function FormInput(props: any) {
 	}
 
 	return (
-		<div>
-			<label htmlFor={id}>{label}</label>
-			<input
+		<div className='flex flex-col container bg-lime-400  mx-auto' >
+			<label className='font-bold text-2xl uppercase mb-1' htmlFor={id}>{label}</label>
+			<input 
 				id={id}
 				{...inputProps}
 				onChange={onChange}
@@ -25,8 +25,9 @@ export default function FormInput(props: any) {
 						: null
 				}
 				value={value}
+                className='border-2 border-gray-200  p-2  focus:outline-none focus:border-blue-500'
 			/>
-			<span>{errorMessage}</span>
+			<span className='text-secondary' >{errorMessage}</span>
 		</div>
 	)
 }
