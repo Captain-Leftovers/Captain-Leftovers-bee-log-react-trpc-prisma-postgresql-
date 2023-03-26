@@ -8,13 +8,10 @@ const initialState = {
 	confirmPassword: '',
 }
 
-
 export default function Home() {
-	const [userData , setUserData] = useState(initialState)
+	const [userData, setUserData] = useState(initialState)
 	type UserState = typeof initialState
 
-	
-	
 	const title = 'Register'
 	const inputFields = [
 		{
@@ -63,33 +60,48 @@ export default function Home() {
 		},
 	]
 
-	const onChangeHandler = (e:React.ChangeEvent<HTMLInputElement>) => {
+	const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setUserData({
 			...userData,
 			[e.target.name]: e.target.value,
 		})
 	}
 	return (
-		<div className="h-full flex flex-col justify-center items-center bg-yellow-300  ">
-			<h1 className="text-3xl text-center mb-4">Register Component</h1>
+		<div className="flex h-full flex-col items-center justify-center bg-yellow-300  ">
+			<h1 className="mb-4 text-center text-3xl">
+				Register Component
+			</h1>
 
-			<div className="container  max-w-xl bg-lime-400 shadow-xl rounded-md px-6 py-10" >
-
-			<div className=''>
-				<form action="POST">
-					<h1 className="text-4xl text-center pb-4">{title}</h1>
-					{inputFields.map((inputField) => (
-						<FormInput
-							key={inputField.id}
-							{...inputField}
-							value= {userData[inputField.name as keyof UserState]}	  
-							onChange={
-								onChangeHandler
-							}
-						/>
-					))}
-				</form>
-			</div>
+			<div className="container  max-w-xl rounded-md bg-lime-400 px-6 py-10 shadow-xl">
+				<div className="">
+					<form action="POST" className='flex flex-col'>
+						<h1 className="pb-4 text-center text-4xl">
+							{title}
+						</h1>
+						{inputFields.map(
+							(inputField) => (
+								<FormInput
+									key={
+										inputField.id
+									}
+									{...inputField}
+									value={
+										userData[
+											inputField.name as keyof UserState
+										]
+									}
+									onChange={
+										onChangeHandler
+									}
+								/>
+							)
+						)}
+						<button className=" text-xl rounded bg-blue-500 w-2/4 mx-auto  py-2 px-4 font-bold text-white hover:bg-blue-700">
+							{' '}
+							{title}{' '}
+						</button>
+					</form>
+				</div>
 			</div>
 		</div>
 	)

@@ -11,9 +11,14 @@ export default function FormInput(props: any) {
 	}
 
 	return (
-		<div className='flex flex-col container bg-lime-400  mx-auto' >
-			<label className='font-bold text-2xl uppercase mb-1' htmlFor={id}>{label}</label>
-			<input 
+		<div className="container mx-auto flex flex-col  bg-lime-400">
+			<label
+				className="mb-1 text-2xl font-bold uppercase"
+				htmlFor={id}
+			>
+				{label}
+			</label>
+			<input
 				id={id}
 				{...inputProps}
 				onChange={onChange}
@@ -25,9 +30,16 @@ export default function FormInput(props: any) {
 						: null
 				}
 				value={value}
-                className='border-2 border-gray-200  p-2  focus:outline-none focus:border-blue-500'
+				className={`peer border-2 border-gray-200  p-2  focus:border-blue-500 focus:outline-none`}
 			/>
-			<span className='text-secondary' >{errorMessage}</span>
+			<span
+				className={` text-secondary opacity-0 ${
+					blurred ? 'opacity100' : ''
+				} `}
+			>
+				{errorMessage}
+			</span>
+			/* peer-invalid:opacity-100 */
 		</div>
 	)
 }
