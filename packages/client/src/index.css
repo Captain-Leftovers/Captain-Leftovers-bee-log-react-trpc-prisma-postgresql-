@@ -5,3 +5,7 @@
 .active {
 	@apply bg-green-700 px-4 font-bold text-white  hover:bg-purple-700;
 }
+
+body{
+	@apply bg-pink-700
+}

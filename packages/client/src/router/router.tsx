@@ -1,18 +1,26 @@
-import { createBrowserRouter, createRoutesFromElements, Route } from "react-router-dom";
-import ErrorLayout from "../components/Layout/errorLayout/ErrorLayout";
+import {
+	createBrowserRouter,
+	createRoutesFromElements,
+	Route,
+} from 'react-router-dom'
+import Home from '../components/Home'
+import Login from '../components/Login'
+import Register from '../components/Register'
+import ErrorLayout from '../components/Layout/errorLayout/ErrorLayout'
+import RootLayout from '../components/Layout/rootLayout/RootLayout'
 
-//layout
-import RootLayout from "../components/Layout/rootLayout/RootLayout";
+const router = createBrowserRouter(
+	createRoutesFromElements(
+		<Route
+			path="/"
+			element={<RootLayout />}
+			ErrorBoundary={ErrorLayout}
+		>
+			<Route path="/" element={<Home />} />
+			<Route path="/login" element={<Login/>} />
+			<Route path="/register" element={<Register />} />
+		</Route>
+	)
+)
 
-
-
- const router = createBrowserRouter(
-    createRoutesFromElements(
-      <Route path="/" element={< RootLayout/>} ErrorBoundary={ErrorLayout} >
-      
-      </Route>
-    )
-  );
-
-
-  export default router;
+export default router
