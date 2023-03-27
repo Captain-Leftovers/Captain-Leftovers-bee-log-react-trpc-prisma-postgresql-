@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { trpc } from '../utils/trpc'
 import FormInput from './common/FormInput'
 
 const initialState = {
@@ -11,6 +12,8 @@ const initialState = {
 export default function Home() {
 	const [userData, setUserData] = useState(initialState)
 	type UserState = typeof initialState
+
+	//TODO: how does trpc work in client with useQuery and useMutation
 
 	const title = 'Register'
 	const inputFields = [
@@ -60,6 +63,10 @@ export default function Home() {
 		},
 	]
 
+	const onSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault()
+	}
+
 	const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setUserData({
 			...userData,
@@ -74,7 +81,11 @@ export default function Home() {
 
 			<div className="container  max-w-xl rounded-md bg-lime-400 px-6 py-10 shadow-xl">
 				<div className="">
-					<form action="POST" className='flex flex-col'>
+					<form
+						onSubmit={onSubmitHandler}
+						action="POST"
+						className="flex flex-col"
+					>
 						<h1 className="pb-4 text-center text-4xl">
 							{title}
 						</h1>
@@ -96,7 +107,7 @@ export default function Home() {
 								/>
 							)
 						)}
-						<button className=" text-xl rounded bg-blue-500 w-2/4 mx-auto  py-2 px-4 font-bold text-white hover:bg-blue-700">
+						<button className=" mx-auto w-2/4 rounded bg-blue-500 py-2  px-4 text-xl font-bold text-white hover:bg-blue-700">
 							{' '}
 							{title}{' '}
 						</button>

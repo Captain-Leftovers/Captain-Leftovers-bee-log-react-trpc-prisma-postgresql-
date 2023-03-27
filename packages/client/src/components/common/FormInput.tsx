@@ -34,12 +34,13 @@ export default function FormInput(props: any) {
 			/>
 			<span
 				className={` text-secondary opacity-0 ${
-					blurred ? 'opacity100' : ''
-				} `}
+					blurred ? 'opacity-100'
+						: ''
+				}  peer-valid:opacity-0`}
 			>
 				{errorMessage}
 			</span>
-			/* peer-invalid:opacity-100 */
 		</div>
+	
 	)
 }
