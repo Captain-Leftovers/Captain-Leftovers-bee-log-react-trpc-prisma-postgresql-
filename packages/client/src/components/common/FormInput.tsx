@@ -1,9 +1,18 @@
-import { useState } from 'react'
+import {  useState } from 'react'
+import type { InputFieldType } from '../Register'
+interface FormInputProps {
+	value: string
+	label: string
+	id: string
+	errorMessage: string
+	onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+
+}
 
 export default function FormInput(props: any) {
-	const [blurred, setBlurred] = useState(false)
+	const [blurred, setBlurred] = useState<boolean>(false)
 
-	const { value, label, id, onChange, errorMessage, ...inputProps } =
+	const { value, label, id, onChange , errorMessage, ...inputProps } =
 		props
 
 	const handleOnBlur = () => {

@@ -1,6 +1,19 @@
 import { useState } from 'react'
-import { trpc } from '../utils/trpc'
 import FormInput from './common/FormInput'
+import { trpc } from '../utils/trpc'
+import { TRPCClientError } from '@trpc/client'
+
+export interface InputFieldType {
+	id: number
+	type: string
+	placeholder: string
+	required: boolean
+	label: string
+	name: string
+	errorMessage: string
+	pattern: string
+	autoComplete?: string
+}
 
 const initialState = {
 	username: '',
@@ -13,10 +26,12 @@ export default function Home() {
 	const [userData, setUserData] = useState(initialState)
 	type UserState = typeof initialState
 
-	//TODO: how does trpc work in client with useQuery and useMutation
+	const mutationReg = trpc.registerUser.useMutation()
+
+	
 
 	const title = 'Register'
-	const inputFields = [
+	const inputFields: InputFieldType[] = [
 		{
 			id: 1,
 			type: 'text',
@@ -25,7 +40,7 @@ export default function Home() {
 			label: 'Username',
 			name: 'username',
 			errorMessage:
-				'Username should be 3-20 characters and should not contain special characters!',
+				'Username should be 3-20 characters and should not contain special characters !',
 			pattern: '^[a-zA-Z0-9]{3,20}$',
 		},
 		{
@@ -63,34 +78,51 @@ export default function Home() {
 		},
 	]
 
-	const onSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {
+	const onSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
+		try{
+		const user = await mutationReg.mutateAsync({
+			userName: userData.username,
+			email: userData.email,
+			password: userData.password,
+			confirmPassword: userData.confirmPassword,
+		})
+		console.log(user);
+	} catch (error) {
+		//TODO learn how to handle trpc errors
+		console.log(error.message);
+	}
 	}
 
-	const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+	const onChangeHandler = (
+		e: React.ChangeEvent<HTMLInputElement>
+	): void => {
 		setUserData({
 			...userData,
 			[e.target.name]: e.target.value,
 		})
 	}
 	return (
-		<div className="flex h-full flex-col items-center justify-center bg-yellow-300  ">
+		<div className="flex h-full flex-col items-center justify-center bg-yellow-300  text-sm">
 			<h1 className="mb-4 text-center text-3xl">
 				Register Component
 			</h1>
 
-			<div className="container  max-w-xl rounded-md bg-lime-400 px-6 py-10 shadow-xl">
+			<div className="container   max-w-lg  rounded-md bg-lime-400 px-6 py-8   shadow-xl">
 				<div className="">
 					<form
 						onSubmit={onSubmitHandler}
 						action="POST"
 						className="flex flex-col"
 					>
-						<h1 className="pb-4 text-center text-4xl">
+						<h1 className="pb-4 text-center text-lg">
 							{title}
 						</h1>
+
 						{inputFields.map(
-							(inputField) => (
+							(
+								inputField: InputFieldType
+							) => (
 								<FormInput
 									key={
 										inputField.id
