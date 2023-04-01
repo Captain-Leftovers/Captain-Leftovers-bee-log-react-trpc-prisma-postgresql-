@@ -1,19 +1,12 @@
-import {  useState } from 'react'
-import type { InputFieldType } from '../Register'
-interface FormInputProps {
-	value: string
-	label: string
-	id: string
-	errorMessage: string
-	onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
-
-}
+import { useState } from 'react'
 
 export default function FormInput(props: any) {
 	const [blurred, setBlurred] = useState<boolean>(false)
 
-	const { value, label, id, onChange , errorMessage, ...inputProps } =
+	const { value, label, id, onChange, errorMessage, ...inputProps } =
 		props
+
+	console.log(inputProps.hasError)
 
 	const handleOnBlur = () => {
 		setBlurred(true)
@@ -28,6 +21,7 @@ export default function FormInput(props: any) {
 				{label}
 			</label>
 			<input
+
 				id={id}
 				{...inputProps}
 				onChange={onChange}
@@ -39,17 +33,15 @@ export default function FormInput(props: any) {
 						: null
 				}
 				value={value}
-				className={`peer border-2 border-gray-200  p-2  focus:border-blue-500 focus:outline-none`}
+				className={`peer border-2 border-gray-200  p-2  focus:border-blue-500 focus:outline-none `}
 			/>
 			<span
 				className={` text-secondary opacity-0 ${
-					blurred ? 'opacity-100'
-						: ''
+					blurred ? 'opacity-100' : ''
 				}  peer-valid:opacity-0`}
 			>
 				{errorMessage}
 			</span>
 		</div>
-	
 	)
 }
