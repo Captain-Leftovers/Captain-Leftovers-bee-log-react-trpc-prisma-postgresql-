@@ -19,8 +19,8 @@ export default function App() {
 					fetch(url, options) {
 						return fetch(url, {
 							...options,
-							//   credentials: 'include',
-							//TODO : understand why credentials stop request on server when we use publicprocedures not authed ones
+							  credentials: 'include',
+							
 						})
 					},
 				}),

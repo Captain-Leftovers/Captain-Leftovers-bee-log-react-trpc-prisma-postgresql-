@@ -5,9 +5,9 @@ import { TRPCError } from '@trpc/server'
 import z from 'zod'
 
 export const MainRouter = router({
-	'hi': publicProcedure.query(() => {
+	'': publicProcedure.query(() => {
 		return {
-			message: 'Hello World',
+			message: 'Hello World from TRPC',
 		}
 	}),
 
