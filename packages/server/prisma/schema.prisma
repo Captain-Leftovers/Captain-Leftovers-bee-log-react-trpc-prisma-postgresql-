@@ -26,6 +26,7 @@ model BeekeeperUser {
   id       String    @id @unique @default(cuid())
   userName String
   email    String    @unique
+  password String    
   image    String?
   farms    BeeFarm[]
 }

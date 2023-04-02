@@ -14,12 +14,13 @@ export default function App() {
 				httpBatchLink({
 					url: `http://localhost:${
 						import.meta.env.VITE_API_PORT
-					}`,
+					}/trpc`,
 					// optional
 					fetch(url, options) {
 						return fetch(url, {
 							...options,
 							//   credentials: 'include',
+							//TODO : understand why credentials stop request on server when we use publicprocedures not authed ones
 						})
 					},
 				}),

@@ -1,1 +1,0 @@
-export const banana:string = 'banana dada';

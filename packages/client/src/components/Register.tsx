@@ -26,10 +26,11 @@ const initialState = {
 
 export default function Home() {
 	const [userData, setUserData] = useState(initialState)
+	
 	const navigate = useNavigate()
 	type UserState = typeof initialState
 
-	const { mutate, isError, isSuccess, error, isLoading } =
+	const { mutate, } =
 		trpc.registerUser.useMutation({
 			onError: (error) => {
 				toast.error(error.message) // redirect the user to home page
@@ -94,12 +95,16 @@ export default function Home() {
 
 	const onSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
+		console.log('in onSubmit' + JSON.stringify(userData));
+		
 		const user = await mutate({
 			userName: userData.username,
 			email: userData.email,
 			password: userData.password,
 			confirmPassword: userData.confirmPassword,
 		})
+		console.log('end onSubmit' + JSON.stringify(user));
+		
 	}
 
 	const onChangeHandler = (

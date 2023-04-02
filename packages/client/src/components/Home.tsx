@@ -1,15 +1,17 @@
 import { trpc } from '../utils/trpc'
 
 export default function Home() {
-	const { isLoading, isFetching, data, error, status } =
+	const  usersQ =
 		trpc.getUsers.useQuery(
 			undefined,
 			{
 				enabled: true,
 			}
 		)
-
-	console.log(data)
+		console.log(usersQ);
+		
+    
+	  
 
 	return (
 		<div className="h-full bg-purple-200 flex flex-col">
@@ -24,7 +26,7 @@ export default function Home() {
 					Users List
 				</h2>
 				<ul className="list-inside list-disc text-4xl text-emerald-200">
-					{data?.usersArray.map((user) => {
+					{usersQ.data?.usersArray.map((user) => {
 						return (
 							<li key={user.id}>
 								{user.name}
