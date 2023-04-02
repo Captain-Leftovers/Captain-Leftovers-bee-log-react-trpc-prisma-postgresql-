@@ -9,6 +9,19 @@ datasource db {
 
 // testing schema models
 
+
+//session model for prisma session store
+model Session {
+  id        String   @id
+  sid       String   @unique
+  data      String
+  expiresAt   DateTime
+}
+
+
+////
+
+
 model BeekeeperUser {
   id       String    @id @unique @default(cuid())
   userName String

@@ -6,8 +6,11 @@ import db from './db'
 import z from 'zod'
 import { Prisma } from '@prisma/client'
 import { TRPCError } from '@trpc/server'
-import { PrismaClientKnownRequestError } from '@prisma/client/runtime'
-import { log } from 'console'
+import { PrismaSessionStore } from '@quixo3/prisma-session-store'
+import session from 'express-session'
+
+
+
 if (process.env.NODE_ENV !== 'production') {
 	dotenv.config()
 }
@@ -96,7 +99,24 @@ const appRouter = router({
 			return {
 				id: user.id,
 				name: user.userName,
-				email: user.email,
+				email: user.email,app.use(
+					expressSession({
+					  cookie: {
+					   maxAge: 7 * 24 * 60 * 60 * 1000 // ms
+					  },
+					  secret: 'a santa at nasa',
+					  resave: true,
+					  saveUninitialized: true,
+					  store: new PrismaSessionStore(
+						new PrismaClient(),
+						{
+						  checkPeriod: 2 * 60 * 1000,  //ms
+						  dbRecordIdIsSessionId: true,
+						  dbRecordIdFunction: undefined,
+						}
+					  )
+					})
+				  );
 			}
 		})
 
@@ -117,6 +137,7 @@ export type AppRouter = typeof appRouter
 const { listen, server } = createHTTPServer({
 	middleware: cors(),
 	router: appRouter,
+	
 })
 // listen(PORT)
 server.listen(PORT, () => {
