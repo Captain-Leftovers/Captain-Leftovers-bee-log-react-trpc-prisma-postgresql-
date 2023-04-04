@@ -3,7 +3,7 @@ import { TRPCError } from '@trpc/server'
 import { router } from '../trpc'
 import db from '../db'
 import { publicProcedure } from '../trpc'
-import z from 'zod'
+import z, { ZodError } from 'zod'
 import {
 	comparePasswords,
 	hashPassword,
@@ -129,25 +129,39 @@ export const userRouter = router({
 					currentUser,
 				}
 			} catch (error) {
-				if (error) {
-					const prismaError =
-						error as Prisma.PrismaClientKnownRequestError
-					if (prismaError.code === 'P2002') {
-						const target = prismaError.meta
-							?.target as string
-						const field = target
-							.toString()
-							.toLowerCase()
-						throw new TRPCError({
-							code: 'CONFLICT',
-							message: `${field} already exists`,
-						})
-					}
+				if (error instanceof ZodError) {
+					throw new TRPCError({
+						code: 'CONFLICT',
+						message: error.errors[0].message,
+					})
 				}
-			}
-		}),
-
-	// getBeekeepers: publicProcedure
+					if (error instanceof Prisma.PrismaClientKnownRequestError) {
+						
+							const target = error.meta?.target as string
+							const field = target.toString().toLowerCase()
+							throw new TRPCError({
+								code: 'CONFLICT',
+								message: `${field} already exists`,
+							})
+						}
+						// const prismaError =
+						// 	error as Prisma.PrismaClientKnownRequestError
+						// if (prismaError.code === 'P2002') {
+						// 	const target = prismaError.meta
+						// 		?.target as string
+						// 	const field = target
+						// 		.toString()
+						// 		.toLowerCase()
+						// 	throw new TRPCError({
+						// 		code: 'CONFLICT',
+						// 		message: `${field} already exists`,
+						// 	})
+						// }
+					
+				}
+			}),
+			
+			// getBeekeepers: publicProcedure
 	getUsers: publicProcedure.query(async () => {
 		const users = await db.beekeeperUser.findMany()
 

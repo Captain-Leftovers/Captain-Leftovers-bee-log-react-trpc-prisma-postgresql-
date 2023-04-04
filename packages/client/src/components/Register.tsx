@@ -4,6 +4,7 @@ import { trpc } from '../utils/trpc'
 import { toast } from 'react-hot-toast'
 import { addUserLocalStorage } from '../utils/authFn'
 import { useNavigate } from 'react-router-dom'
+import { ZodError } from 'zod'
 
 export interface InputFieldType {
 	id: number
@@ -18,10 +19,10 @@ export interface InputFieldType {
 }
 
 const initialState = {
-	username: '',
-	email: '',
-	password: '',
-	confirmPassword: '',
+	username: 'lalilulelomggg',
+	email: 'dob@abvb',
+	password: 'Darkwolf128!',
+	confirmPassword: 'Darkwolf128!',
 }
 
 export default function Home() {
@@ -32,8 +33,10 @@ export default function Home() {
 
 	const { mutate } = trpc.user.registerUser.useMutation({
 		onError: (error) => {
-			//TODO : handle error when email wrong its not handled correctly
-			toast.error(error?.message) // redirect the user to home page
+			if (error instanceof ZodError) {
+				toast.error(error)
+			}
+		
 		},
 		onSuccess: (data) => {
 			const user = data.currentUser
