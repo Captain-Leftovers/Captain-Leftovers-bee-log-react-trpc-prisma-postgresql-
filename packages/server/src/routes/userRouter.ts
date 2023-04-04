@@ -1,16 +1,74 @@
-import { router, publicProcedure } from './trpc'
-import db from './db'
 import { Prisma } from '@prisma/client'
 import { TRPCError } from '@trpc/server'
+import { router } from '../trpc'
+import db from '../db'
+import { publicProcedure } from '../trpc'
 import z from 'zod'
+import {
+	comparePasswords,
+	hashPassword,
+} from '../services/authService/passwordService'
 
-export const MainRouter = router({
-	'': publicProcedure.query(() => {
-		return {
-			message: 'Hello World from TRPC',
-		}
-	}),
+export const userRouter = router({
+	//login user
+	loginUser: publicProcedure
+		.input(
+			z.object({
+				email: z.string().email().min(3),
+				password: z
+					.string()
+					.min(6)
+					.max(24)
+					.regex(
+						/^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,24}$/
+					),
+			})
+		)
+		.mutation(async ({ input }) => {
+			const { email, password } = input
+			try {
+				const user = await db.beekeeperUser.findUnique({
+					where: {
+						email,
+					},
+				})
 
+				if (!user) {
+					throw new TRPCError({
+						code: 'NOT_FOUND',
+						message: 'User does not exist',
+					})
+				}
+
+				const isPasswordCorrect =
+					await comparePasswords(
+						password,
+						user.password
+					)
+
+				if (!isPasswordCorrect) {
+					throw new TRPCError({
+						code: 'UNAUTHORIZED',
+						message: 'Incorrect password',
+					})
+				}
+
+				const currentUser = {
+					id: user.id,
+					name: user.userName,
+					email: user.email,
+				}
+
+				return currentUser
+			} catch (error: any) {
+				throw new TRPCError({
+					code: 'UNAUTHORIZED',
+					message: error?.message,
+				})
+			}
+		}),
+
+	//register user
 	registerUser: publicProcedure
 		.input(
 			z
@@ -49,11 +107,15 @@ export const MainRouter = router({
 		.mutation(async ({ input }) => {
 			const { userName, email, password } = input
 			try {
+				const hashedPassword = await hashPassword(
+					password
+				)
+
 				const user = await db.beekeeperUser.create({
 					data: {
 						userName,
 						email,
-						password,
+						password: hashedPassword,
 					},
 				})
 
@@ -85,6 +147,7 @@ export const MainRouter = router({
 			}
 		}),
 
+	// getBeekeepers: publicProcedure
 	getUsers: publicProcedure.query(async () => {
 		const users = await db.beekeeperUser.findMany()
 
@@ -101,5 +164,5 @@ export const MainRouter = router({
 		}
 	}),
 
-	
+	//end of router
 })

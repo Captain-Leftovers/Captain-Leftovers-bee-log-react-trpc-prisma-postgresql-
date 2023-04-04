@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+
+	/* TODO remove debug apply */
+	
+	@apply outline-dashed outline-2 outline-lime-200;
+}
+
 .active {
 	@apply bg-green-700 px-4 font-bold text-white  hover:bg-purple-700;
 }

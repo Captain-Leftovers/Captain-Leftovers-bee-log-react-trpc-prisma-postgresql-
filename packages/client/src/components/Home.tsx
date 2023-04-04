@@ -2,7 +2,7 @@ import { trpc } from '../utils/trpc'
 
 export default function Home() {
 	const  usersQ =
-		trpc.getUsers.useQuery(
+		trpc.user.getUsers.useQuery(
 			undefined,
 			{
 				enabled: true,

@@ -2,7 +2,7 @@ import { useState } from 'react'
 import FormInput from './common/FormInput'
 import { trpc } from '../utils/trpc'
 import { toast } from 'react-hot-toast'
-import {  addUserLocalStorage } from '../utils/authFn'
+import { addUserLocalStorage } from '../utils/authFn'
 import { useNavigate } from 'react-router-dom'
 
 export interface InputFieldType {
@@ -26,24 +26,22 @@ const initialState = {
 
 export default function Home() {
 	const [userData, setUserData] = useState(initialState)
-	
+
 	const navigate = useNavigate()
 	type UserState = typeof initialState
 
-	const { mutate, } =
-		trpc.registerUser.useMutation({
-			onError: (error) => {
-				toast.error(error.message) // redirect the user to home page
-			},
-			onSuccess: (data) => {
-				const user = data.currentUser
-				toast.success(
-					`${user.name} registered successfully!`
-				)
-				addUserLocalStorage(user)
-				navigate('/')
-			},
-		})
+	const { mutate } = trpc.user.registerUser.useMutation({
+		onError: (error) => {
+			//TODO : handle error when email wrong its not handled correctly
+			toast.error(error?.message) // redirect the user to home page
+		},
+		onSuccess: (data) => {
+			const user = data.currentUser
+			toast.success(`${user.name} registered successfully!`)
+			addUserLocalStorage(user)
+			navigate('/')
+		},
+	})
 
 	const title = 'Register'
 	const inputFields: InputFieldType[] = [
@@ -95,16 +93,15 @@ export default function Home() {
 
 	const onSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
-		console.log('in onSubmit' + JSON.stringify(userData));
-		
+		console.log('in onSubmit' + JSON.stringify(userData))
+
 		const user = await mutate({
 			userName: userData.username,
 			email: userData.email,
 			password: userData.password,
 			confirmPassword: userData.confirmPassword,
 		})
-		console.log('end onSubmit' + JSON.stringify(user));
-		
+		console.log('end onSubmit' + JSON.stringify(user))
 	}
 
 	const onChangeHandler = (
