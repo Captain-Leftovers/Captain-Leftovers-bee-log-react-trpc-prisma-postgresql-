@@ -8,8 +8,8 @@ export default function Home() {
 				enabled: true,
 			}
 		)
-		console.log(usersQ);
-		
+
+	
     
 	  
 

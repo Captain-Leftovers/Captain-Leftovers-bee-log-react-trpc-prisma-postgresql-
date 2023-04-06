@@ -55,8 +55,6 @@ app.use(
 	})
 )
 
-app.use((req, res, next) => {})
-
 //TODO : add error handler maybe last middleware
 
 app.listen(PORT, () => {

@@ -1,9 +1,8 @@
-import { Prisma } from '@prisma/client'
 import { TRPCError } from '@trpc/server'
 import { router } from '../trpc'
 import db from '../db'
 import { publicProcedure } from '../trpc'
-import z, { ZodError } from 'zod'
+import z from 'zod'
 import {
 	comparePasswords,
 	hashPassword,
@@ -59,7 +58,7 @@ export const userRouter = router({
 					email: user.email,
 				}
 
-				return currentUser
+				return {currentUser}
 			} catch (error: any) {
 				throw new TRPCError({
 					code: 'UNAUTHORIZED',
@@ -106,62 +105,29 @@ export const userRouter = router({
 		)
 		.mutation(async ({ input }) => {
 			const { userName, email, password } = input
-			try {
-				const hashedPassword = await hashPassword(
-					password
-				)
 
-				const user = await db.beekeeperUser.create({
-					data: {
-						userName,
-						email,
-						password: hashedPassword,
-					},
-				})
+			const hashedPassword = await hashPassword(password)
 
-				const currentUser = {
-					id: user.id,
-					name: user.userName,
-					email: user.email,
-				}
+			const user = await db.beekeeperUser.create({
+				data: {
+					userName,
+					email,
+					password: hashedPassword,
+				},
+			})
 
-				return {
-					currentUser,
-				}
-			} catch (error) {
-				if (error instanceof ZodError) {
-					throw new TRPCError({
-						code: 'CONFLICT',
-						message: error.errors[0].message,
-					})
-				}
-					if (error instanceof Prisma.PrismaClientKnownRequestError) {
-						
-							const target = error.meta?.target as string
-							const field = target.toString().toLowerCase()
-							throw new TRPCError({
-								code: 'CONFLICT',
-								message: `${field} already exists`,
-							})
-						}
-						// const prismaError =
-						// 	error as Prisma.PrismaClientKnownRequestError
-						// if (prismaError.code === 'P2002') {
-						// 	const target = prismaError.meta
-						// 		?.target as string
-						// 	const field = target
-						// 		.toString()
-						// 		.toLowerCase()
-						// 	throw new TRPCError({
-						// 		code: 'CONFLICT',
-						// 		message: `${field} already exists`,
-						// 	})
-						// }
-					
-				}
-			}),
-			
-			// getBeekeepers: publicProcedure
+			const currentUser = {
+				id: user.id,
+				name: user.userName,
+				email: user.email,
+			}
+
+			return {
+				currentUser,
+			}
+		}),
+
+	// getBeekeepers: publicProcedure
 	getUsers: publicProcedure.query(async () => {
 		const users = await db.beekeeperUser.findMany()
 

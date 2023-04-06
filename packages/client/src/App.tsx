@@ -10,8 +10,10 @@ export default function App() {
 	const [queryClient] = useState(() => new QueryClient())
 	const [trpcClient] = useState(() =>
 		trpc.createClient({
+
 			links: [
 				httpBatchLink({
+				
 					url: `http://localhost:${
 						import.meta.env.VITE_API_PORT
 					}/trpc`,
@@ -22,6 +24,7 @@ export default function App() {
 							  credentials: 'include',
 							
 						})
+						
 					},
 				}),
 			],

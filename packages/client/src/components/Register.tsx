@@ -1,10 +1,10 @@
 import { useState } from 'react'
 import FormInput from './common/FormInput'
 import { trpc } from '../utils/trpc'
+import { errorHandler } from '../utils/errorHandler'
+import { addUserLocalStorage, loginFn } from '../utils/authFn'
+import {  useNavigate } from 'react-router-dom'
 import { toast } from 'react-hot-toast'
-import { addUserLocalStorage } from '../utils/authFn'
-import { useNavigate } from 'react-router-dom'
-import { ZodError } from 'zod'
 
 export interface InputFieldType {
 	id: number
@@ -20,7 +20,7 @@ export interface InputFieldType {
 
 const initialState = {
 	username: 'lalilulelomggg',
-	email: 'dob@abvb',
+	email: 'lalilulelo.mg@gmail.com',
 	password: 'Darkwolf128!',
 	confirmPassword: 'Darkwolf128!',
 }
@@ -29,17 +29,15 @@ export default function Home() {
 	const [userData, setUserData] = useState(initialState)
 
 	const navigate = useNavigate()
+
 	type UserState = typeof initialState
 
 	const { mutate } = trpc.user.registerUser.useMutation({
 		onError: (error) => {
-			if (error instanceof ZodError) {
-				toast.error(error)
-			}
-		
+			errorHandler(error)
 		},
 		onSuccess: (data) => {
-			const user = data.currentUser
+			const user = data?.currentUser
 			toast.success(`${user.name} registered successfully!`)
 			addUserLocalStorage(user)
 			navigate('/')
@@ -96,15 +94,13 @@ export default function Home() {
 
 	const onSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
-		console.log('in onSubmit' + JSON.stringify(userData))
 
-		const user = await mutate({
+		await mutate({
 			userName: userData.username,
 			email: userData.email,
 			password: userData.password,
 			confirmPassword: userData.confirmPassword,
 		})
-		console.log('end onSubmit' + JSON.stringify(user))
 	}
 
 	const onChangeHandler = (
