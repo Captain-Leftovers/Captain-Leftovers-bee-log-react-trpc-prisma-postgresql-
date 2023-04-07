@@ -1,12 +1,27 @@
+import { useContext } from 'react'
 import { NavLink, Outlet } from 'react-router-dom'
+import UserContext from '../../../context/UserContext'
+import { trpc } from '../../../utils/trpc'
+import { toast } from 'react-hot-toast'
+import { errorHandler } from '../../../utils/errorHandler'
 
 export default function RootLayout() {
-
+	const userContext = useContext(UserContext)
+	const logOutMutation = trpc.user.logoutUser.useMutation({
+		onSuccess: () => {
+			userContext?.setUser(null)
+			toast.success('Logged out successfully!')
+		},
+		onError: (error) => {
+			errorHandler(error)
+		},
+	})
+	
+	
 	const handleLogout = () => {
+		logOutMutation.mutate()
 		
-
 	}
-
 
 	return (
 		<div className="flex h-screen w-screen flex-col bg-gray-300  ">

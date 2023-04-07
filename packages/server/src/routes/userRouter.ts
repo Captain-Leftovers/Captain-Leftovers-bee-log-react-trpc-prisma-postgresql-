@@ -1,7 +1,7 @@
 import { TRPCError } from '@trpc/server'
 import { router } from '../trpc'
 import db from '../db'
-import { publicProcedure } from '../trpc'
+import { publicProcedure, protectedProcedure } from '../trpc'
 import z from 'zod'
 import {
 	comparePasswords,
@@ -9,6 +9,23 @@ import {
 } from '../services/authService/passwordService'
 
 export const userRouter = router({
+	logoutUser: protectedProcedure.mutation(async ({ ctx }) => {
+		return new Promise((resolve, reject) => {
+			ctx.session.destroy((err) => {
+				if (err) {
+					reject(
+						new TRPCError({
+							code: 'INTERNAL_SERVER_ERROR',
+							message: err?.message,
+						})
+					)
+				} else {
+					resolve({ success: true })
+				}
+			})
+		})
+	}),
+
 	//login user
 	loginUser: publicProcedure
 		.input(
@@ -147,7 +164,5 @@ export const userRouter = router({
 		}
 	}),
 
-
 	//end of router
 })
-

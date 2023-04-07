@@ -1,10 +1,10 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import FormInput from './common/FormInput'
 import { trpc } from '../utils/trpc'
 import { errorHandler } from '../utils/errorHandler'
 import {  useNavigate } from 'react-router-dom'
 import { toast } from 'react-hot-toast'
-import { addUserLocalStorage } from '../utils/authFn'
+import UserContext from '../context/UserContext'
 
 export interface InputFieldType {
 	id: number
@@ -28,6 +28,8 @@ const initialState = {
 export default function Home() {
 	const [userData, setUserData] = useState(initialState)
 
+	const userContext = useContext(UserContext)
+
 	const navigate = useNavigate()
 
 	type UserState = typeof initialState
@@ -39,7 +41,7 @@ export default function Home() {
 		onSuccess: (data) => {
 			const user = data?.currentUser
 			toast.success(`${user.username} registered successfully!`)
-			addUserLocalStorage(user)
+			userContext?.setUser(user)
 			navigate('/')
 		},
 	})
@@ -92,10 +94,10 @@ export default function Home() {
 		},
 	]
 
-	const onSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
+	const onSubmitHandler =  (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
 
-		await mutate({
+		 mutate({
 			userName: userData.username,
 			email: userData.email,
 			password: userData.password,
