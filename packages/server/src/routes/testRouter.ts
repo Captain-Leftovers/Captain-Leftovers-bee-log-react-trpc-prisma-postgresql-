@@ -1,9 +1,10 @@
 import { publicProcedure, router } from '../trpc'
 
 export const testRouter = router({
-	test: publicProcedure.query(() => {
+	test: publicProcedure.query(({ctx}) => {
+		let ctxJ = JSON.stringify(ctx.session.user)
 		return {
-			message: 'Hello World from TRPC',
+			message: ` test trpc route here and the CTX Sess USER ->  ${ctxJ}`,
 		}
 	}),
 })

@@ -9,8 +9,11 @@ export default function Home() {
 			}
 		)
 
-	
+	const testCtx = trpc.test.test.useQuery()
     
+	  let test =testCtx.data?.message
+	  console.log();
+	  
 	  
 
 	return (
@@ -29,12 +32,14 @@ export default function Home() {
 					{usersQ.data?.usersArray.map((user) => {
 						return (
 							<li key={user.id}>
-								{user.name}
+								{user.username}
 							</li>
 						)
 					})}
 				</ul>
+			
 			</div>
+			<p className='text-3xl p-2'>wtf---{test}</p>
 		</div>
 	)
 }

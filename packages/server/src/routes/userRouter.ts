@@ -23,7 +23,7 @@ export const userRouter = router({
 					),
 			})
 		)
-		.mutation(async ({ input }) => {
+		.mutation(async ({ input, ctx }) => {
 			const { email, password } = input
 			try {
 				const user = await db.beekeeperUser.findUnique({
@@ -54,11 +54,13 @@ export const userRouter = router({
 
 				const currentUser = {
 					id: user.id,
-					name: user.userName,
+					username: user.userName,
 					email: user.email,
 				}
 
-				return {currentUser}
+				ctx.session.user = currentUser
+
+				return { currentUser }
 			} catch (error: any) {
 				throw new TRPCError({
 					code: 'UNAUTHORIZED',
@@ -103,7 +105,7 @@ export const userRouter = router({
 					}
 				)
 		)
-		.mutation(async ({ input }) => {
+		.mutation(async ({ input, ctx }) => {
 			const { userName, email, password } = input
 
 			const hashedPassword = await hashPassword(password)
@@ -118,9 +120,10 @@ export const userRouter = router({
 
 			const currentUser = {
 				id: user.id,
-				name: user.userName,
+				username: user.userName,
 				email: user.email,
 			}
+			ctx.session.user = currentUser
 
 			return {
 				currentUser,
@@ -134,7 +137,7 @@ export const userRouter = router({
 		const usersArray = users.map((user) => {
 			return {
 				id: user.id,
-				name: user.userName,
+				username: user.userName,
 				email: user.email,
 			}
 		})
@@ -144,5 +147,7 @@ export const userRouter = router({
 		}
 	}),
 
+
 	//end of router
 })
+

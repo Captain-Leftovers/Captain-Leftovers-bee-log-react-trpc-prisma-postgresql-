@@ -2,9 +2,9 @@ import { useState } from 'react'
 import FormInput from './common/FormInput'
 import { trpc } from '../utils/trpc'
 import { errorHandler } from '../utils/errorHandler'
-import { addUserLocalStorage, loginFn } from '../utils/authFn'
 import {  useNavigate } from 'react-router-dom'
 import { toast } from 'react-hot-toast'
+import { addUserLocalStorage } from '../utils/authFn'
 
 export interface InputFieldType {
 	id: number
@@ -38,7 +38,7 @@ export default function Home() {
 		},
 		onSuccess: (data) => {
 			const user = data?.currentUser
-			toast.success(`${user.name} registered successfully!`)
+			toast.success(`${user.username} registered successfully!`)
 			addUserLocalStorage(user)
 			navigate('/')
 		},

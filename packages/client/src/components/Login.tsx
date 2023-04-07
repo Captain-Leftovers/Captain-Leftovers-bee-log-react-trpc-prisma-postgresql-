@@ -2,7 +2,7 @@ import { useState } from 'react'
 import FormInput from './common/FormInput'
 import { trpc } from '../utils/trpc'
 import { errorHandler } from '../utils/errorHandler'
-import {  useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-hot-toast'
 import { addUserLocalStorage } from '../utils/authFn'
 
@@ -32,8 +32,8 @@ export default function Login() {
 
 	const { mutate } = trpc.user.loginUser.useMutation({
 		onError: (error) => {
-			console.log(error);
-			
+			console.log(error)
+
 			errorHandler(error)
 		},
 		onSuccess: (data) => {
@@ -41,14 +41,14 @@ export default function Login() {
 			addUserLocalStorage(user)
 			navigate('/')
 
-
-		 toast.success(` ${user.name} Logged in successfully!`)
+			toast.success(
+				` ${user.username} Logged in successfully!`
+			)
 		},
 	})
 
 	const title = 'Login'
 	const inputFields: InputFieldType[] = [
-
 		{
 			id: 1,
 			type: 'email',
@@ -71,7 +71,6 @@ export default function Login() {
 			pattern: '^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,24}$',
 			autoComplete: 'off',
 		},
-	
 	]
 
 	const onSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
