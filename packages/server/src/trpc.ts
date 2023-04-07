@@ -1,5 +1,5 @@
 import { Prisma } from '@prisma/client'
-import { inferAsyncReturnType, initTRPC } from '@trpc/server'
+import { TRPCError, inferAsyncReturnType, initTRPC } from '@trpc/server'
 import * as trpcExpress from '@trpc/server/adapters/express'
 import db from './db'
 import { ZodError } from 'zod'
@@ -44,14 +44,21 @@ const t = initTRPC.context<Context>().create({
 
 export const middleware = t.middleware
 
-//TODO : start HEREE this is not working maybe see if it needs to be some other method not middleware maybe express middleware
-// const isAuthenticated = middleware<Context>(async ({ ctx, next }) => {
-//   if (!ctx.session.user) {
-//     throw new Error('Unauthorized');
-//   }
-//   return next();
-// });
-
+const isAuthed = middleware(({ next, ctx }) => {
+	if (!ctx.session.user) {
+		throw new TRPCError({
+			code: 'UNAUTHORIZED',
+			message: 'Please login first',
+		})
+	}
+	return next({
+		ctx: {
+			user: ctx.session.user,
+		},
+	})
+})
+// you can reuse this for any procedure
+export const protectedProcedure = t.procedure.use(isAuthed)
 export const publicProcedure = t.procedure
 
 export const router = t.router
