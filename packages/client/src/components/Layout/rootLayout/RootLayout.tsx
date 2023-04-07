@@ -7,6 +7,8 @@ import { errorHandler } from '../../../utils/errorHandler'
 
 export default function RootLayout() {
 	const userContext = useContext(UserContext)
+	const isLoggedIn = !!userContext?.user
+
 	const logOutMutation = trpc.user.logoutUser.useMutation({
 		onSuccess: () => {
 			userContext?.setUser(null)
@@ -16,11 +18,9 @@ export default function RootLayout() {
 			errorHandler(error)
 		},
 	})
-	
-	
+
 	const handleLogout = () => {
 		logOutMutation.mutate()
-		
 	}
 
 	return (
@@ -41,6 +41,8 @@ export default function RootLayout() {
 										Home
 									</NavLink>
 								</div>
+								{ !isLoggedIn && (
+									<>
 								<div>
 									<NavLink to="login">
 										Login
@@ -51,16 +53,23 @@ export default function RootLayout() {
 										Register
 									</NavLink>
 								</div>
-								<div>
-									<NavLink
-										to="/"
-										onClick={
-											handleLogout
-										}
-									>
-										Logout
-									</NavLink>
-								</div>
+								</>
+								)}
+								{isLoggedIn && (
+									<>
+									<div className='uppercase text-blue-500' >{isLoggedIn ? <p>{userContext.user?.username}</p> : null}</div>
+									<div>
+										<NavLink
+											to="/"
+											onClick={
+												handleLogout
+											}
+										>
+											Logout
+										</NavLink>
+									</div>
+									</>
+								)}
 							</div>
 						</div>
 					</div>
