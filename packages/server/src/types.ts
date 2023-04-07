@@ -14,6 +14,7 @@
   }
   
   export interface SessionData {
-    user?: SessionUser;
+    user: SessionUser;
   }
   
+

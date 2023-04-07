@@ -1,7 +1,12 @@
 import { NavLink, Outlet } from 'react-router-dom'
 
 export default function RootLayout() {
-	let errorB = new Error('Error')
+
+	const handleLogout = () => {
+		
+
+	}
+
 
 	return (
 		<div className="flex h-screen w-screen flex-col bg-gray-300  ">
@@ -12,7 +17,7 @@ export default function RootLayout() {
 							<h1 className="text-3xl ">
 								BeeKeeper-log
 							</h1>
-							<div className="flex grow  justify-end  gap-9 items-center">
+							<div className="flex grow  items-center  justify-end gap-9">
 								<div className="mr-auto ">
 									<NavLink
 										className=""
@@ -32,7 +37,12 @@ export default function RootLayout() {
 									</NavLink>
 								</div>
 								<div>
-									<NavLink to="logout">
+									<NavLink
+										to="/"
+										onClick={
+											handleLogout
+										}
+									>
 										Logout
 									</NavLink>
 								</div>
@@ -44,7 +54,7 @@ export default function RootLayout() {
 			<main className="grow">
 				<Outlet />
 			</main>
-			<footer className="mt-auto h-10 bg-blue-300 w-full text-center">
+			<footer className="mt-auto h-10 w-full bg-blue-300 text-center">
 				<div className="">
 					<h1 className="text-3xl">
 						BeeKeeper-log footer

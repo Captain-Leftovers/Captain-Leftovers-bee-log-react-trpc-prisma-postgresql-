@@ -19,7 +19,7 @@ export interface InputFieldType {
 }
 
 const initialState = {
-	email: 'lalilulelo.mg@gmail.com',
+	email: '',
 	password: 'Darkwolf128!',
 }
 
