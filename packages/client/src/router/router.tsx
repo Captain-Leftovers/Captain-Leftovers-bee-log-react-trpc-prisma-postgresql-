@@ -8,6 +8,8 @@ import Login from '../components/Login'
 import Register from '../components/Register'
 import ErrorLayout from '../components/Layout/errorLayout/ErrorLayout'
 import RootLayout from '../components/Layout/rootLayout/RootLayout'
+import ProtectedUserRoutes from '../components/ProtectedUserRoutes'
+import UserDetails from '../components/UserDetails'
 
 const router = createBrowserRouter(
 	createRoutesFromElements(
@@ -19,6 +21,10 @@ const router = createBrowserRouter(
 			<Route path="/" element={<Home />} />
 			<Route path="/login" element={<Login />} />
 			<Route path="/register" element={<Register />} />
+			<Route path="user" element={<ProtectedUserRoutes />}>
+				<Route path=":id" element={<UserDetails/>} />
+			</Route>
+			<Route path="/*" element={<Home />} />
 		</Route>
 	)
 )

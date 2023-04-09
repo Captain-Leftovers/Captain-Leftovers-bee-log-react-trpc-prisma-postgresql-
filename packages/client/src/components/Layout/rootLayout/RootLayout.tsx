@@ -9,6 +9,7 @@ export default function RootLayout() {
 	const userContext = useContext(UserContext)
 	const isLoggedIn = !!userContext?.user
 
+	const user = userContext?.user ? userContext?.user : null
 	const logOutMutation = trpc.user.logoutUser.useMutation({
 		onSuccess: () => {
 			userContext?.setUser(null)
@@ -41,33 +42,48 @@ export default function RootLayout() {
 										Home
 									</NavLink>
 								</div>
-								{ !isLoggedIn && (
+								{!isLoggedIn && (
 									<>
-								<div>
-									<NavLink to="login">
-										Login
-									</NavLink>
-								</div>
-								<div>
-									<NavLink to="register">
-										Register
-									</NavLink>
-								</div>
-								</>
+										<div>
+											<NavLink to="login">
+												Login
+											</NavLink>
+										</div>
+										<div>
+											<NavLink to="register">
+												Register
+											</NavLink>
+										</div>
+									</>
 								)}
 								{isLoggedIn && (
 									<>
-									<div className='uppercase text-blue-500' >{isLoggedIn ? <p>{userContext.user?.username}</p> : null}</div>
-									<div>
-										<NavLink
-											to="/"
-											onClick={
-												handleLogout
-											}
-										>
-											Logout
-										</NavLink>
-									</div>
+										<div className="uppercase text-blue-500 hover:opacity-75">
+											{isLoggedIn ? (
+												<NavLink
+													to={
+														`user/${user?.id}` ||
+														''
+													}
+												>
+													{
+														userContext
+															.user
+															?.username
+													}
+												</NavLink>
+											) : null}
+										</div>
+										<div>
+											<NavLink
+												to="/"
+												onClick={
+													handleLogout
+												}
+											>
+												Logout
+											</NavLink>
+										</div>
 									</>
 								)}
 							</div>
