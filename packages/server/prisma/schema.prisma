@@ -9,24 +9,21 @@ datasource db {
 
 // testing schema models
 
-
 //session model for prisma session store
 model Session {
   id        String   @id
   sid       String   @unique
   data      String
-  expiresAt   DateTime
+  expiresAt DateTime
 }
 
-
 ////
-
 
 model BeekeeperUser {
   id       String    @id @unique @default(cuid())
   userName String
   email    String    @unique
-  password String    
+  password String
   image    String?
   farms    BeeFarm[]
 }
@@ -42,10 +39,10 @@ model BeeFarm {
 model Hive {
   id          String       @id @unique @default(cuid())
   BeeFarm     BeeFarm      @relation(fields: [beeFarmId], references: [id])
-  name        String       @unique
+  //TODO check if unique here is needed
+  name        String?      @unique
   createdAt   DateTime     @default(now())
   updatedAt   DateTime?    @updatedAt
-  hiveSystem  String
   inspections Inspection[]
   supers      Super[]
   queen       Queen?       @relation(fields: [queenId], references: [id])

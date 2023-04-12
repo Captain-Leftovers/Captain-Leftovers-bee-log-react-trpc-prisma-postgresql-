@@ -17,7 +17,7 @@ export default function Home() {
 	  
 
 	return (
-		<div className="h-full bg-purple-200 flex flex-col">
+		<div className="h-full bg-six flex flex-col">
 			<div>
 				<h1 className="text-8xl text-red-400 ">
 					Home Component

@@ -25,31 +25,33 @@ export default function RootLayout() {
 	}
 
 	return (
-		<div className="flex h-screen w-screen flex-col bg-gray-300  ">
+		<div className="flex h-screen w-screen flex-col  ">
 			<header className="">
-				<nav className="bg-lime-400 px-6">
+				<nav className="bg-two p-4">
 					<div className="">
 						<div className="flex gap-20 text-xl">
 							<h1 className="text-3xl ">
 								BeeKeeper-log
 							</h1>
 							<div className="flex grow  items-center  justify-end gap-9">
-								<div className="mr-auto ">
-									<NavLink
-										className=""
-										to="/"
-									>
-										Home
-									</NavLink>
+								<div className=" mr-auto ">
+									<div className="bg-five px-2 hover:bg-opacity-80">
+										<NavLink
+											className=""
+											to="/"
+										>
+											Home
+										</NavLink>
+									</div>
 								</div>
 								{!isLoggedIn && (
 									<>
-										<div>
+										<div className="bg-five px-2 hover:bg-opacity-80">
 											<NavLink to="login">
 												Login
 											</NavLink>
 										</div>
-										<div>
+										<div className="bg-five px-2 hover:bg-opacity-80">
 											<NavLink to="register">
 												Register
 											</NavLink>
@@ -58,7 +60,7 @@ export default function RootLayout() {
 								)}
 								{isLoggedIn && (
 									<>
-										<div className="uppercase text-blue-500 hover:opacity-75">
+										<div className=" text-2xl uppercase text-three hover:opacity-80">
 											{isLoggedIn ? (
 												<NavLink
 													to={
@@ -74,7 +76,7 @@ export default function RootLayout() {
 												</NavLink>
 											) : null}
 										</div>
-										<div>
+										<div className="bg-five px-2 hover:bg-opacity-80">
 											<NavLink
 												to="/"
 												onClick={
@@ -91,10 +93,10 @@ export default function RootLayout() {
 					</div>
 				</nav>
 			</header>
-			<main className="grow">
+			<main className="grow bg-lime-300">
 				<Outlet />
 			</main>
-			<footer className="mt-auto h-10 w-full bg-blue-300 text-center">
+			<footer className="mt-auto h-12 w-full bg-one  text-center">
 				<div className="">
 					<h1 className="text-3xl">
 						BeeKeeper-log footer

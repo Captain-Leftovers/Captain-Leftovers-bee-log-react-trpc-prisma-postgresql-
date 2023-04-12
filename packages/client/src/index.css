@@ -6,13 +6,13 @@
 
 	/* TODO remove debug apply */
 	
-	@apply outline-dashed outline-2 outline-lime-200;
+	/* @apply outline-dashed outline-2 outline-lime-200; */
 }
 
 .active {
-	@apply bg-green-700 px-4 font-bold text-white  hover:bg-purple-700;
+	@apply    text-three
 }
 
 body{
-	@apply bg-pink-700
+	@apply bg-pink-700 text-one
 }
