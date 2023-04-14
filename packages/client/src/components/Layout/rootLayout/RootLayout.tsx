@@ -22,6 +22,7 @@ export default function RootLayout() {
 
 	const handleLogout = () => {
 		logOutMutation.mutate()
+		userContext?.setUserData({})
 	}
 
 	return (

@@ -8,7 +8,11 @@ import {
 	hashPassword,
 } from '../services/authService/passwordService'
 
+import { farmsRouter } from './farmsRouter'
+
+
 export const userRouter = router({
+	farms: farmsRouter,
 	logoutUser: protectedProcedure.mutation(async ({ ctx }) => {
 		return new Promise((resolve, reject) => {
 			ctx.session.destroy((err) => {

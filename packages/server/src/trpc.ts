@@ -45,7 +45,7 @@ const t = initTRPC.context<Context>().create({
 export const middleware = t.middleware
 
 const isAuthed = middleware(({ next, ctx }) => {
-	if (!ctx.session.user) {
+	if (!ctx.session || !ctx.session.user) {
 		throw new TRPCError({
 			code: 'UNAUTHORIZED',
 			message: 'Please login first',
