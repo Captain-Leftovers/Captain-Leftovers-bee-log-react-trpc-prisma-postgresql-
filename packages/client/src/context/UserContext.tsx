@@ -19,10 +19,11 @@ interface UserProviderProps {
 
 export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
 	const [user, setUser] = useState<User | null>(null)
-  const [userData, setUserData] = useState({})
+  	const [userData, setUserData] = useState({})
 
 	useEffect(() => {
 		const storedUser = localStorage.getItem('user')
+		
 		if (storedUser) {
 			setUser(JSON.parse(storedUser))
 		}

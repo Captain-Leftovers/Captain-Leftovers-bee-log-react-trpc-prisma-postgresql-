@@ -30,7 +30,7 @@ model BeekeeperUser {
 
 model BeeFarm {
   id              String        @id @unique @default(cuid())
-  farmName        String        @unique
+  farmName        String
   hives           Hive[]
   BeekeeperUser   BeekeeperUser @relation(fields: [beekeeperUserId], references: [id])
   beekeeperUserId String

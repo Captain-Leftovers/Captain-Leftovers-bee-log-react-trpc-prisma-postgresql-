@@ -1,9 +1,10 @@
 import { trpc } from '../utils/trpc'
 import { errorHandler } from '../utils/errorHandler'
-import { useContext, useState } from 'react'
+import { useContext, useRef, useState } from 'react'
 import Dropdown from './common/Dropdown'
 import UserContext from '../context/UserContext'
 import Modal from './common/Modal'
+import { loggerLink } from '@trpc/client'
 
 export type Farm = {
 	id: string
@@ -16,7 +17,17 @@ export default function UserDetails() {
 	const [farms, setFarms] = useState<Farms | null>(null)
 	const [isModalOpen, setIsModalOpen] = useState(false)
 	const [isModalFarmOpen, setIsModalFarmOpen] = useState(false)
+	const createNewFarm = trpc.user.farms.createNewFarm.useMutation({
+		onError: (error) => {
+			errorHandler(error)
+		},
+		onSuccess: (data) => {
+			console.log(data)
+		},
+	})
 	const ctx = useContext(UserContext)
+
+	const farmInput = useRef<HTMLInputElement | null>(null)
 
 	const pickedFarm = ctx?.userData.pickedFarm
 
@@ -24,8 +35,6 @@ export default function UserDetails() {
 	const closeModal = () => setIsModalOpen(false)
 	const openFarmModal = () => setIsModalFarmOpen(true)
 	const closeFarmModal = () => setIsModalFarmOpen(false)
-
-	const modalFields = <></>
 
 	const farmsQ = trpc.user.farms.getAllFarms.useQuery(undefined, {
 		onError: (err) => {
@@ -43,12 +52,26 @@ export default function UserDetails() {
 	}
 
 	const addNewFarmHandler = () => {
-			openFarmModal()
-		
+		openFarmModal()
 	}
 
 	const addHiveHandler = () => {
 		openModal()
+	}
+
+	const farmSubmit = (
+		e:
+			| React.FormEvent<HTMLFormElement>
+			| React.KeyboardEvent<HTMLInputElement>
+	) => {
+		e.preventDefault()
+		closeFarmModal()
+		const inputValue = farmInput.current?.value
+		//TODO : add new farm on trpc backend
+		if (!inputValue) return
+		createNewFarm.mutate(inputValue)
+
+		//TODO : Refetch the farms to display !!!
 	}
 
 	//TODO : get farms from db and display them
@@ -75,18 +98,36 @@ export default function UserDetails() {
 				)}
 			</div>
 			<div className="">
-			<Modal
-			isOpen={isModalFarmOpen}
-			onClose={closeFarmModal}
-			title="add Farm "
-			children={<div className="bg-lime-500">ddd</div>}
-		/>
-				
 				<Modal
-					isOpen={isModalOpen}
-					onClose={closeModal}
-					title="Add Hive to "
-					children={modalFields}
+					submitFn={farmSubmit}
+					isOpen={isModalFarmOpen}
+					onClose={closeFarmModal}
+					title="Add Farm "
+					children={
+						<div className="">
+							<label>
+								Farm Name :{' '}
+							</label>
+							<input
+								onKeyDown={(
+									e: React.KeyboardEvent<HTMLInputElement>
+								) => {
+									if (
+										e.key ===
+										'Enter'
+									) {
+										e.preventDefault()
+										farmSubmit(
+											e
+										)
+									}
+								}}
+								className={` m-2 rounded-md border-2  border-gray-200  p-2 focus:border-blue-500 focus:outline-none `}
+								placeholder="type name here"
+								ref={farmInput}
+							/>
+						</div>
+					}
 				/>
 			</div>
 			<div className="">
