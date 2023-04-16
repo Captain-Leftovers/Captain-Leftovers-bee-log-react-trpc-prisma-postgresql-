@@ -6,11 +6,11 @@
 
 	/* TODO remove debug apply */
 	
-	/* @apply outline-dashed outline-2 outline-lime-200; */
+	@apply outline-dashed outline-2 outline-lime-200;
 }
 
 .active {
-	@apply    text-three
+	@apply    underline
 }
 
 body{

@@ -4,13 +4,9 @@ import { useContext, useRef, useState } from 'react'
 import Dropdown from './common/Dropdown'
 import UserContext from '../context/UserContext'
 import Modal from './common/Modal'
+import { toast } from 'react-hot-toast'
+import { Farm, Farms, Hive } from '../types'
 
-export type Farm = {
-	id: string
-	farmName: string
-	beekeeperUserId: string
-}
-export type Farms = [Farm]
 
 export default function UserDetails() {
 	const [farms, setFarms] = useState<Farms | null>(null)
@@ -18,16 +14,51 @@ export default function UserDetails() {
 	const [isModalFarmOpen, setIsModalFarmOpen] = useState(false)
 	const ctx = useContext(UserContext)
 	const queryUtils = trpc.useContext()
-	const createNewFarm = trpc.user.farms.createNewFarm.useMutation({
+	const createNewFarmQ = trpc.user.farms.createNewFarm.useMutation({
 		onError: (error) => {
 			errorHandler(error)
 		},
 		onSuccess: (data) => {
 			queryUtils.user.farms.getAllFarms.invalidate()
 			ctx?.setUserData({ ...ctx.userData, pickedFarm: data })
-
 		},
 	})
+	const delFarmQ = trpc.user.farms.deleteFarm.useMutation({
+		onError: (error) => {
+			errorHandler(error)
+		},
+		onSuccess: (data) => {
+			queryUtils.user.farms.getAllFarms.invalidate()
+			ctx?.setUserData({ ...ctx.userData, pickedFarm: null })
+			toast(`${data.farmName} deleted`)
+		},
+	})
+	const farmsQ = trpc.user.farms.getAllFarms.useQuery(undefined, {
+		onError: (err) => {
+			errorHandler(err)
+		},
+		onSuccess: (data: Farms) => {
+			setFarms(data)
+		},
+	})
+	const getFarmHivesQ = trpc.user.farms.hives.getFarmhives.useQuery(
+		{
+			beeFarmId: ctx?.userData?.pickedFarm?.id,
+		},
+		{
+			enabled: !!ctx?.userData?.pickedFarm?.id,
+			onSuccess: (data: Hive[]) => {
+				ctx?.setUserData({
+					...ctx.userData,
+					hives:data 
+				})
+
+				//TODO : maybe populate hives , farms and everything when fetching user or farms
+			},
+					}
+	)
+
+	
 
 	const farmInput = useRef<HTMLInputElement | null>(null)
 
@@ -37,15 +68,6 @@ export default function UserDetails() {
 	const closeModal = () => setIsModalOpen(false)
 	const openFarmModal = () => setIsModalFarmOpen(true)
 	const closeFarmModal = () => setIsModalFarmOpen(false)
-
-	const farmsQ = trpc.user.farms.getAllFarms.useQuery(undefined, {
-		onError: (err) => {
-			errorHandler(err)
-		},
-		onSuccess: (data: Farms) => {
-			setFarms(data)
-		},
-	})
 
 	const handlePickedFarm = (id: string) => {
 		const picked = farms?.find((farm) => farm.id === id)
@@ -69,20 +91,24 @@ export default function UserDetails() {
 		e.preventDefault()
 		closeFarmModal()
 		const inputValue = farmInput.current?.value
-		//TODO : add new farm on trpc backend
+		//TODO : add new farm on trpc backendfarmId:string
 		if (!inputValue) return
-		createNewFarm.mutate(inputValue)
+		createNewFarmQ.mutate(inputValue)
 
 		//TODO : Refetch the farms to display !!!
 	}
 
 	//TODO : get farms from db and display them
+	const delFarmHandler = (id: string) => {
+		delFarmQ.mutate({ farmId: id })
+	}
 
 	return (
 		<div className="flex h-full flex-col items-center gap-4 bg-six p-4 ">
-			<div className=" flex gap-4 bg-lime-300">
+			<div className=" flex gap-4">
 				{farmsQ.data ? (
 					<Dropdown
+						delFn={delFarmHandler}
 						addNewOnClick={
 							addNewFarmHandler
 						}
@@ -90,11 +116,14 @@ export default function UserDetails() {
 						callbackFn={handlePickedFarm}
 						text="Farms"
 						items={farmsQ.data.map(
-							(farm:Farm) => ({ id : farm.id, name: farm.farmName})
+							(farm: Farm) => ({
+								id: farm.id,
+								name: farm.farmName,
+							})
 						)}
 					/>
 				) : (
-					<button className="rounded-lg bg-one px-4 py-2 text-white transition-colors duration-300 hover:bg-two">
+					<button className="rounded-lg bg-five px-4 py-2 text-one transition-colors duration-300 hover:bg-opacity-80">
 						Farms
 					</button>
 				)}
@@ -132,14 +161,14 @@ export default function UserDetails() {
 					}
 				/>
 			</div>
-			<div className="">
+			<div className="flex gap-4">
 				<button
 					onClick={addHiveHandler}
 					className={`${
 						pickedFarm
 							? 'visible'
 							: 'invisible'
-					} rounded-md bg-one px-4 py-2 text-white`}
+					} rounded-md bg-three px-4 py-2 hover:bg-opacity-80`}
 				>
 					{` Add Hive to ${
 						pickedFarm?.farmName ||

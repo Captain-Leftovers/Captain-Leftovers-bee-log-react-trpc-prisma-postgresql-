@@ -10,7 +10,6 @@ import {
 
 import { farmsRouter } from './farmsRouter'
 
-
 export const userRouter = router({
 	farms: farmsRouter,
 	logoutUser: protectedProcedure.mutation(async ({ ctx }) => {
@@ -131,40 +130,54 @@ export const userRouter = router({
 
 			const hashedPassword = await hashPassword(password)
 
-			const user = await db.beekeeperUser.create({
-				data: {
-					userName,
-					email,
-					password: hashedPassword,
-				},
-			})
+			try {
+				const user = await db.beekeeperUser.create({
+					data: {
+						userName,
+						email,
+						password: hashedPassword,
+					},
+				})
 
-			const currentUser = {
-				id: user.id,
-				username: user.userName,
-				email: user.email,
-			}
-			ctx.session.user = currentUser
+				const currentUser = {
+					id: user.id,
+					username: user.userName,
+					email: user.email,
+				}
+				ctx.session.user = currentUser
 
-			return {
-				currentUser,
+				return {
+					currentUser,
+				}
+			} catch (error) {
+				throw new TRPCError({
+					code: 'BAD_REQUEST',
+					message: 'Registration Failed',
+				})
 			}
 		}),
 
 	// getBeekeepers: publicProcedure
 	getUsers: publicProcedure.query(async () => {
-		const users = await db.beekeeperUser.findMany()
+		try {
+			const users = await db.beekeeperUser.findMany()
 
-		const usersArray = users.map((user) => {
+			const usersArray = users.map((user) => {
+				return {
+					id: user.id,
+					username: user.userName,
+					email: user.email,
+				}
+			})
+
 			return {
-				id: user.id,
-				username: user.userName,
-				email: user.email,
+				usersArray,
 			}
-		})
-
-		return {
-			usersArray,
+		} catch (err) {
+			throw new TRPCError({
+				code: 'INTERNAL_SERVER_ERROR',
+				message: 'Something went wrong',
+			})
 		}
 	}),
 

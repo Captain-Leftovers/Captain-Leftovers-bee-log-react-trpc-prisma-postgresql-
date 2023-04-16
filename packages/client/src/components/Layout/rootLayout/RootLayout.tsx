@@ -36,7 +36,7 @@ export default function RootLayout() {
 							</h1>
 							<div className="flex grow  items-center  justify-end gap-9">
 								<div className=" mr-auto ">
-									<div className="bg-five px-2 hover:bg-opacity-80">
+									<div className="bg-three px-2 hover:bg-opacity-80">
 										<NavLink
 											className=""
 											to="/"
@@ -47,12 +47,12 @@ export default function RootLayout() {
 								</div>
 								{!isLoggedIn && (
 									<>
-										<div className="bg-five px-2 hover:bg-opacity-80">
+										<div className="bg-three px-2 hover:bg-opacity-80">
 											<NavLink to="login">
 												Login
 											</NavLink>
 										</div>
-										<div className="bg-five px-2 hover:bg-opacity-80">
+										<div className="bg-three px-2 hover:bg-opacity-80">
 											<NavLink to="register">
 												Register
 											</NavLink>

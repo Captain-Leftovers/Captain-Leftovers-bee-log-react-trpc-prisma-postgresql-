@@ -6,9 +6,10 @@ type DropdownProps = {
     callbackFn?: (id: string) => void,
     addNewOnClick?:()=>void,
     addNewButtonText?: string
+    delFn: (farmId:string)=>void
 };
 
-function Dropdown({ items, text,addNewOnClick, callbackFn, addNewButtonText }: DropdownProps ) {
+function Dropdown({ items, text,addNewOnClick, callbackFn, addNewButtonText, delFn }: DropdownProps ) {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleDropdown = () => setIsOpen(!isOpen);
@@ -22,7 +23,7 @@ function Dropdown({ items, text,addNewOnClick, callbackFn, addNewButtonText }: D
     <div className="relative">
       <button
         onClick={toggleDropdown}
-        className="bg-one text-white px-4 py-2 rounded-lg hover:bg-two transition-colors duration-300"
+        className="bg-three text-one px-4 py-2 rounded-lg hover:bg-opacity-80 transition-colors duration-300"
       >
         {text}
       </button>
@@ -31,7 +32,7 @@ function Dropdown({ items, text,addNewOnClick, callbackFn, addNewButtonText }: D
         <div className="absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-lg">
           <ul className="divide-y divide-gray-200">
             {items.map((item) => (
-              <li key={item.id} className="hover:bg-gray-100 ">
+              <li key={item.id} className="hover:bg-gray-100 flex">
                 <button 
                   onClick={() => {
                     callbackFn?.(item.id);
@@ -42,10 +43,11 @@ function Dropdown({ items, text,addNewOnClick, callbackFn, addNewButtonText }: D
                   {item.name}
 
                 </button>
+                <button onClick={()=>delFn(item.id)} className='bg-five hover:bg-opacity-80'>Del</button>
               </li>
             ))}
           </ul>
-          { !!addNewButtonText && <button onClick={clickedButton} className={` bg-lime-400 hover:bg-lime-500 w-full text-left`}>{addNewButtonText}</button>}
+          { !!addNewButtonText && <button onClick={clickedButton} className={` bg-three hover:bg-opacity-80 w-full text-left`}>{addNewButtonText}</button>}
         </div>
       )}
     </div>
