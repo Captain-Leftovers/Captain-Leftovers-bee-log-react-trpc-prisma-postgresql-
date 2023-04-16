@@ -1,12 +1,11 @@
 import { trpc } from '../utils/trpc'
 import { errorHandler } from '../utils/errorHandler'
-import { useContext, useRef, useState } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 import Dropdown from './common/Dropdown'
 import UserContext from '../context/UserContext'
 import Modal from './common/Modal'
 import { toast } from 'react-hot-toast'
 import { Farm, Farms, Hive } from '../types'
-
 
 export default function UserDetails() {
 	const [farms, setFarms] = useState<Farms | null>(null)
@@ -42,23 +41,23 @@ export default function UserDetails() {
 		},
 	})
 	const getFarmHivesQ = trpc.user.farms.hives.getFarmhives.useQuery(
+		{ beeFarmId: ctx?.userData.pickedFarm?.id || null },
 		{
-			beeFarmId: ctx?.userData?.pickedFarm?.id,
-		},
-		{
-			enabled: !!ctx?.userData?.pickedFarm?.id,
+			//TODO : think where and when to do this fetch
+			onError: (err) => {
+				errorHandler(err)
+			},
 			onSuccess: (data: Hive[]) => {
 				ctx?.setUserData({
 					...ctx.userData,
-					hives:data 
+					pickedFarm: {
+						...ctx.userData.pickedFarm,
+						hives: data,
+					},
 				})
-
-				//TODO : maybe populate hives , farms and everything when fetching user or farms
 			},
-					}
+		}
 	)
-
-	
 
 	const farmInput = useRef<HTMLInputElement | null>(null)
 
