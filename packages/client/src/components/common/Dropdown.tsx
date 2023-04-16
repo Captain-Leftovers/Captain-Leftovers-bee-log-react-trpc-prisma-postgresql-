@@ -1,9 +1,9 @@
 import  { useState } from 'react';
 
 type DropdownProps = {
-    items: string[];
+    items: {name: string, id: string}[];
     text: string;
-    callbackFn?: (item: string) => void,
+    callbackFn?: (id: string) => void,
     addNewOnClick?:()=>void,
     addNewButtonText?: string
 };
@@ -30,16 +30,16 @@ function Dropdown({ items, text,addNewOnClick, callbackFn, addNewButtonText }: D
       {isOpen && (
         <div className="absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-lg">
           <ul className="divide-y divide-gray-200">
-            {items.map((item, index) => (
-              <li key={index} className="hover:bg-gray-100 ">
+            {items.map((item) => (
+              <li key={item.id} className="hover:bg-gray-100 ">
                 <button 
                   onClick={() => {
-                    callbackFn?.(item);
+                    callbackFn?.(item.id);
                     setIsOpen(false);
                   }}
                   className="block w-full p-2 text-left"
                 >
-                  {item}
+                  {item.name}
 
                 </button>
               </li>

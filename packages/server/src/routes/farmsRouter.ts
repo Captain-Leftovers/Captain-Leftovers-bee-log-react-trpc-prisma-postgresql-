@@ -25,4 +25,21 @@ export const farmsRouter = router({
 			})
 			return farm
 		}),
+
+	deleteFarm: protectedProcedure
+		.input(
+			z.object({
+				farmId: z.string(),
+			})
+		)
+		.mutation(async ({ input, ctx }) => {
+			let deletedFarm = ctx.db.beeFarm.delete({
+				where: {
+					id: input.farmId
+
+				},
+				
+			})
+			return deletedFarm
+		}),
 })

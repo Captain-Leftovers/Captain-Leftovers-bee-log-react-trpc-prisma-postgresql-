@@ -6,7 +6,6 @@ export default function FormInput(props: any) {
 	const { value, label, id, onChange, errorMessage, ...inputProps } =
 		props
 
-	console.log(inputProps.hasError)
 
 	const handleOnBlur = () => {
 		setBlurred(true)

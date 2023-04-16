@@ -59,7 +59,9 @@ export default function Login() {
 			label: 'Email',
 			name: 'email',
 			errorMessage: 'It should be a valid email address!',
-			pattern: '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,4}$',
+			pattern: "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,4}$",
+			
+
 		},
 		{
 			id: 3,

@@ -4,7 +4,6 @@ import { useContext, useRef, useState } from 'react'
 import Dropdown from './common/Dropdown'
 import UserContext from '../context/UserContext'
 import Modal from './common/Modal'
-import { loggerLink } from '@trpc/client'
 
 export type Farm = {
 	id: string
@@ -17,15 +16,18 @@ export default function UserDetails() {
 	const [farms, setFarms] = useState<Farms | null>(null)
 	const [isModalOpen, setIsModalOpen] = useState(false)
 	const [isModalFarmOpen, setIsModalFarmOpen] = useState(false)
+	const ctx = useContext(UserContext)
+	const queryUtils = trpc.useContext()
 	const createNewFarm = trpc.user.farms.createNewFarm.useMutation({
 		onError: (error) => {
 			errorHandler(error)
 		},
 		onSuccess: (data) => {
-			console.log(data)
+			queryUtils.user.farms.getAllFarms.invalidate()
+			ctx?.setUserData({ ...ctx.userData, pickedFarm: data })
+
 		},
 	})
-	const ctx = useContext(UserContext)
 
 	const farmInput = useRef<HTMLInputElement | null>(null)
 
@@ -45,8 +47,8 @@ export default function UserDetails() {
 		},
 	})
 
-	const handlePickedFarm = (name: string) => {
-		const picked = farms?.find((farm) => farm.farmName === name)
+	const handlePickedFarm = (id: string) => {
+		const picked = farms?.find((farm) => farm.id === id)
 		if (!picked) return
 		ctx?.setUserData({ ...ctx.userData, pickedFarm: picked })
 	}
@@ -88,7 +90,7 @@ export default function UserDetails() {
 						callbackFn={handlePickedFarm}
 						text="Farms"
 						items={farmsQ.data.map(
-							(farm) => farm.farmName
+							(farm:Farm) => ({ id : farm.id, name: farm.farmName})
 						)}
 					/>
 				) : (
