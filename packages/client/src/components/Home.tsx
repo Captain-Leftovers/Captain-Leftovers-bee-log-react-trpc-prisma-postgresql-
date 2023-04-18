@@ -39,7 +39,7 @@ export default function Home() {
 				</ul>
 			
 			</div>
-			<p className='text-3xl p-2'>wtf---{test}</p>
+			<p className='text-3xl p-2'>{test}</p>
 		</div>
 	)
 }

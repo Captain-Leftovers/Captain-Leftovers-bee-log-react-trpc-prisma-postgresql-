@@ -10,7 +10,7 @@ export interface User {
 export interface Hive {
 	id: string
 	beeFarmId: string
-	name: string
+	number: number
 	queenId?: string
 
 }

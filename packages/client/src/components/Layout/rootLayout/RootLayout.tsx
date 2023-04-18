@@ -12,6 +12,7 @@ export default function RootLayout() {
 	const user = userContext?.user ? userContext?.user : null
 	const logOutMutation = trpc.user.logoutUser.useMutation({
 		onSuccess: () => {
+			localStorage.removeItem('user')
 			userContext?.setUser(null)
 			toast.success('Logged out successfully!')
 		},

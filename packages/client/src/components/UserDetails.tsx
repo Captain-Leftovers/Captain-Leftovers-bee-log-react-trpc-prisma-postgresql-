@@ -7,11 +7,11 @@ import Modal from './common/Modal'
 import { toast } from 'react-hot-toast'
 import { Farm, Farms, Hive } from '../types'
 import HiveSvg from './common/HiveSvg'
+import { set } from 'zod'
 
 export default function UserDetails() {
 	const [farms, setFarms] = useState<Farm[] | null>(null)
 	const [hives, setHives] = useState<Hive[] | null>(null)
-	const [isModalOpen, setIsModalOpen] = useState(false)
 	const [isModalFarmOpen, setIsModalFarmOpen] = useState(false)
 	const ctx = useContext(UserContext)
 	const queryUtils = trpc.useContext()
@@ -30,6 +30,7 @@ export default function UserDetails() {
 		},
 		onSuccess: (data) => {
 			queryUtils.user.farms.getAllFarms.invalidate()
+			setHives(null)
 			ctx?.setUserData({ ...ctx.userData, pickedFarm: null })
 			toast(`${data.farmName} deleted`)
 		},
@@ -57,12 +58,22 @@ export default function UserDetails() {
 		}
 	)
 
+	const createHiveQ = trpc.user.farms.hives.createNewHive.useMutation({
+		onError: (err) => {
+			errorHandler(err)
+		},
+		onSuccess: (data) => {
+			toast.success('Hive created')
+			getFarmHivesQ.refetch()
+
+
+		},
+	})
+
 	const farmInput = useRef<HTMLInputElement | null>(null)
 
 	const pickedFarm = ctx?.userData.pickedFarm
 
-	const openModal = () => setIsModalOpen(true)
-	const closeModal = () => setIsModalOpen(false)
 	const openFarmModal = () => setIsModalFarmOpen(true)
 	const closeFarmModal = () => setIsModalFarmOpen(false)
 
@@ -77,7 +88,12 @@ export default function UserDetails() {
 	}
 
 	const addHiveHandler = () => {
-		openModal()
+		//TODO : add handler func
+		if(!pickedFarm) return
+		createHiveQ.mutate({
+			beeFarmId: pickedFarm?.id,
+			
+		})
 	}
 
 	const farmSubmit = (
@@ -177,25 +193,10 @@ export default function UserDetails() {
 				//TODO : fix display of the svgs and fix svg
 				import for react
 				<div className="flex h-[210px] grow-0 flex-wrap justify-center gap-2 overflow-y-scroll">
-					<HiveSvg />
-					<HiveSvg />
-					<HiveSvg />
-					<HiveSvg />
-					<HiveSvg />
-					<HiveSvg />
-					<HiveSvg />
-					<HiveSvg />
-					<HiveSvg />
-					<HiveSvg />
-					<HiveSvg />
-					<HiveSvg />
-					<HiveSvg />
-					<HiveSvg />
-					<HiveSvg />
-					<HiveSvg />
-					<HiveSvg />
-					<HiveSvg />
-					<HiveSvg />
+					{hives?.map((hive) => (
+						<HiveSvg key={hive.id} hiveNumber={hive.number} />
+					))}
+					
 				</div>
 			</div>
 		</div>

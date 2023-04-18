@@ -39,8 +39,7 @@ model BeeFarm {
 model Hive {
   id          String       @id @unique @default(cuid())
   BeeFarm     BeeFarm      @relation(fields: [beeFarmId], references: [id], onDelete: Cascade)
-  //TODO check if unique here is needed
-  name        Int          
+  number      Int?          @default(autoincrement())
   createdAt   DateTime     @default(now())
   updatedAt   DateTime?    @updatedAt
   inspections Inspection[]
