@@ -6,9 +6,11 @@ import UserContext from '../context/UserContext'
 import Modal from './common/Modal'
 import { toast } from 'react-hot-toast'
 import { Farm, Farms, Hive } from '../types'
+import HiveSvg from './common/HiveSvg'
 
 export default function UserDetails() {
-	const [farms, setFarms] = useState<Farms | null>(null)
+	const [farms, setFarms] = useState<Farm[] | null>(null)
+	const [hives, setHives] = useState<Hive[] | null>(null)
 	const [isModalOpen, setIsModalOpen] = useState(false)
 	const [isModalFarmOpen, setIsModalFarmOpen] = useState(false)
 	const ctx = useContext(UserContext)
@@ -48,14 +50,10 @@ export default function UserDetails() {
 				errorHandler(err)
 			},
 			onSuccess: (data: Hive[]) => {
-				ctx?.setUserData({
-					...ctx.userData,
-					pickedFarm: {
-						...ctx.userData.pickedFarm,
-						hives: data,
-					},
-				})
+				setHives(data)
+				console.log(data)
 			},
+			enabled: !!ctx?.userData.pickedFarm,
 		}
 	)
 
@@ -103,8 +101,8 @@ export default function UserDetails() {
 	}
 
 	return (
-		<div className="flex h-full flex-col items-center gap-4 bg-six p-4 ">
-			<div className=" flex gap-4">
+		<div className="flex h-full flex-col items-center gap-1 bg-six  ">
+			<div className=" flex gap-4 pt-2">
 				{farmsQ.data ? (
 					<Dropdown
 						delFn={delFarmHandler}
@@ -175,7 +173,31 @@ export default function UserDetails() {
 					}`}
 				</button>
 			</div>
-			<div className="container bg-three"></div>
+			<div className=" max-h-full">
+				//TODO : fix display of the svgs and fix svg
+				import for react
+				<div className="flex h-[210px] grow-0 flex-wrap justify-center gap-2 overflow-y-scroll">
+					<HiveSvg />
+					<HiveSvg />
+					<HiveSvg />
+					<HiveSvg />
+					<HiveSvg />
+					<HiveSvg />
+					<HiveSvg />
+					<HiveSvg />
+					<HiveSvg />
+					<HiveSvg />
+					<HiveSvg />
+					<HiveSvg />
+					<HiveSvg />
+					<HiveSvg />
+					<HiveSvg />
+					<HiveSvg />
+					<HiveSvg />
+					<HiveSvg />
+					<HiveSvg />
+				</div>
+			</div>
 		</div>
 	)
 }

@@ -32,22 +32,29 @@ model BeeFarm {
   id              String        @id @unique @default(cuid())
   farmName        String
   hives           Hive[]
-  BeekeeperUser   BeekeeperUser @relation(fields: [beekeeperUserId], references: [id])
+  BeekeeperUser   BeekeeperUser @relation(fields: [beekeeperUserId], references: [id], onDelete: Cascade)
   beekeeperUserId String
 }
 
 model Hive {
   id          String       @id @unique @default(cuid())
-  BeeFarm     BeeFarm      @relation(fields: [beeFarmId], references: [id])
+  BeeFarm     BeeFarm      @relation(fields: [beeFarmId], references: [id], onDelete: Cascade)
   //TODO check if unique here is needed
-  name        String      
+  name        Int          
   createdAt   DateTime     @default(now())
   updatedAt   DateTime?    @updatedAt
   inspections Inspection[]
   supers      Super[]
-  queen       Queen?       @relation(fields: [queenId], references: [id])
   beeFarmId   String
-  queenId     String?
+  Queen       Queen?
+}
+
+model Queen {
+  id      String   @id @unique @default(cuid())
+  addedOn DateTime @default(now())
+  bornOn  DateTime @default(now())
+  Hive    Hive     @relation(fields: [hiveId], references: [id], onDelete: Cascade)
+  hiveId  String   @unique
 }
 
 model Super {
@@ -56,7 +63,7 @@ model Super {
   fullHoneyFrames Int
   emptyOrHalfFull Int
   superNumberName Int
-  Hive            Hive?   @relation(fields: [hiveId], references: [id])
+  Hive            Hive?   @relation(fields: [hiveId], references: [id], onDelete: Cascade)
   hiveId          String?
 }
 
@@ -85,13 +92,6 @@ model Inspection {
   spaceForNectar             Boolean   @default(true)
   comments                   String?
   queenSeen                  Boolean?  @default(false)
-  Hive                       Hive?     @relation(fields: [hiveId], references: [id])
+  Hive                       Hive?     @relation(fields: [hiveId], references: [id], onDelete: Cascade)
   hiveId                     String?
-}
-
-model Queen {
-  id      String   @id @unique @default(cuid())
-  addedOn DateTime @default(now())
-  bornOn  DateTime @default(now())
-  Hive    Hive[]
 }

@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect, ReactNode } from 'react'
-import { Hive, User } from '../types'
+import { User } from '../types'
 import { Farm } from '../types'
 
 interface UserContextType {
@@ -7,7 +7,7 @@ interface UserContextType {
 	setUser: React.Dispatch<React.SetStateAction<User | null>>
   userData: {
     pickedFarm?: Farm
-	hives?: Hive[]
+	
   }
   setUserData:React.Dispatch<React.SetStateAction<object>>
 }
