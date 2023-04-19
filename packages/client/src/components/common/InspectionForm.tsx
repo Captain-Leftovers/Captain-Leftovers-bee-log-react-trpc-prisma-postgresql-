@@ -1,5 +1,4 @@
-//types ts
-export interface Inspection {
+/* export interface Inspection {
 	id: string
 	inspectionDate: Date
 	updatedAt: Date
@@ -25,24 +24,14 @@ export interface Inspection {
 	comments: string
 	queenSeen: boolean
 	hiveId: string
-}
+} */
 
-export interface User {
-	id: string
-	username: string
-	email: string
-}
 
-export interface Hive {
-	id: string
-	beeFarmId: string
-	number: number
-	queenId?: string
-}
+// export default function InspectionForm() {
+// 	return (
+// 		<form className="flex flex-col gap-4 bg-five">
+            
+// 		</form>
+// 	)
+// }
 
-export type Farm = {
-	id: string
-	farmName: string
-	beekeeperUserId: string
-}
-export type Farms = [Farm]

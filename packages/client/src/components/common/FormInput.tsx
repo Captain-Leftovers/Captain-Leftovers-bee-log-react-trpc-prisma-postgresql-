@@ -20,7 +20,7 @@ export default function FormInput(props: any) {
 				{label}
 			</label>
 			<input
-
+	
 				id={id}
 				{...inputProps}
 				onChange={onChange}
