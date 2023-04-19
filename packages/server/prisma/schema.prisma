@@ -39,7 +39,7 @@ model BeeFarm {
 model Hive {
   id          String       @id @unique @default(cuid())
   BeeFarm     BeeFarm      @relation(fields: [beeFarmId], references: [id], onDelete: Cascade)
-  number      Int?          @default(autoincrement())
+  number      Int
   createdAt   DateTime     @default(now())
   updatedAt   DateTime?    @updatedAt
   inspections Inspection[]

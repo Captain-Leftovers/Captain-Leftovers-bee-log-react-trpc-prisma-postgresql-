@@ -27,9 +27,9 @@ export default function RootLayout() {
 	}
 
 	return (
-		<div className="relative min-h-screen w-screen flex flex-col">
-			<header className="fixed top-0 left-0 right-0 z-10">
-				<nav className="bg-two p-4">
+		<div className="relative min-h-screen w-screen flex flex-col overflow-hidden">
+			<header className="h-[10vh] bg-six flex">
+				<nav className="bg-two p-4 grow self-center">
 					<div className="">
 						<div className="flex gap-20 text-xl">
 							<h1 className="text-3xl ">
@@ -95,10 +95,10 @@ export default function RootLayout() {
 					</div>
 				</nav>
 			</header>
-			<main className=" pt-16 pb-16 flex-grow">
+			<main className=" h-[85vh] flex-grow">
 				<Outlet />
 			</main>
-			<footer className="fixed bottom-0 left-0 right-0 z-10 bg-one text-center">
+			<footer className="h-[5vh] bg-one text-center">
 				<div className="">
 					<h1 className="text-3xl text-five">
 						BeeKeeper-log footer

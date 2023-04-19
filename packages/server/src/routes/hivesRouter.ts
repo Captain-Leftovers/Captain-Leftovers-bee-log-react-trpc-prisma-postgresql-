@@ -31,7 +31,7 @@ export const hivesRouter = router({
 	createNewHive: protectedProcedure
 		.input(
 			z.object({
-				number: z.number().min(1).max(9000).optional(),
+				number: z.number().min(1).max(9000),
 				beeFarmId: z.string(),
 			})
 		)
@@ -40,6 +40,7 @@ export const hivesRouter = router({
 				const newHive = await ctx.db.hive.create({
 					data: {
 						beeFarmId: input.beeFarmId,
+						number: input.number,
 					},
 				})
 				return newHive

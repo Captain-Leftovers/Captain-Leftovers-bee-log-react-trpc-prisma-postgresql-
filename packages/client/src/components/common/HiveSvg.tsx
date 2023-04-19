@@ -1,9 +1,27 @@
+import { useLocation, useNavigate } from 'react-router-dom'
 
+export default function HiveSvg({
+	hiveNumber,
+	hiveId,
+}: {
+	hiveNumber: number
+	hiveId: string
+}) {
+	const navigate = useNavigate()
+	const location = useLocation()
 
-export default function HiveSvg({hiveNumber}: {hiveNumber: number}) {
+	
 	return (
 		<div className="">
+			<p className='text-2xl'>{}</p>
 			<svg
+				onClick={() => {
+					if(location.pathname.includes('details')) return
+					navigate(
+						`details/${hiveId}/${hiveNumber}`
+					)
+				}}
+				className="-z-10 transform cursor-pointer transition duration-500 ease-in-out hover:scale-110 hover:shadow-2xl hover:shadow-green-100 "
 				width="100"
 				height="100"
 				viewBox="0 0 210 210"
@@ -62,7 +80,7 @@ export default function HiveSvg({hiveNumber}: {hiveNumber: number}) {
 							</g>
 						</g>
 						<g id="numberFrame">
-							<g id="numberFrame_2" >
+							<g id="numberFrame_2">
 								<rect
 									width="100"
 									height="30"
@@ -70,16 +88,16 @@ export default function HiveSvg({hiveNumber}: {hiveNumber: number}) {
 									fill="#E76F51"
 								/>
 								<text
-					
-									
 									dominant-baseline="middle"
 									text-anchor="middle"
 									fill="white"
-									font-size="20"
+									font-size="25"
 									font-weight="bold"
-                                    transform="matrix(1 0 0 1 100 75)"
+									transform="matrix(1 0 0 1 100 75)"
 								>
-									{hiveNumber}
+									{
+										hiveNumber
+									}
 								</text>
 							</g>
 							<rect

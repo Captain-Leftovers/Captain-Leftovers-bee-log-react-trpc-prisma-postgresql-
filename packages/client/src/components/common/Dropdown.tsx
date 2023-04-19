@@ -20,7 +20,7 @@ function Dropdown({ items, text,addNewOnClick, callbackFn, addNewButtonText, del
     setIsOpen(false)
   }
   return (
-    <div className="relative">
+    <div className="relative z-10">
       <button
         onClick={toggleDropdown}
         className="bg-three text-one px-4 py-2 rounded-lg hover:bg-opacity-80 transition-colors duration-300"
@@ -47,7 +47,7 @@ function Dropdown({ items, text,addNewOnClick, callbackFn, addNewButtonText, del
               </li>
             ))}
           </ul>
-          { !!addNewButtonText && <button onClick={clickedButton} className={` bg-three hover:bg-opacity-80 w-full text-left`}>{addNewButtonText}</button>}
+          { !!addNewButtonText && <button onClick={clickedButton} className={` bg-four hover:bg-opacity-80 w-full text-left`}>{addNewButtonText}</button>}
         </div>
       )}
     </div>

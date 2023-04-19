@@ -1,13 +1,13 @@
 import { trpc } from '../utils/trpc'
 import { errorHandler } from '../utils/errorHandler'
-import { useContext, useEffect, useRef, useState } from 'react'
+import { useContext, useRef, useState } from 'react'
 import Dropdown from './common/Dropdown'
 import UserContext from '../context/UserContext'
 import Modal from './common/Modal'
 import { toast } from 'react-hot-toast'
 import { Farm, Farms, Hive } from '../types'
 import HiveSvg from './common/HiveSvg'
-import { set } from 'zod'
+import { nextHiveNumber } from '../utils/commonUtils'
 
 export default function UserDetails() {
 	const [farms, setFarms] = useState<Farm[] | null>(null)
@@ -52,7 +52,6 @@ export default function UserDetails() {
 			},
 			onSuccess: (data: Hive[]) => {
 				setHives(data)
-				console.log(data)
 			},
 			enabled: !!ctx?.userData.pickedFarm,
 		}
@@ -62,11 +61,9 @@ export default function UserDetails() {
 		onError: (err) => {
 			errorHandler(err)
 		},
-		onSuccess: (data) => {
+		onSuccess: () => {
 			toast.success('Hive created')
 			getFarmHivesQ.refetch()
-
-
 		},
 	})
 
@@ -81,6 +78,7 @@ export default function UserDetails() {
 		const picked = farms?.find((farm) => farm.id === id)
 		if (!picked) return
 		ctx?.setUserData({ ...ctx.userData, pickedFarm: picked })
+		
 	}
 
 	const addNewFarmHandler = () => {
@@ -88,11 +86,12 @@ export default function UserDetails() {
 	}
 
 	const addHiveHandler = () => {
-		//TODO : add handler func
-		if(!pickedFarm) return
+		if (!pickedFarm) return
+		//TODO : create hiveInpuNumber to get the input number
+		let hiveNumber: number = nextHiveNumber(hives)
 		createHiveQ.mutate({
 			beeFarmId: pickedFarm?.id,
-			
+			number: hiveNumber,
 		})
 	}
 
@@ -118,7 +117,7 @@ export default function UserDetails() {
 
 	return (
 		<div className="flex h-full flex-col items-center gap-1 bg-six  ">
-			<div className=" flex gap-4 pt-2">
+			<div className=" flex gap-4 py-2">
 				{farmsQ.data ? (
 					<Dropdown
 						delFn={delFarmHandler}
@@ -189,14 +188,15 @@ export default function UserDetails() {
 					}`}
 				</button>
 			</div>
-			<div className=" max-h-full">
-				//TODO : fix display of the svgs and fix svg
-				import for react
-				<div className="flex h-[210px] grow-0 flex-wrap justify-center gap-2 overflow-y-scroll">
+			<div className=" max-h-full grow pt-2">
+				<div className="flex h-[80%]  grow-0 flex-wrap justify-center gap-2 overflow-y-auto">
 					{hives?.map((hive) => (
-						<HiveSvg key={hive.id} hiveNumber={hive.number} />
+						<HiveSvg
+							hiveId={hive.id}
+							key={hive.id}
+							hiveNumber={hive.number}
+						/>
 					))}
-					
 				</div>
 			</div>
 		</div>
