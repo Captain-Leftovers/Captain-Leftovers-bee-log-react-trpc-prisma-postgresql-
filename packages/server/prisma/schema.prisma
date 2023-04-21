@@ -43,7 +43,7 @@ model Hive {
   createdAt   DateTime     @default(now())
   updatedAt   DateTime?    @updatedAt
   inspections Inspection[]
-  supers      Super[]
+  // supers      Super[]
   beeFarmId   String
   Queen       Queen?
 }
@@ -56,15 +56,15 @@ model Queen {
   hiveId  String   @unique
 }
 
-model Super {
-  id              String  @id @unique @default(cuid())
-  numberFrames    Int
-  fullHoneyFrames Int
-  emptyOrHalfFull Int
-  superNumberName Int
-  Hive            Hive?   @relation(fields: [hiveId], references: [id], onDelete: Cascade)
-  hiveId          String?
-}
+// model Super {
+//   id              String  @id @unique @default(cuid())
+//   numberFrames    Int
+//   fullHoneyFrames Int
+//   emptyOrHalfFull Int
+//   superNumberName Int
+//   Hive            Hive?   @relation(fields: [hiveId], references: [id], onDelete: Cascade)
+//   hiveId          String?
+// }
 
 model Inspection {
   id                         String    @id @unique @default(cuid())
@@ -77,7 +77,7 @@ model Inspection {
   beesCalmOnOpen             Boolean   @default(true)
   isBroodPatternGood         Boolean   @default(true)
   areLarvaeHealthyWhiteShiny Boolean   @default(true)
-  isJellyPresent             Boolean?
+  isJellyPresent             Boolean   @default(true)
   broodCappedUncappedCells   Boolean   @default(true)
   oneEggPerCell              Boolean   @default(true)
   antsPresent                Boolean   @default(false)
@@ -91,6 +91,6 @@ model Inspection {
   spaceForNectar             Boolean   @default(true)
   comments                   String?
   queenSeen                  Boolean?  @default(false)
-  Hive                       Hive?     @relation(fields: [hiveId], references: [id], onDelete: Cascade)
-  hiveId                     String?
+  Hive                       Hive     @relation(fields: [hiveId], references: [id], onDelete: Cascade)
+  hiveId                     String
 }

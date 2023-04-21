@@ -1,8 +1,6 @@
 //types ts
 export interface Inspection {
-	id: string
-	inspectionDate: Date
-	updatedAt: Date
+	inspectionDate: string
 	beeEnterExitHive: boolean
 	bringingPollen: boolean
 	signsOfRobbing: boolean
@@ -24,7 +22,6 @@ export interface Inspection {
 	spaceForNectar: boolean
 	comments: string
 	queenSeen: boolean
-	hiveId: string
 }
 
 export interface User {

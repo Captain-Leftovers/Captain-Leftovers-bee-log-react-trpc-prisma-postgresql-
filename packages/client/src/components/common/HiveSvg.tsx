@@ -31,7 +31,7 @@ export default function HiveSvg({
 				<g id="appHive">
 					<g
 						id="beehive 2"
-						clip-path="url(#clip0_38_488)"
+						clipPath="url(#clip0_38_488)"
 					>
 						<g id="Group">
 							<g id="Group_2">
@@ -88,11 +88,11 @@ export default function HiveSvg({
 									fill="#E76F51"
 								/>
 								<text
-									dominant-baseline="middle"
-									text-anchor="middle"
+									dominantBaseline="middle"
+									textAnchor="middle"
 									fill="white"
-									font-size="25"
-									font-weight="bold"
+									fontSize="25"
+									fontWeight="bold"
 									transform="matrix(1 0 0 1 100 75)"
 								>
 									{
@@ -105,9 +105,9 @@ export default function HiveSvg({
 								height="21"
 								transform="matrix(-1 0 0 1 137 63)"
 								stroke="#2A9D8F"
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								stroke-dasharray="1 1"
+								strokeLinecap="round"
+								strokeLinejoin="round"
+								strokeDasharray="1 1"
 							/>
 						</g>
 					</g>

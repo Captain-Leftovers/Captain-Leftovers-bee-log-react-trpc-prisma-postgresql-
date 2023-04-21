@@ -15,6 +15,9 @@ export default function UserDetails() {
 	const [isModalFarmOpen, setIsModalFarmOpen] = useState(false)
 	const ctx = useContext(UserContext)
 	const queryUtils = trpc.useContext()
+
+	
+
 	const createNewFarmQ = trpc.user.farms.createNewFarm.useMutation({
 		onError: (error) => {
 			errorHandler(error)

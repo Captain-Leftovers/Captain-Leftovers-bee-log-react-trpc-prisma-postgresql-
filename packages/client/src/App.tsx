@@ -5,26 +5,36 @@ import { useState } from 'react'
 import { trpc } from './utils/trpc'
 import { RouterProvider } from 'react-router-dom'
 import router from './router/router'
+import { errorHandler } from './utils/errorHandler'
 
 export default function App() {
-	const [queryClient] = useState(() => new QueryClient())
+	const [queryClient] = useState(
+		() =>
+			new QueryClient({
+				defaultOptions: {
+					queries: {
+						onError: (error) => {
+							
+							errorHandler(error)
+						},
+					},
+				},
+			})
+	)
 	const [trpcClient] = useState(() =>
 		trpc.createClient({
-
 			links: [
 				httpBatchLink({
-				
 					url: `http://localhost:${
 						import.meta.env.VITE_API_PORT
 					}/trpc`,
 					// optional
+
 					fetch(url, options) {
 						return fetch(url, {
 							...options,
-							  credentials: 'include',
-							
+							credentials: 'include',
 						})
-						
 					},
 				}),
 			],

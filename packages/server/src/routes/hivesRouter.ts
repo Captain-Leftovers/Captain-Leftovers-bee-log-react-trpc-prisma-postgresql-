@@ -1,8 +1,10 @@
-import z, { number } from 'zod'
+import z from 'zod'
 import { TRPCError } from '@trpc/server'
 import { router, protectedProcedure } from '../trpc'
+import { inspectionRouter } from './inspectionRouter'
 
 export const hivesRouter = router({
+	inspections: inspectionRouter,
 	//hives
 	//get all farms
 	getFarmhives: protectedProcedure
