@@ -6,7 +6,7 @@ import { Inspection } from '../types'
 import { trpc } from '../utils/trpc'
 
 const initialData: Inspection = {
-	inspectionDate: new Date(Date.now()).toISOString(),
+	inspectionDate: new Date(Date.now()).toLocaleDateString().split('/').reverse().join('-'),
 	beeEnterExitHive: true,
 	bringingPollen: true,
 	signsOfRobbing: false,
@@ -50,9 +50,12 @@ export default function HiveDetails() {
 		e: React.FormEvent<HTMLFormElement>
 	) => {
 		e.preventDefault()
+		let formData = Object.fromEntries(new FormData(e.currentTarget).entries()) as unknown as Inspection
 		if(!hiveId){return}
+		console.log(formData);
+		//TODO : how do i make form data input field return true or false insted of "on" or "off"
 		
-		createInspectionQ.mutate({...inspection, hiveId: hiveId})
+		
 	}
 
 	return (
@@ -60,16 +63,18 @@ export default function HiveDetails() {
 			<div className="self-center">
 				{!!(hiveId && hiveNumber) && (
 					<HiveSvg
-						hiveId={hiveId}
-						hiveNumber={hiveNumber}
+					hiveId={hiveId}
+					hiveNumber={hiveNumber}
 					/>
-				)}
+					)}
 			</div>
 			<div className="flex grow flex-col bg-four">
 				<div className="flex bg-two pl-4">
 					<button className="rounded-lg bg-five px-4 py-2 text-one transition-colors duration-300 hover:bg-opacity-80">
 						add inspection
 					</button>
+					
+					<p>{inspection.inspectionDate} </p>
 				</div>
 				<div className=" grow  border-4 border-orange-900 p-4 ">
 					<form
@@ -79,18 +84,18 @@ export default function HiveDetails() {
 							submitInspectionHandler
 						}
 					>
+							<div className='mx-auto pb-2'>
+						<label htmlFor="inspectionDate">
+							inspectionDate
+						</label>
+						<input
+							type="date"
+							value={inspection.inspectionDate}
+							name="inspectionDate"
+							id="inspectionDate"
+						/>
+					</div>
 						<div className="flex  h-[500px] flex-col flex-wrap  gap-4 ">
-							<div>
-								<label htmlFor="inspectionDate">
-									inspectionDate
-								</label>
-								<input
-									type="date"
-									defaultValue={inspection.inspectionDate.slice(0, 10)}
-									name="inspectionDate"
-									id="inspectionDate"
-								/>
-							</div>
 							<div>
 								<label htmlFor="beeEnterExitHive">
 									beeEnterExitHive
