@@ -7,3 +7,11 @@ export const nextHiveNumber = (hives:null | Hive[]) => {
   const maxHiveNumber = Math.max(...hiveNumbers)
   return maxHiveNumber + 1
 } 
+
+export const formatDateForInput = (date: Date) => {
+  
+  const formattedDate = date.toISOString().split('T')[0]
+
+  
+  return formattedDate
+}

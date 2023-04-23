@@ -2,14 +2,16 @@ import { TRPCError } from '@trpc/server'
 import { router, protectedProcedure } from '../trpc'
 
 import z from 'zod'
-
+const dateSchema = z.preprocess((arg) => {
+    if (typeof arg === "string" || arg instanceof Date) return new Date(arg);
+  }, z.date());
 export const inspectionRouter = router({
     //create new inspection
     createNewInspection: protectedProcedure
         .input(
             z.object({
-                hiveId: z.string(),
-                inspectionDate: z.string(),
+                hiveId: z.string(), 
+                inspectionDate:dateSchema ,
                 beeEnterExitHive: z.boolean(),
                 bringingPollen: z.boolean(),
                 signsOfRobbing: z.boolean(),
@@ -39,7 +41,7 @@ export const inspectionRouter = router({
                 const inspection = await ctx.db.inspection.create({
                     data: {
                         ...input,
-                        inspectionDate: new Date(input.inspectionDate),
+                        inspectionDate: input.inspectionDate,
                         
                     }
                 })
