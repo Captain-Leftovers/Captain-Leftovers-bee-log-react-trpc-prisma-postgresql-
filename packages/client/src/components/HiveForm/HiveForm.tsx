@@ -1,13 +1,22 @@
 import { useReducer } from 'react'
 import { hiveFormReducer, initialState } from './hiveFormReducer'
 import { formatDateForInput } from '../../utils/commonUtils'
+import {  SubmitInspection } from '../../types'
+import { useParams } from 'react-router-dom'
 
-export default function HiveForm() {
+export default function HiveForm({
+	onSubmitFn,
+}: {
+	onSubmitFn: (data: SubmitInspection) => void
+}) {
 	const [state, dispatch] = useReducer(hiveFormReducer, initialState)
+
+	const params = useParams()
+	const hiveId = params.hiveId
 
 	const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const { name, value, type, checked } = e.target
-		
+
 		if (type === 'checkbox') {
 			dispatch({
 				type: 'UPDATE_CHECKBOX',
@@ -16,7 +25,7 @@ export default function HiveForm() {
 				},
 			})
 		}
-         if (type === 'number' || type === 'text') {
+		if (type === 'number' || type === 'text') {
 			dispatch({
 				type: 'CHANGE_INPUT',
 				payload: {
@@ -24,20 +33,32 @@ export default function HiveForm() {
 				},
 			})
 		}
-        if (type === 'date') {
-            dispatch({
-                type: 'CHANGE_DATE',
-                payload: {
-                    [name]: new Date(value),
-                },
-            })
+		if (type === 'date') {
+			dispatch({
+				type: 'CHANGE_DATE',
+				payload: {
+					[name]: new Date(value),
+				},
+			})
+		}
+	}
 
-	} }
+	const submitFormHandler = (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault()
+		console.log(state)
+		if(!hiveId) return
+		onSubmitFn({...state, hiveId })
 
+		//TODO : the date on the backedn is agai day early
+	}
 
 	return (
-		<form action="POST" className="mx-auto flex  flex-col flex-wrap">
-			{/* <p> iso{state.inspectionDate.toISOString()}</p>
+		<form
+			onSubmit={submitFormHandler}
+			action="POST"
+			className="mx-auto flex  flex-col flex-wrap"
+		>
+			<p> iso{state.inspectionDate.toISOString()}</p>
 			<p>local {state.inspectionDate.toLocaleString()}</p>
 			<p>func {formatDateForInput(state.inspectionDate)}</p>
 			<p>
@@ -45,7 +66,7 @@ export default function HiveForm() {
 				{new Date(
 					formatDateForInput(state.inspectionDate)
 				).toISOString()}{' '}
-			</p> */}
+			</p>
 			<div className="mx-auto pb-2">
 				<label htmlFor="inspectionDate">
 					inspectionDate
@@ -60,8 +81,8 @@ export default function HiveForm() {
 					id="inspectionDate"
 				/>
 			</div>
-			<div className="flex  basis- flex-wrap    gap-4 ">
-				<div>
+			<div className="flex  flex-wrap gap-y-4 pb-4 ">
+				<div className="basis-1/3 ">
 					<label htmlFor="beeEnterExitHive">
 						beeEnterExitHive
 					</label>
@@ -75,7 +96,7 @@ export default function HiveForm() {
 						id="beeEnterExitHive"
 					/>
 				</div>
-				<div>
+				<div className="basis-1/3 ">
 					<label htmlFor="bringingPollen">
 						bringingPollen
 					</label>
@@ -89,7 +110,7 @@ export default function HiveForm() {
 						id="bringingPollen"
 					/>
 				</div>
-				<div>
+				<div className="basis-1/3 ">
 					<label htmlFor="signsOfRobbing">
 						signsOfRobbing
 					</label>
@@ -103,7 +124,7 @@ export default function HiveForm() {
 						id="signsOfRobbing"
 					/>
 				</div>
-				<div>
+				<div className="basis-1/3 ">
 					<label htmlFor="animalDisturbing">
 						animalDisturbing
 					</label>
@@ -117,7 +138,7 @@ export default function HiveForm() {
 						id="animalDisturbing"
 					/>
 				</div>
-				<div>
+				<div className="basis-1/3 ">
 					<label htmlFor="beesCalmOnOpen">
 						beesCalmOnOpen
 					</label>
@@ -131,7 +152,7 @@ export default function HiveForm() {
 						id="beesCalmOnOpen"
 					/>
 				</div>
-				<div>
+				<div className="basis-1/3 ">
 					<label htmlFor="isBroodPatternGood">
 						isBroodPatternGood
 					</label>
@@ -145,7 +166,7 @@ export default function HiveForm() {
 						id="isBroodPatternGood"
 					/>
 				</div>
-				<div>
+				<div className="basis-1/3 ">
 					<label htmlFor="areLarvaeHealthyWhiteShiny">
 						areLarvaeHealthyWhiteShiny
 					</label>
@@ -159,7 +180,7 @@ export default function HiveForm() {
 						id="areLarvaeHealthyWhiteShiny"
 					/>
 				</div>
-				<div>
+				<div className="basis-1/3 ">
 					<label htmlFor="isJellyPresent">
 						isJellyPresent
 					</label>
@@ -173,7 +194,7 @@ export default function HiveForm() {
 						id="isJellyPresent"
 					/>
 				</div>
-				<div>
+				<div className="basis-1/3 ">
 					<label htmlFor="broodCappedUncappedCells">
 						broodCappedUncappedCells
 					</label>
@@ -187,7 +208,7 @@ export default function HiveForm() {
 						id="broodCappedUncappedCells"
 					/>
 				</div>
-				<div>
+				<div className="basis-1/3 ">
 					<label htmlFor="oneEggPerCell">
 						oneEggPerCell
 					</label>
@@ -201,7 +222,7 @@ export default function HiveForm() {
 						id="oneEggPerCell"
 					/>
 				</div>
-				<div>
+				<div className="basis-1/3 ">
 					<label htmlFor="antsPresent">
 						antsPresent
 					</label>
@@ -215,7 +236,7 @@ export default function HiveForm() {
 						id="antsPresent"
 					/>
 				</div>
-				<div>
+				<div className="basis-1/3 ">
 					<label htmlFor="mothsPresent">
 						mothsPresent
 					</label>
@@ -229,7 +250,7 @@ export default function HiveForm() {
 						id="mothsPresent"
 					/>
 				</div>
-				<div>
+				<div className="basis-1/3 ">
 					<label htmlFor="unusualNumberDeadBees">
 						unusualNumberDeadBees
 					</label>
@@ -243,7 +264,7 @@ export default function HiveForm() {
 						id="unusualNumberDeadBees"
 					/>
 				</div>
-				<div>
+				<div className="basis-1/3 ">
 					<label htmlFor="odor">odor</label>
 					<input
 						onChange={changeHandler}
@@ -253,7 +274,7 @@ export default function HiveForm() {
 						id="odor"
 					/>
 				</div>
-				<div>
+				<div className="basis-1/3 ">
 					<label htmlFor="tracheal">
 						tracheal
 					</label>
@@ -265,7 +286,7 @@ export default function HiveForm() {
 						id="tracheal"
 					/>
 				</div>
-				<div>
+				<div className="basis-1/3 ">
 					<label htmlFor="varroa">varroa</label>
 					<input
 						onChange={changeHandler}
@@ -275,7 +296,7 @@ export default function HiveForm() {
 						id="varroa"
 					/>
 				</div>
-				<div>
+				<div className="basis-1/3 ">
 					<label htmlFor="spaceForNectar">
 						spaceForNectar
 					</label>
@@ -289,7 +310,7 @@ export default function HiveForm() {
 						id="spaceForNectar"
 					/>
 				</div>
-				<div>
+				<div className="basis-1/3 ">
 					<label htmlFor="queenSeen">
 						queenSeen
 					</label>
@@ -301,35 +322,37 @@ export default function HiveForm() {
 						id="queenSeen"
 					/>
 				</div>
-				<div>
-					<label htmlFor="framesCoveredWithBees">
-						framesCoveredWithBees
-					</label>
-					<input
-						onChange={changeHandler}
-						defaultValue={
-							state.framesCoveredWithBees
-						}
-						type="number"
-						name="framesCoveredWithBees"
-						id="framesCoveredWithBees"
-					/>
+				<div className="flex grow justify-center bg-two">
+					<div className="basis-1/3 ">
+						<label htmlFor="framesCoveredWithBees">
+							framesCoveredWithBees
+						</label>
+						<input
+							onChange={changeHandler}
+							defaultValue={
+								state.framesCoveredWithBees
+							}
+							type="number"
+							name="framesCoveredWithBees"
+							id="framesCoveredWithBees"
+						/>
+					</div>
+					<div className="basis-1/3 ">
+						<label htmlFor="framesUsedForBrood">
+							framesUsedForBrood
+						</label>
+						<input
+							onChange={changeHandler}
+							defaultValue={
+								state.framesUsedForBrood
+							}
+							type="number"
+							name="framesUsedForBrood"
+							id="framesUsedForBrood"
+						/>
+					</div>
 				</div>
-				<div>
-					<label htmlFor="framesUsedForBrood">
-						framesUsedForBrood
-					</label>
-					<input
-						onChange={changeHandler}
-						defaultValue={
-							state.framesUsedForBrood
-						}
-						type="number"
-						name="framesUsedForBrood"
-						id="framesUsedForBrood"
-					/>
-				</div>
-				<div>
+				<div className="flex  grow flex-col  items-center  ">
 					<label htmlFor="comments">
 						comments
 					</label>

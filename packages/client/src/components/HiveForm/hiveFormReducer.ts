@@ -36,6 +36,8 @@ export const hiveFormReducer = (
                 ...action.payload
             }
 		case 'CHANGE_DATE':
+			console.log('action.payload', action.payload,);
+			
 			return {
                 ...state,
                 ...action.payload

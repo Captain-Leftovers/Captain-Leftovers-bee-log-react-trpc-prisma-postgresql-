@@ -4,6 +4,9 @@ export type InspectionAction = {
 	type: 'UPDATE_CHECKBOX' | 'CHANGE_INPUT' | 'CHANGE_DATE'
 	payload: Partial<Inspection>
 }
+
+export type SubmitInspection = Inspection & {hiveId: string}
+
 export type Inspection = {
 	inspectionDate: Date;
 	beeEnterExitHive: boolean;

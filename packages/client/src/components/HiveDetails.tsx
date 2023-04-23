@@ -38,7 +38,7 @@ export default function HiveDetails() {
 					</button>
 				</div>
 				<div className=" grow  border-4 border-orange-900 p-4 w-full overflow-auto ">
-					<HiveForm />
+					<HiveForm onSubmitFn={createInspectionQ.mutate} />
 				</div>
 			</div>
 		</div>

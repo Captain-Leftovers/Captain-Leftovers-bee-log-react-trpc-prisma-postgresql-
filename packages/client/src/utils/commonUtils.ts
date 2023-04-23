@@ -10,7 +10,8 @@ export const nextHiveNumber = (hives:null | Hive[]) => {
 
 export const formatDateForInput = (date: Date) => {
   
-  const formattedDate = date.toISOString().split('T')[0]
+  const formattedDate = date.toLocaleDateString().split('/').reverse().join('-')
+  
 
   
   return formattedDate
