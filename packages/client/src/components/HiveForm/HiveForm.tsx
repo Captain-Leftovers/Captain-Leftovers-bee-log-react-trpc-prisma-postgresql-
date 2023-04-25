@@ -1,18 +1,29 @@
-import { useReducer } from 'react'
-import { hiveFormReducer, initialState } from './hiveFormReducer'
+import { useEffect, useReducer } from 'react'
+import { hiveFormReducer, initialData } from './hiveFormReducer'
 import { formatDateForInput } from '../../utils/commonUtils'
-import {  SubmitInspection } from '../../types'
+import { SubmitInspection } from '../../types'
 import { useParams } from 'react-router-dom'
+import { trpc } from '../../utils/trpc'
 
 export default function HiveForm({
 	onSubmitFn,
+	initial,
 }: {
 	onSubmitFn: (data: SubmitInspection) => void
+	initial: any
 }) {
-	const [state, dispatch] = useReducer(hiveFormReducer, initialState)
-
+	const [state, dispatch] = useReducer(hiveFormReducer, initialData)
 	const params = useParams()
 	const hiveId = params.hiveId
+
+	useEffect(() => {
+		if (initial) {
+			dispatch({
+				type: 'SET_INITIAL_DATA',
+				payload: initial,
+			})
+		}
+	}, [initial])
 
 	const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const { name, value, type, checked } = e.target
@@ -26,6 +37,15 @@ export default function HiveForm({
 			})
 		}
 		if (type === 'number' || type === 'text') {
+			if (type === 'number') {
+				return dispatch({
+					type: 'CHANGE_INPUT',
+					payload: {
+						[name]: Number(value),
+					},
+				})
+			}
+
 			dispatch({
 				type: 'CHANGE_INPUT',
 				payload: {
@@ -43,13 +63,16 @@ export default function HiveForm({
 		}
 	}
 
+	console.log('state', state)
+	console.log(state.bringingPollen)
+	console.log(state.signsOfRobbing)
+
 	const submitFormHandler = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
-		console.log(state)
-		if(!hiveId) return
-		onSubmitFn({...state, hiveId })
+		//
 
-		//TODO : the date on the backedn is agai day early
+		if (!hiveId) return
+		onSubmitFn({ ...state, hiveId })
 	}
 
 	return (
@@ -58,15 +81,6 @@ export default function HiveForm({
 			action="POST"
 			className="mx-auto flex  flex-col flex-wrap"
 		>
-			<p> iso{state.inspectionDate.toISOString()}</p>
-			<p>local {state.inspectionDate.toLocaleString()}</p>
-			<p>func {formatDateForInput(state.inspectionDate)}</p>
-			<p>
-				newDateFromFn{' '}
-				{new Date(
-					formatDateForInput(state.inspectionDate)
-				).toISOString()}{' '}
-			</p>
 			<div className="mx-auto pb-2">
 				<label htmlFor="inspectionDate">
 					inspectionDate
@@ -88,9 +102,7 @@ export default function HiveForm({
 					</label>
 					<input
 						onChange={changeHandler}
-						defaultChecked={
-							state.beeEnterExitHive
-						}
+						checked={state.beeEnterExitHive}
 						type="checkbox"
 						name="beeEnterExitHive"
 						id="beeEnterExitHive"
@@ -102,9 +114,7 @@ export default function HiveForm({
 					</label>
 					<input
 						onChange={changeHandler}
-						defaultChecked={
-							state.bringingPollen
-						}
+						checked={state.bringingPollen}
 						type="checkbox"
 						name="bringingPollen"
 						id="bringingPollen"
@@ -116,9 +126,7 @@ export default function HiveForm({
 					</label>
 					<input
 						onChange={changeHandler}
-						defaultChecked={
-							state.signsOfRobbing
-						}
+						checked={state.signsOfRobbing}
 						type="checkbox"
 						name="signsOfRobbing"
 						id="signsOfRobbing"
@@ -130,9 +138,7 @@ export default function HiveForm({
 					</label>
 					<input
 						onChange={changeHandler}
-						defaultChecked={
-							state.animalDisturbing
-						}
+						checked={state.animalDisturbing}
 						type="checkbox"
 						name="animalDisturbing"
 						id="animalDisturbing"
@@ -144,9 +150,7 @@ export default function HiveForm({
 					</label>
 					<input
 						onChange={changeHandler}
-						defaultChecked={
-							state.beesCalmOnOpen
-						}
+						checked={state.beesCalmOnOpen}
 						type="checkbox"
 						name="beesCalmOnOpen"
 						id="beesCalmOnOpen"
@@ -158,7 +162,7 @@ export default function HiveForm({
 					</label>
 					<input
 						onChange={changeHandler}
-						defaultChecked={
+						checked={
 							state.isBroodPatternGood
 						}
 						type="checkbox"
@@ -172,7 +176,7 @@ export default function HiveForm({
 					</label>
 					<input
 						onChange={changeHandler}
-						defaultChecked={
+						checked={
 							state.areLarvaeHealthyWhiteShiny
 						}
 						type="checkbox"
@@ -186,9 +190,7 @@ export default function HiveForm({
 					</label>
 					<input
 						onChange={changeHandler}
-						defaultChecked={
-							state.isJellyPresent
-						}
+						checked={state.isJellyPresent}
 						type="checkbox"
 						name="isJellyPresent"
 						id="isJellyPresent"
@@ -200,7 +202,7 @@ export default function HiveForm({
 					</label>
 					<input
 						onChange={changeHandler}
-						defaultChecked={
+						checked={
 							state.broodCappedUncappedCells
 						}
 						type="checkbox"
@@ -214,9 +216,7 @@ export default function HiveForm({
 					</label>
 					<input
 						onChange={changeHandler}
-						defaultChecked={
-							state.oneEggPerCell
-						}
+						checked={state.oneEggPerCell}
 						type="checkbox"
 						name="oneEggPerCell"
 						id="oneEggPerCell"
@@ -228,9 +228,7 @@ export default function HiveForm({
 					</label>
 					<input
 						onChange={changeHandler}
-						defaultChecked={
-							state.antsPresent
-						}
+						checked={state.antsPresent}
 						type="checkbox"
 						name="antsPresent"
 						id="antsPresent"
@@ -242,9 +240,7 @@ export default function HiveForm({
 					</label>
 					<input
 						onChange={changeHandler}
-						defaultChecked={
-							state.mothsPresent
-						}
+						checked={state.mothsPresent}
 						type="checkbox"
 						name="mothsPresent"
 						id="mothsPresent"
@@ -256,7 +252,7 @@ export default function HiveForm({
 					</label>
 					<input
 						onChange={changeHandler}
-						defaultChecked={
+						checked={
 							state.unusualNumberDeadBees
 						}
 						type="checkbox"
@@ -268,7 +264,7 @@ export default function HiveForm({
 					<label htmlFor="odor">odor</label>
 					<input
 						onChange={changeHandler}
-						defaultChecked={state.odor}
+						checked={state.odor}
 						type="checkbox"
 						name="odor"
 						id="odor"
@@ -280,7 +276,7 @@ export default function HiveForm({
 					</label>
 					<input
 						onChange={changeHandler}
-						defaultChecked={state.tracheal}
+						checked={state.tracheal}
 						type="checkbox"
 						name="tracheal"
 						id="tracheal"
@@ -290,7 +286,7 @@ export default function HiveForm({
 					<label htmlFor="varroa">varroa</label>
 					<input
 						onChange={changeHandler}
-						defaultChecked={state.varroa}
+						checked={state.varroa}
 						type="checkbox"
 						name="varroa"
 						id="varroa"
@@ -302,9 +298,7 @@ export default function HiveForm({
 					</label>
 					<input
 						onChange={changeHandler}
-						defaultChecked={
-							state.spaceForNectar
-						}
+						checked={state.spaceForNectar}
 						type="checkbox"
 						name="spaceForNectar"
 						id="spaceForNectar"
@@ -316,7 +310,7 @@ export default function HiveForm({
 					</label>
 					<input
 						onChange={changeHandler}
-						defaultChecked={state.queenSeen}
+						checked={state.queenSeen}
 						type="checkbox"
 						name="queenSeen"
 						id="queenSeen"
@@ -329,7 +323,7 @@ export default function HiveForm({
 						</label>
 						<input
 							onChange={changeHandler}
-							defaultValue={
+							value={
 								state.framesCoveredWithBees
 							}
 							type="number"
@@ -343,7 +337,7 @@ export default function HiveForm({
 						</label>
 						<input
 							onChange={changeHandler}
-							defaultValue={
+							value={
 								state.framesUsedForBrood
 							}
 							type="number"
@@ -358,7 +352,7 @@ export default function HiveForm({
 					</label>
 					<input
 						onChange={changeHandler}
-						defaultValue={state.comments}
+						value={state.comments}
 						type="text"
 						name="comments"
 						id="comments"

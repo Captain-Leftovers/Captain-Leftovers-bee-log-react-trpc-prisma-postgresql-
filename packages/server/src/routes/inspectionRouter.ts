@@ -56,5 +56,48 @@ export const inspectionRouter = router({
             }
             
             
-        })
+        }),
+        
+        //get last inspection
+        getLastInspection: protectedProcedure
+        .input(
+            z.object({
+                hiveId: z.string().nullish(),
+            })
+        )
+        .query(async ({ ctx, input }) => { 
+            if(!input.hiveId) throw new TRPCError({
+                code: 'INTERNAL_SERVER_ERROR',
+                message:
+                    'hiveId is required',
+            })
+
+            try {
+                const inspection = await ctx.db.inspection.findFirst({
+                    where: {
+                        hiveId: input.hiveId,
+                    },
+                    orderBy: {
+                        inspectionDate: 'desc',
+                    },
+                })
+                if(!inspection) throw new TRPCError({
+                    code: 'INTERNAL_SERVER_ERROR',
+                    message:
+                        'No inspection found',
+                })
+                
+                return inspection 
+            } catch (error: any) {
+                throw new TRPCError({
+                    code: 'INTERNAL_SERVER_ERROR',
+                    message:
+                        error?.message ||
+                        'Failed to get last inspection',
+                })
+            }
+        }),
+    
+
+
         })

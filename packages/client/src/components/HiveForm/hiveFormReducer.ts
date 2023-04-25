@@ -1,7 +1,7 @@
 import { Inspection, InspectionAction } from '../../types'
 
-export const initialState: Inspection = {
-	inspectionDate: new Date(Date.now()),
+export const initialData: Inspection = {
+	inspectionDate: new Date(new Date(Date.now()).toLocaleDateString().split('/').reverse().join('-')),
 	beeEnterExitHive: true,
 	bringingPollen: true,
 	signsOfRobbing: false,
@@ -36,17 +36,27 @@ export const hiveFormReducer = (
                 ...action.payload
             }
 		case 'CHANGE_DATE':
-			console.log('action.payload', action.payload,);
+			
 			
 			return {
                 ...state,
                 ...action.payload
             }
 		case 'CHANGE_INPUT':
+			
 			return {
                 ...state,
                 ...action.payload
             }
+		case 'SET_INITIAL_DATA':
+		console.log('action.payload', action.payload);
+		
+			return {
+				...action.payload as Inspection,
+			}
+		
+		
+
 		default:
 			return state
 	}

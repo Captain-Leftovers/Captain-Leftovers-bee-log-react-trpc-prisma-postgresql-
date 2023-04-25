@@ -9,8 +9,9 @@ export const nextHiveNumber = (hives:null | Hive[]) => {
 } 
 
 export const formatDateForInput = (date: Date) => {
-  
+  if( typeof date == 'string') return
   const formattedDate = date.toLocaleDateString().split('/').reverse().join('-')
+  
   
 
   
