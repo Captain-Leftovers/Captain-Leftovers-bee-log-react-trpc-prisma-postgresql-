@@ -2,7 +2,7 @@ import { useContext, useState } from 'react'
 import FormInput from './common/FormInput'
 import { trpc } from '../utils/trpc'
 import { errorHandler } from '../utils/errorHandler'
-import {  useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-hot-toast'
 import UserContext from '../context/UserContext'
 
@@ -40,13 +40,15 @@ export default function Home() {
 		},
 		onSuccess: (data) => {
 			const user = data?.currentUser
-			toast.success(`${user.username} registered successfully!`)
+			toast.success(
+				`${user.username} registered successfully!`
+			)
 			userContext?.setUser(user)
 			navigate('/')
 		},
 	})
 
-	const title = 'Register'
+	const title = 'Register Form'
 	const inputFields: InputFieldType[] = [
 		{
 			id: 1,
@@ -94,10 +96,10 @@ export default function Home() {
 		},
 	]
 
-	const onSubmitHandler =  (e: React.FormEvent<HTMLFormElement>) => {
+	const onSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
 
-		 mutate({
+		mutate({
 			userName: userData.username,
 			email: userData.email,
 			password: userData.password,
@@ -114,11 +116,7 @@ export default function Home() {
 		})
 	}
 	return (
-		<div className="flex h-full flex-col items-center justify-center bg-yellow-300  text-sm">
-			<h1 className="mb-4 text-center text-3xl">
-				Register Component
-			</h1>
-
+		<div className="flex h-full flex-col items-center justify-center  text-sm">
 			<div className="container   max-w-lg  rounded-md bg-lime-400 px-6 py-8   shadow-xl">
 				<div className="">
 					<form
@@ -126,7 +124,7 @@ export default function Home() {
 						action="POST"
 						className="flex flex-col"
 					>
-						<h1 className="pb-4 text-center text-lg">
+						<h1 className="pb-4 text-center text-2xl">
 							{title}
 						</h1>
 
@@ -151,8 +149,7 @@ export default function Home() {
 							)
 						)}
 						<button className=" mx-auto w-2/4 rounded bg-blue-500 py-2  px-4 text-xl font-bold text-white hover:bg-blue-700">
-							{' '}
-							{title}{' '}
+							Register
 						</button>
 					</form>
 				</div>

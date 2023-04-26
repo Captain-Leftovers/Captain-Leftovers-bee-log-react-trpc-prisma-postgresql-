@@ -1,3 +1,17 @@
 .btn-c {
-    background: #e76f51ff;
+	background: #e76f51ff;
 }
+
+.toHomeButton {
+	animation: toHomeAnimation 2s infinite;
+	opacity: 0;
+	transition: opacity 1s ease-in-out;
+}
+
+.toHomeButtonVisible {
+	opacity: 1;
+}
+
+.main {
+    transition: opacity 0.5s ease-in;
+  }

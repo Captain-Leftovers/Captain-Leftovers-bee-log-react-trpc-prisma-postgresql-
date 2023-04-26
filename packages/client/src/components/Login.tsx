@@ -1,11 +1,11 @@
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import FormInput from './common/FormInput'
 import { trpc } from '../utils/trpc'
 import { errorHandler } from '../utils/errorHandler'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { toast } from 'react-hot-toast'
 import UserContext from '../context/UserContext'
-
+import {NavLink} from 'react-router-dom'
 export interface InputFieldType {
 	id: number
 	type: string
@@ -26,11 +26,21 @@ const initialState = {
 export default function Login() {
 	const [userData, setUserData] = useState(initialState)
 
+	const location = useLocation();
+const [toHomeVisible, setToHomeVisible] = useState(false);
+
 	const userContext = useContext(UserContext)
 
+	useEffect(() => {
+		setToHomeVisible(false);
+		setTimeout(() => {
+		  setToHomeVisible(true);
+		}, 0);
+	  }, [location]);
 	const navigate = useNavigate()
 
 	type UserState = typeof initialState
+
 
 	const { mutate } = trpc.user.loginUser.useMutation({
 		onError: (error) => {
@@ -49,7 +59,7 @@ export default function Login() {
 		},
 	})
 
-	const title = 'Login'
+	const title = 'Welcome Back'
 	const inputFields: InputFieldType[] = [
 		{
 			id: 1,
@@ -95,19 +105,20 @@ export default function Login() {
 		})
 	}
 	return (
-		<div className="flex h-full flex-col items-center justify-center bg-yellow-300  text-sm">
-			<h1 className="mb-4 text-center text-3xl">
-				Login Component
-			</h1>
+		<div className="flex h-full flex-col items-center justify-center ">
+			<div className={`absolute left-5 top-5 bg-three px-2 hover:bg-opacity-80 toHomeButton ${toHomeVisible ? "toHomeButtonVisible" : ''}`}>
+				<NavLink to="/">ToHome</NavLink>
+			</div>
+			
 
-			<div className="container   max-w-lg  rounded-md bg-lime-400 px-6 py-8   shadow-xl">
+			<div className="container   max-w-lg  rounded-md bg-two bg-opacity-70 px-6 py-8   shadow-xl">
 				<div className="">
 					<form
 						onSubmit={onSubmitHandler}
 						action="POST"
 						className="flex flex-col"
 					>
-						<h1 className="pb-4 text-center text-lg">
+						<h1 className="pb-4 text-center text-2xl ">
 							{title}
 						</h1>
 
@@ -131,9 +142,9 @@ export default function Login() {
 								/>
 							)
 						)}
-						<button className=" mx-auto w-2/4 rounded bg-blue-500 py-2  px-4 text-xl font-bold text-white hover:bg-blue-700">
-							{' '}
-							{title}{' '}
+						<button className=" mx-auto w-2/4 rounded py-2  px-4 text-xl  bg-two bg-opacity-80  font-bold text-white hover:bg-opacity-90">
+							
+							Login
 						</button>
 					</form>
 				</div>

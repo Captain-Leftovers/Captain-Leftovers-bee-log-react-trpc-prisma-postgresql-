@@ -15,6 +15,8 @@ module.exports = {
 				lavender: "url('src/assets/bee.png')",
         beeField: "url('src/assets/field.png')",
         beeLg: "url('src/assets/beeLg.png')",
+        flower1: "url('src/assets/flowersMb.png')",
+        flower2: "url('src/assets/flowers2Mb.png')",
 			},
 		},
 	},

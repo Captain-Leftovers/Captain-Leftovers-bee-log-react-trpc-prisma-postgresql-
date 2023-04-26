@@ -12,7 +12,7 @@ export default function FormInput(props: any) {
 	}
 
 	return (
-		<div className="container mx-auto flex flex-col  bg-lime-400">
+		<div className="container mx-auto flex flex-col  ">
 			<label
 				className="mb-1 text-2xl font-bold uppercase"
 				htmlFor={id}
