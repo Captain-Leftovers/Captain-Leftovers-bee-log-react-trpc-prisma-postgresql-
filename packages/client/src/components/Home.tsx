@@ -1,46 +1,23 @@
-import { trpc } from '../utils/trpc'
 
-export default  function Home() {	
-	
-	const  usersQ =
-		trpc.user.getUsers.useQuery(
-			undefined,
-			{
-				enabled: true,
-			}
-		)
 
-	const testCtx = trpc.test.test.useQuery()
-    
-	  let test =testCtx.data?.message
-	  console.log();
-	  
-	  
+export default function Home() {
+
 
 	return (
-		<div className="h-full bg-six flex flex-col">
-			<div>
-				<h1 className="text-8xl text-red-400 ">
-					Home Component
-				</h1>
-			</div>
+		<div className="flex h-full flex-col ">
+			<section className=" py-4 sm:py-8">
+				<div className="container mx-auto px-4">
+					<h2 className="text-2xl font-semibold  md:text-3xl">
+						Welcome to BeeKeepers' Log
+					</h2>
+					<p className="mt-4 text-lg md:text-xl">
+					the all-in-one solution for beekeepers to manage their farms, hives, and inspections. Our user-friendly platform helps you keep track of your hives' health and productivity by streamlining the process of logging inspections. With [AppName], you'll have easy access to your beekeeping data, enabling you to make informed decisions for the well-being of your bees.
+					</p>
+				</div>
+			</section>
 
-			<div className="border-8 border-purple-600 bg-orange-400 p-2 grow">
-				<h2 className=" text-6xl text-purple-600">
-					Users List
-				</h2>
-				<ul className="list-inside list-disc text-4xl text-emerald-200">
-					{usersQ.data?.usersArray.map((user) => {
-						return (
-							<li key={user.id}>
-								{user.username}
-							</li>
-						)
-					})}
-				</ul>
 			
-			</div>
-			<p className='text-3xl p-2'>{test}</p>
+			
 		</div>
 	)
 }
