@@ -35,7 +35,7 @@ export default function FormInput(props: any) {
 				className={`peer border-2 border-gray-200  p-2  focus:border-blue-500 focus:outline-none `}
 			/>
 			<span
-				className={` text-secondary opacity-0 ${
+				className={` text-five opacity-0 ${
 					blurred ? 'opacity-100' : ''
 				}  peer-valid:opacity-0`}
 			>
