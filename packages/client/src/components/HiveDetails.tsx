@@ -49,8 +49,8 @@ export default function HiveDetails() {
 		)
 
 	return (
-		<div className="flex h-full bg-six p-2">
-			<div className='bg-yellow-200 flex flex-col gap-10 justify-center'>
+		<div className="flex h-full p-2">
+			<div className=' flex flex-col gap-10 justify-center'>
 				<button className=''>DELETE</button>
 
 				<div className="self-center   ">
@@ -64,13 +64,13 @@ export default function HiveDetails() {
 				<button className='text-five font-bold hover:text-opacity-80'>Delete<br/>Hive</button>
 
 			</div>
-			<div className="flex grow flex-col bg-four">
-				<div className="flex bg-two pl-4">
+			<div className="flex grow flex-col">
+				<div className="flex pl-4">
 					<button className="rounded-lg bg-five px-4 py-2 text-one transition-colors duration-300 hover:bg-opacity-80">
 						add inspection
 					</button>
 				</div>
-				<div className=" w-full  grow overflow-auto border-4 border-orange-900 p-4 ">
+				<div className=" w-full  grow overflow-auto  p-4 ">
 					{getLastInspectionQ.isFetched && (
 						<HiveForm
 							onSubmitFn={

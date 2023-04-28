@@ -107,11 +107,11 @@ const [toHomeVisible, setToHomeVisible] = useState(false);
 	return (
 		<div className="flex h-full flex-col items-center justify-center ">
 			<div className={`absolute left-5 top-5 bg-three px-2 hover:bg-opacity-80 toHomeButton ${toHomeVisible ? "toHomeButtonVisible" : ''}`}>
-				<NavLink to="/">ToHome</NavLink>
+				<NavLink className="text-2xl" to="/">&#8592;</NavLink>
 			</div>
 			
 
-			<div className="container   max-w-lg  rounded-md bg-two bg-opacity-70 px-6 py-8   shadow-xl">
+			<div className="container   max-w-lg  rounded-md bg-two bg-opacity-10 px-6 py-8   shadow-xl">
 				<div className="">
 					<form
 						onSubmit={onSubmitHandler}
@@ -142,7 +142,7 @@ const [toHomeVisible, setToHomeVisible] = useState(false);
 								/>
 							)
 						)}
-						<button className=" mx-auto w-2/4 rounded py-2  px-4 text-xl  bg-two bg-opacity-80  font-bold text-white hover:bg-opacity-90">
+						<button className=" mx-auto w-2/4 rounded py-2  px-4 text-xl  bg-two bg-opacity-80  font-bold  hover:bg-opacity-90">
 							
 							Login
 						</button>

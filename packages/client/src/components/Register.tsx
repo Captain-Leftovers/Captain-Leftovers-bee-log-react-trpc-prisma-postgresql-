@@ -1,8 +1,8 @@
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import FormInput from './common/FormInput'
 import { trpc } from '../utils/trpc'
 import { errorHandler } from '../utils/errorHandler'
-import { useNavigate } from 'react-router-dom'
+import { NavLink, useLocation, useNavigate } from 'react-router-dom'
 import { toast } from 'react-hot-toast'
 import UserContext from '../context/UserContext'
 
@@ -27,6 +27,16 @@ const initialState = {
 
 export default function Home() {
 	const [userData, setUserData] = useState(initialState)
+
+	const location = useLocation();
+	const [toHomeVisible, setToHomeVisible] = useState(false);
+
+	useEffect(() => {
+		setToHomeVisible(false);
+		setTimeout(() => {
+		  setToHomeVisible(true);
+		}, 0);
+	  }, [location]);
 
 	const userContext = useContext(UserContext)
 
@@ -117,7 +127,10 @@ export default function Home() {
 	}
 	return (
 		<div className="flex h-full flex-col items-center justify-center  text-sm">
-			<div className="container   max-w-lg  rounded-md bg-lime-400 px-6 py-8   shadow-xl">
+			<div className={`absolute left-5 top-5 bg-three px-2 hover:bg-opacity-80 toHomeButton ${toHomeVisible ? "toHomeButtonVisible" : ''}`}>
+				<NavLink className="text-2xl" to="/">&#8592;</NavLink>
+			</div>
+			<div className="container   max-w-lg  rounded-md bg-two bg-opacity-10 px-6 py-8   shadow-xl">
 				<div className="">
 					<form
 						onSubmit={onSubmitHandler}

@@ -129,7 +129,7 @@ export default function RootLayout() {
 			<main
 				className={`${
 					showNavFooter ? 'pt-0' : 'pt-4'
-				} flex-grow justify-center bg-lavender bg-cover transition-all duration-500 lg:bg-beeLg`}
+				} flex-grow justify-center   transition-all duration-500 lg:bg-beeLg`}
 			>
 				<div className="container ">
 					<Outlet />

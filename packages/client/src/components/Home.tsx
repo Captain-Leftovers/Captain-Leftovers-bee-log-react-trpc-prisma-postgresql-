@@ -11,7 +11,7 @@ export default function Home() {
 						Welcome to BeeKeepers' Log
 					</h2>
 					<p className="mt-4 text-lg md:text-xl">
-					the all-in-one solution for beekeepers to manage their farms, hives, and inspections. Our user-friendly platform helps you keep track of your hives' health and productivity by streamlining the process of logging inspections. With [AppName], you'll have easy access to your beekeeping data, enabling you to make informed decisions for the well-being of your bees.
+					the all-in-one solution for beekeepers to manage their farms, hives, and inspections. Our user-friendly platform helps you keep track of your hives' health and productivity by streamlining the process of logging inspections. With BeeKeeper's log you'll have easy access to your beekeeping data, enabling you to make informed decisions for the well-being of your bees.
 					</p>
 				</div>
 			</section>

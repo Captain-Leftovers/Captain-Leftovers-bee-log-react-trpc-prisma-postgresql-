@@ -18,5 +18,7 @@ html {
 }
 
 body{
-	@apply bg-pink-700 text-one
+	@apply  text-one
+	bg-gradient-to-t from-two to-three
 }
+

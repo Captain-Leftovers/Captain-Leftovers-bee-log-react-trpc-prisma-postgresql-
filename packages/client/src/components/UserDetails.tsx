@@ -119,7 +119,7 @@ export default function UserDetails() {
 	}
 
 	return (
-		<div className="flex h-full flex-col items-center gap-1 bg-six  ">
+		<div className="flex h-full flex-col items-center gap-1   ">
 			<div className=" flex gap-4 py-2">
 				{farmsQ.data ? (
 					<Dropdown
