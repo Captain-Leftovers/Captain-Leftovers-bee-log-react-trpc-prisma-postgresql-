@@ -6,11 +6,11 @@ import { toast } from 'react-hot-toast'
 import { errorHandler } from '../../../utils/errorHandler'
 
 import logo from '../../../assets/BeeReadingLogo.png'
+import BeeIcon from '../../common/BeeIcon'
 
 export default function RootLayout() {
 	//try animation
 	const [showNavFooter, setShowNavFooter] = useState(true)
-	
 
 	//end
 	const userContext = useContext(UserContext)
@@ -54,7 +54,7 @@ export default function RootLayout() {
 						: '-translate-y-full'
 				} flex  flex-wrap bg-six transition-all duration-500`}
 			>
-				<nav className="grow self-center bg-two p-4 ">
+				<nav className="grow self-center bg-two p-2 ">
 					<div className="">
 						<p className="mx-auto w-fit ">
 							BeeKeeper's Log
@@ -62,15 +62,11 @@ export default function RootLayout() {
 					</div>
 					<div className="">
 						<div className="flex  flex-wrap sm:gap-10">
-							<img
-								src={logo}
-								alt="beee reading"
-								className="h-12 w-auto"
-							/>
+							<BeeIcon />
 
 							<div className="flex grow  items-center  justify-end">
 								<div className=" mx-auto ">
-									<div className="bg-three px-2 hover:bg-opacity-80">
+									<div className=" px-2 hover:bg-opacity-80">
 										<NavLink to="/">
 											Home
 										</NavLink>
@@ -78,12 +74,12 @@ export default function RootLayout() {
 								</div>
 								{!isLoggedIn && (
 									<>
-										<div className="bg-three px-2 hover:bg-opacity-80">
+										<div className=" px-2 hover:bg-opacity-80">
 											<NavLink to="login">
 												Login
 											</NavLink>
 										</div>
-										<div className="ml-auto bg-three px-2 hover:bg-opacity-80">
+										<div className="ml-auto  px-2 hover:bg-opacity-80">
 											<NavLink to="register">
 												Register
 											</NavLink>
@@ -95,7 +91,7 @@ export default function RootLayout() {
 										<div className=" uppercase text-three hover:opacity-80">
 											{isLoggedIn ? (
 												<NavLink
-													className=''
+													className=""
 													to={
 														`user/${user?.id}` ||
 														''
@@ -129,7 +125,7 @@ export default function RootLayout() {
 			<main
 				className={`${
 					showNavFooter ? 'pt-0' : 'pt-4'
-				} flex-grow justify-center   transition-all duration-500 lg:bg-beeLg`}
+				} flex-grow justify-center   transition-all duration-500 `}
 			>
 				<div className="container ">
 					<Outlet />
