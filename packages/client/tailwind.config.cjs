@@ -18,6 +18,7 @@ module.exports = {
         // flower1: "url('src/assets/flowersMb.png')",
         // flower2: "url('src/assets/flowers2Mb.png')",
 			},
+		
 		},
 	},
 	plugins: [],

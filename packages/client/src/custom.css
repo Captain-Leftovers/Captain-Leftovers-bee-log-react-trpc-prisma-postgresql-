@@ -121,3 +121,34 @@
 	}
   }
   
+
+
+  /* li decoration daisy */
+
+  .custom-li {
+	list-style-type: none;
+	position: relative;
+	padding-left: 2rem;
+	
+
+}
+  
+  .custom-li::before {
+	content: '';
+	display: inline-block;
+	position: absolute;
+	top: 0.8rem;
+	left: 0;
+	transform: translateY(-50%);
+	width: 1.5rem;
+	height: 1.5rem;
+	background-image: url('./assets/daisy1.svg');
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: contain;
+  }
+  
+
+  .btn-primary {
+	
+  }
