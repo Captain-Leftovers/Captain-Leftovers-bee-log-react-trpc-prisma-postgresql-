@@ -1,5 +1,13 @@
-.btn-c {
-	background: #e76f51ff;
+
+
+.nav-link {
+	@apply text-three
+}
+
+.btn-primary {
+	@apply	hover:bg-one hover:text-three 
+	rounded py-2 px-4 text-xl font-bold 
+	bg-two bg-opacity-80 hover:bg-opacity-90
 }
 
 .toHomeButton {

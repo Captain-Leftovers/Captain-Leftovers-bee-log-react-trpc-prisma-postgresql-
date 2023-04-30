@@ -1,5 +1,4 @@
 import ActionSVG from './common/ActionSVG'
-import DaisyTag from './common/DaisyTag'
 
 export default function Home() {
 	return (

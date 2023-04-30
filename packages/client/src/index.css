@@ -14,13 +14,16 @@ html {
 }
 
 .active {
-	@apply    text-three
+	
 }
 
 body{
 	@apply  text-one
 	bg-gradient-to-t from-two to-three
 }
+
+
+
 
 
 

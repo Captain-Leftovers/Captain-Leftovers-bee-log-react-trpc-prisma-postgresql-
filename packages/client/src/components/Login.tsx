@@ -142,7 +142,7 @@ const [toHomeVisible, setToHomeVisible] = useState(false);
 								/>
 							)
 						)}
-						<button className=" mx-auto w-2/4 rounded py-2  px-4 text-xl  bg-two bg-opacity-80  font-bold  hover:bg-opacity-90">
+						<button className="btn-primary">
 							
 							Login
 						</button>

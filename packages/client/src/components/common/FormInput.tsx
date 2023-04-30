@@ -32,7 +32,7 @@ export default function FormInput(props: any) {
 						: null
 				}
 				value={value}
-				className={`peer border-2 border-gray-200  p-2  focus:border-blue-500 focus:outline-none `}
+				className='peer border-2 border-gray-200  p-2  focus:border-two focus:outline-none hover:border-two transition-colors duration-500 ease-in-out'
 			/>
 			<span
 				className={` text-five opacity-0 ${

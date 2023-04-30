@@ -161,7 +161,7 @@ export default function Home() {
 								/>
 							)
 						)}
-						<button className=" mx-auto w-2/4 rounded bg-blue-500 py-2  px-4 text-xl font-bold text-white hover:bg-blue-700">
+						<button className="btn-primary">
 							Register
 						</button>
 					</form>

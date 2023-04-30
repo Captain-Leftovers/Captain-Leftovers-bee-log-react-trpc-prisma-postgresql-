@@ -67,7 +67,8 @@ export default function RootLayout() {
 							<div className="flex grow  items-center  justify-end">
 								<div className=" mx-auto ">
 									<div className=" px-2 hover:bg-opacity-80">
-										<NavLink to="/">
+										<NavLink 
+										className='nav-link' to="/">
 											Home
 										</NavLink>
 									</div>
@@ -75,12 +76,14 @@ export default function RootLayout() {
 								{!isLoggedIn && (
 									<>
 										<div className=" px-2 hover:bg-opacity-80">
-											<NavLink to="login">
+											<NavLink 
+											className='nav-link' to="login">
 												Login
 											</NavLink>
 										</div>
 										<div className="ml-auto  px-2 hover:bg-opacity-80">
-											<NavLink to="register">
+											<NavLink 
+											className='nav-link' to="register">
 												Register
 											</NavLink>
 										</div>
@@ -90,8 +93,8 @@ export default function RootLayout() {
 									<>
 										<div className=" uppercase text-three hover:opacity-80">
 											{isLoggedIn ? (
-												<NavLink
-													className=""
+												<NavLink 
+												className='nav-link'
 													to={
 														`user/${user?.id}` ||
 														''
@@ -105,8 +108,9 @@ export default function RootLayout() {
 												</NavLink>
 											) : null}
 										</div>
-										<div className="ml-auto bg-five px-2 hover:bg-opacity-80">
-											<NavLink
+										<div className="ml-auto px-2">
+											<NavLink 
+											className='nav-link'
 												to="/"
 												onClick={
 													handleLogout
