@@ -97,6 +97,37 @@ export const inspectionRouter = router({
                 })
             }
         }),
+
+        //get all inspections
+        getPastInspections: protectedProcedure.input(z.object({
+            hiveId: z.string().nullish(),
+        }))
+        .query(async ({ ctx, input }) => {
+            if(!input.hiveId) throw new TRPCError({
+                code: 'INTERNAL_SERVER_ERROR',
+                message:
+                    'hiveId is required',
+            })
+            try{
+                const inspectionsArr = await ctx.db.inspection.findMany({
+                    where: { 
+                        hiveId: input.hiveId,
+                    },
+                    orderBy: {
+                        inspectionDate: 'desc',
+                    },
+                })
+                return inspectionsArr
+            } catch (error: any) {
+                throw new TRPCError({
+                    code: 'INTERNAL_SERVER_ERROR',
+                    message:
+                        error?.message ||
+                        'Failed to get inspections',
+                })
+            }
+        
+        })
     
 
 

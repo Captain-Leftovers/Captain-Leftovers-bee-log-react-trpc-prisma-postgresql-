@@ -3,8 +3,12 @@ import HiveSvg from './common/HiveSvg'
 import { trpc } from '../utils/trpc'
 import HiveForm from './HiveForm/HiveForm'
 import { toast } from 'react-hot-toast'
+import { useState } from 'react'
+import { Inspection } from '../types'
+import { InspectionFromDb } from '../types'
 
 export default function HiveDetails() {
+	const [pastInspections , setPastInspections] = useState<InspectionFromDb[]>([])
 	const trpcUtils = trpc.useContext()
 	const createInspectionQ =
 		trpc.user.farms.hives.inspections.createNewInspection.useMutation(
@@ -25,7 +29,7 @@ export default function HiveDetails() {
 		trpc.user.farms.hives.inspections.getLastInspection.useQuery(
 			{ hiveId },
 			{
-				onSuccess: () => {
+				onSuccess: (data) => {
 					toast('last inspection loaded')
 				},
 				enabled: !!hiveId,
@@ -48,12 +52,38 @@ export default function HiveDetails() {
 			}
 		)
 
-	return (
-		<div className="flex h-full p-2">
-			<div className=' flex flex-col gap-10 justify-center'>
-				<button className=''>DELETE</button>
+		const getPastInspectionsQ = trpc.user.farms.hives.inspections.getPastInspections.useQuery({hiveId}, {
+			
+			select: (data) => {
+				const dataArr = data.map((inspection)=>{
+					let {id, inspectionDate, updatedAt, ...rest} = inspection
+					return { 	...rest,
+						inspectionDate: new Date(
+							inspectionDate
+						),}
+				})
+				return dataArr
+			},
+				
 
-				<div className="self-center   ">
+			onSuccess: () => {
+				
+				toast('past inspections loaded')
+			},
+			enabled: false,
+
+		})
+	//TODO : add delete hive mutation and organazi mobile view
+	const getPastInspectionsHandler = ()=>{ 
+		
+	}
+	return (
+		<div className="flex flex-col p-2   ">
+			<div className=" flex   justify-evenly ">
+					<button onClick={getPastInspectionsHandler} className="btn-secondary self-center">
+						list inspections
+					</button>
+				<div className="">
 					{!!(hiveId && hiveNumber) && (
 						<HiveSvg
 							hiveId={hiveId}
@@ -61,16 +91,11 @@ export default function HiveDetails() {
 						/>
 					)}
 				</div>
-				<button className='text-five font-bold hover:text-opacity-80'>Delete<br/>Hive</button>
-
-			</div>
-			<div className="flex grow flex-col">
-				<div className="flex pl-4">
-					<button className="rounded-lg bg-five px-4 py-2 text-one transition-colors duration-300 hover:bg-opacity-80">
-						add inspection
-					</button>
-				</div>
-				<div className=" w-full  grow overflow-auto  p-4 ">
+				<button className="btn-secondary self-center ">
+					Delete Hive
+				</button>createInspectionQ
+			
+				<div className="  grow  p-4 ">
 					{getLastInspectionQ.isFetched && (
 						<HiveForm
 							onSubmitFn={

@@ -63,9 +63,7 @@ export default function HiveForm({
 		}
 	}
 
-	console.log('state', state)
-	console.log(state.bringingPollen)
-	console.log(state.signsOfRobbing)
+
 
 	const submitFormHandler = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
@@ -95,8 +93,8 @@ export default function HiveForm({
 					id="inspectionDate"
 				/>
 			</div>
-			<div className="flex  flex-wrap gap-y-4 pb-4 ">
-				<div className="basis-1/3 ">
+			<div className="flex  flex-wrap pb-4 ">
+				<div className=" ">
 					<label htmlFor="beeEnterExitHive">
 						beeEnterExitHive
 					</label>

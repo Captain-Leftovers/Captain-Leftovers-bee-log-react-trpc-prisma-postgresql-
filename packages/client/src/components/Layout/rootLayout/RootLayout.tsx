@@ -129,9 +129,9 @@ export default function RootLayout() {
 			<main
 				className={`${
 					showNavFooter ? 'pt-0' : 'pt-4'
-				} flex-grow justify-center   transition-all duration-500 `}
+				} flex-grow justify-center   transition-all duration-500 flex `}
 			>
-				<div className="container ">
+				<div className="container flex-grow">
 					<Outlet />
 				</div>
 			</main>
