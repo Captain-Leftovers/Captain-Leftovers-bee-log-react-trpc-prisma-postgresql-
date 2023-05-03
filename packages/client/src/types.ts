@@ -33,6 +33,7 @@ export type Inspection = {
   };
 
   export type InspectionDb = {
+	id: string
 	inspectionDate: string
 	beeEnterExitHive: boolean;
 	bringingPollen: boolean;

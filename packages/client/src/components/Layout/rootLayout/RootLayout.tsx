@@ -5,7 +5,6 @@ import { trpc } from '../../../utils/trpc'
 import { toast } from 'react-hot-toast'
 import { errorHandler } from '../../../utils/errorHandler'
 
-import logo from '../../../assets/BeeReadingLogo.png'
 import BeeIcon from '../../common/BeeIcon'
 
 export default function RootLayout() {
@@ -46,7 +45,7 @@ export default function RootLayout() {
 	}
 
 	return (
-		<div className="relative flex min-h-screen w-screen flex-col overflow-hidden ">
+		<div className="relative flex min-h-screen w-screen flex-col   h-screen">
 			<header
 				className={`${
 					showNavFooter
@@ -67,8 +66,10 @@ export default function RootLayout() {
 							<div className="flex grow  items-center  justify-end">
 								<div className=" mx-auto ">
 									<div className=" px-2 hover:bg-opacity-80">
-										<NavLink 
-										className='nav-link' to="/">
+										<NavLink
+											className="nav-link"
+											to="/"
+										>
 											Home
 										</NavLink>
 									</div>
@@ -76,14 +77,18 @@ export default function RootLayout() {
 								{!isLoggedIn && (
 									<>
 										<div className=" px-2 hover:bg-opacity-80">
-											<NavLink 
-											className='nav-link' to="login">
+											<NavLink
+												className="nav-link"
+												to="login"
+											>
 												Login
 											</NavLink>
 										</div>
 										<div className="ml-auto  px-2 hover:bg-opacity-80">
-											<NavLink 
-											className='nav-link' to="register">
+											<NavLink
+												className="nav-link"
+												to="register"
+											>
 												Register
 											</NavLink>
 										</div>
@@ -93,8 +98,8 @@ export default function RootLayout() {
 									<>
 										<div className=" uppercase text-three hover:opacity-80">
 											{isLoggedIn ? (
-												<NavLink 
-												className='nav-link'
+												<NavLink
+													className="nav-link"
 													to={
 														`user/${user?.id}` ||
 														''
@@ -109,8 +114,8 @@ export default function RootLayout() {
 											) : null}
 										</div>
 										<div className="ml-auto px-2">
-											<NavLink 
-											className='nav-link'
+											<NavLink
+												className="nav-link"
 												to="/"
 												onClick={
 													handleLogout
@@ -129,9 +134,9 @@ export default function RootLayout() {
 			<main
 				className={`${
 					showNavFooter ? 'pt-0' : 'pt-4'
-				} flex-grow justify-center   transition-all duration-500 flex `}
+				} flex flex-grow   justify-center transition-all duration-500 overflow-auto`}
 			>
-				<div className="container flex-grow">
+				<div className="container flex flex-grow flex-col ">
 					<Outlet />
 				</div>
 			</main>

@@ -10,6 +10,7 @@ import HiveSvg from './common/HiveSvg'
 import { nextHiveNumber } from '../utils/commonUtils'
 
 export default function UserDetails() {
+	const [addHiveNumber, setAddHiveNumber] = useState<number | ''>('')
 	const [farms, setFarms] = useState<Farm[] | null>(null)
 	const [hives, setHives] = useState<Hive[] | null>(null)
 	const [isModalFarmOpen, setIsModalFarmOpen] = useState(false)
@@ -68,7 +69,10 @@ export default function UserDetails() {
 			toast.success('Hive created')
 			getFarmHivesQ.refetch()
 		},
+		
 	})
+
+	
 
 	const farmInput = useRef<HTMLInputElement | null>(null)
 
@@ -83,19 +87,23 @@ export default function UserDetails() {
 		ctx?.setUserData({ ...ctx.userData, pickedFarm: picked })
 		
 	}
-
+	
 	const addNewFarmHandler = () => {
 		openFarmModal()
 	}
-
+	
 	const addHiveHandler = () => {
 		if (!pickedFarm) return
-		//TODO : create hiveInpuNumber to get the input number
 		let hiveNumber: number = nextHiveNumber(hives)
+		 if(!!addHiveNumber) hiveNumber = addHiveNumber
+		 
+		//TODO : create hiveInpuNumber to get the input number
 		createHiveQ.mutate({
 			beeFarmId: pickedFarm?.id,
 			number: hiveNumber,
 		})
+		setAddHiveNumber('')
+		
 	}
 
 	const farmSubmit = (
@@ -176,23 +184,26 @@ export default function UserDetails() {
 					}
 				/>
 			</div>
+				{pickedFarm ? (
 			<div className="flex gap-4">
+					
 				<button
+					disabled={createHiveQ.isLoading} 
 					onClick={addHiveHandler}
-					className={`${
-						pickedFarm
-							? 'visible'
-							: 'invisible'
-					} rounded-md bg-three px-4 py-2 hover:bg-opacity-80`}
+					className='
+					
+					 rounded-md bg-three px-4 py-2 hover:bg-opacity-80'
 				>
 					{` Add Hive to ${
 						pickedFarm?.farmName ||
 						'your Farm'
 					}`}
 				</button>
+				<input onChange={(e)=> setAddHiveNumber(+(e.target.value))} className='w-10 text-center'  type="number" value={addHiveNumber} placeholder='num' min="1" step="1" />
 			</div>
-			<div className=" max-h-full grow pt-2">
-				<div className="flex h-[80%]  grow-0 flex-wrap justify-center gap-2 overflow-y-auto">
+				):null}
+			<div className=" grow    overflow-auto py-2">
+				<div className="flex flex-wrap justify-center gap-2 ">
 					{hives?.map((hive) => (
 						<HiveSvg
 							hiveId={hive.id}
@@ -201,6 +212,7 @@ export default function UserDetails() {
 						/>
 					))}
 				</div>
+			
 			</div>
 		</div>
 	)

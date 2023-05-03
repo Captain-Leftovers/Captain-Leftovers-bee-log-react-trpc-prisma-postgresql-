@@ -18,6 +18,9 @@ export const hivesRouter = router({
 					where: {
 						beeFarmId: input.beeFarmId,
 					},
+					orderBy: {
+						number: 'asc',
+					},
 				})
 				return farmHives
 			} catch (error: any) {
@@ -55,4 +58,28 @@ export const hivesRouter = router({
 				})
 			}
 		}),
+	deleteHive: protectedProcedure
+		.input(
+			z.object({
+				hiveId: z.string()
+			})
+		)
+		.mutation(async ({ input, ctx }) => {
+			try {
+				let deletedHive = ctx.db.hive.delete({
+					where: {
+						id: input.hiveId,
+					},
+				})
+				return deletedHive
+			} catch (error: any) {
+				throw new TRPCError({
+					code: 'INTERNAL_SERVER_ERROR',
+					message:
+						error?.message ||
+						'Failed to delete hive',
+				})
+			}
+		}
+		),
 })

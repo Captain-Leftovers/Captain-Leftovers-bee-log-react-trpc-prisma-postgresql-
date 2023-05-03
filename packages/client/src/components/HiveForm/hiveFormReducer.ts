@@ -49,7 +49,6 @@ export const hiveFormReducer = (
                 ...action.payload
             }
 		case 'SET_INITIAL_DATA':
-		console.log('action.payload', action.payload);
 		
 			return {
 				...action.payload as Inspection,

@@ -25,7 +25,8 @@ const Modal = ({ isOpen, onClose, title, children, submitFn }: ModalProps) => {
 	if (!isOpen) return null
 
 	return (
-		<div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 ">
+		// see web dev video on modals and blog
+		<div className="fixed inset-0 z-50 flex items-center justify-center bg-opacity-50 ">
 			<div className=" relative  mx-auto flex w-full max-w-md flex-col rounded-lg bg-two shadow-lg">
 				<form onSubmit={(e)=>submitFn(e)}>
 

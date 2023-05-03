@@ -90,7 +90,7 @@ model Inspection {
   framesUsedForBrood         Int
   spaceForNectar             Boolean   @default(true)
   comments                   String    @default("")
-  queenSeen                  Boolean?  @default(false)
+  queenSeen                  Boolean   @default(false)
   Hive                       Hive      @relation(fields: [hiveId], references: [id], onDelete: Cascade)
   hiveId                     String
 }

@@ -13,7 +13,7 @@
 }
 
 .btn-secondary {
-	@apply text-five h-min p-2 bg-two
+	@apply text-one h-min p-2 bg-two hover:scale-105
 }
 
 .toHomeButton {

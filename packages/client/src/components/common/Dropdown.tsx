@@ -32,18 +32,18 @@ function Dropdown({ items, text,addNewOnClick, callbackFn, addNewButtonText, del
         <div className="absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-lg">
           <ul className="divide-y divide-gray-200">
             {items.map((item) => (
-              <li key={item.id} className="hover:bg-gray-100 flex">
+              <li key={item.id} className="hover:bg-gray-200 flex">
                 <button 
                   onClick={() => {
                     callbackFn?.(item.id);
                     setIsOpen(false);
                   }}
-                  className="block w-full p-2 text-left"
+                  className="block w-full p-2 text-left hover:bg-gray-100"
                 >
                   {item.name}
 
                 </button>
-                <button onClick={()=>delFn(item.id)} className='bg-five hover:bg-opacity-80'>Del</button>
+                <button onClick={()=>delFn(item.id)} className='bg-five hover:bg-opacity-80 hover:scale-110 '>Del</button>
               </li>
             ))}
           </ul>

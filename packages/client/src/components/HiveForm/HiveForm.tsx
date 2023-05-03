@@ -3,7 +3,6 @@ import { hiveFormReducer, initialData } from './hiveFormReducer'
 import { formatDateForInput } from '../../utils/commonUtils'
 import { SubmitInspection } from '../../types'
 import { useParams } from 'react-router-dom'
-import { trpc } from '../../utils/trpc'
 
 export default function HiveForm({
 	onSubmitFn,
@@ -25,9 +24,10 @@ export default function HiveForm({
 		}
 	}, [initial])
 
+
 	const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const { name, value, type, checked } = e.target
-
+		onSubmitFn
 		if (type === 'checkbox') {
 			dispatch({
 				type: 'UPDATE_CHECKBOX',
