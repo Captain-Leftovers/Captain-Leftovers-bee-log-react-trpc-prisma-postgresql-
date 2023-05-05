@@ -5,9 +5,10 @@ export type InspectionAction = {
 	payload: Partial<Inspection>
 }
 
-export type SubmitInspection = Inspection & {hiveId: string}
+export type SubmitInspection = Inspection & {hiveId: string} & {id: string}
 
 export type Inspection = {
+	id?: string
 	inspectionDate: Date
 	beeEnterExitHive: boolean;
 	bringingPollen: boolean;

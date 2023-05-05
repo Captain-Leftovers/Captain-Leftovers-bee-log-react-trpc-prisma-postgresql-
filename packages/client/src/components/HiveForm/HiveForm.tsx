@@ -5,11 +5,11 @@ import { SubmitInspection } from '../../types'
 import { useParams } from 'react-router-dom'
 
 export default function HiveForm({
-	onSubmitFn,
+	onSubmitAction,
 	initial,
 }: {
-	onSubmitFn: (data: SubmitInspection) => void
-	initial: any
+	onSubmitAction: (data: SubmitInspection, action:'create' | 'update') => void
+	initial:any
 }) {
 	const [state, dispatch] = useReducer(hiveFormReducer, initialData)
 	const params = useParams()
@@ -27,7 +27,7 @@ export default function HiveForm({
 
 	const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const { name, value, type, checked } = e.target
-		onSubmitFn
+		
 		if (type === 'checkbox') {
 			dispatch({
 				type: 'UPDATE_CHECKBOX',
@@ -68,9 +68,16 @@ export default function HiveForm({
 	const submitFormHandler = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
 		//
-
+		
 		if (!hiveId) return
-		onSubmitFn({ ...state, hiveId })
+		if(state.id && state.id !== undefined){
+	//TODO : fix types  and fix this  grgrgrgr
+			onSubmitAction({ ...state, hiveId } , 'update')
+			return
+		}
+
+
+		onSubmitAction({ ...state, hiveId } , 'create')
 	}
 
 	return (

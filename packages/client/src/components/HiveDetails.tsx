@@ -4,7 +4,7 @@ import { trpc } from '../utils/trpc'
 import HiveForm from './HiveForm/HiveForm'
 import { toast } from 'react-hot-toast'
 import { useState } from 'react'
-import { InspectionDb } from '../types'
+import { InspectionDb, SubmitInspection } from '../types'
 
 export default function HiveDetails() {
 	//TODO :  make upodate inspection to change past inspections and add list of past ones and add new
@@ -12,6 +12,8 @@ export default function HiveDetails() {
 	const [pastInspections, setPastInspections] = useState<InspectionDb[]>(
 		[]
 	)
+	const [selectedInspection, setSelectedInspection] =
+		useState<InspectionDb | null>(null)
 	const trpcUtils = trpc.useContext()
 	const location = useLocation()
 	const navigate = useNavigate()
@@ -21,6 +23,21 @@ export default function HiveDetails() {
 		},
 	})
 
+	const updateInspectionQ = trpc.user.farms.hives.inspections.updateInspection.useMutation(
+		{
+			onSuccess: () => {
+				trpcUtils.user.farms.hives.inspections.getLastInspection.refetch(
+					{ hiveId }
+				)
+				trpcUtils.user.farms.hives.inspections.getPastInspections.refetch(
+					{ hiveId }
+				)
+				toast('inspection updated')
+			},
+		}
+	)
+
+
 	const createInspectionQ =
 		trpc.user.farms.hives.inspections.createNewInspection.useMutation(
 			{
@@ -28,7 +45,9 @@ export default function HiveDetails() {
 					trpcUtils.user.farms.hives.inspections.getLastInspection.refetch(
 						{ hiveId }
 					)
-					trpcUtils.user.farms.hives.inspections.getPastInspections.refetch({hiveId})
+					trpcUtils.user.farms.hives.inspections.getPastInspections.refetch(
+						{ hiveId }
+					)
 					toast('inspection created')
 				},
 			}
@@ -42,6 +61,9 @@ export default function HiveDetails() {
 			{ hiveId },
 			{
 				onSuccess: () => {
+					trpcUtils.user.farms.hives.inspections.getPastInspections.refetch(
+						{ hiveId }
+					)
 					toast('last inspection loaded')
 				},
 				enabled: !!hiveId,
@@ -56,7 +78,6 @@ export default function HiveDetails() {
 					return {
 						...rest,
 						inspectionDate: new Date(
-							inspectionDate
 						),
 					}
 				},
@@ -94,10 +115,9 @@ export default function HiveDetails() {
 						getPastInspectionsQ.data
 					)
 				},
-				enabled: true,
+				enabled: !!hiveId,
 			}
 		)
-	//TODO : add delete hive mutation and organazi mobile view
 
 	const farmLocation = location.pathname.split('details')[0]
 	const deleteHiveHandler = () => {
@@ -106,6 +126,28 @@ export default function HiveDetails() {
 		trpcUtils.user.farms.hives.getFarmhives.refetch().then(() => {
 			navigate(farmLocation)
 		})
+	}
+
+	const getSelectedInspection = (inspectionId: string) => {
+		const selectedInspection = pastInspections.find(
+			(inspection) => inspection.id === inspectionId
+		)
+		
+
+		if (!selectedInspection) return
+		setSelectedInspection(selectedInspection)
+		
+	}
+
+	
+	const submitHandler = (data:SubmitInspection, action:'create' | 'update') => {
+	
+		if (action === 'create') {
+			createInspectionQ.mutate(data)
+		}
+		if (action === 'update') {
+			updateInspectionQ.mutate(data)
+		}
 	}
 	return (
 		<div className="flex h-full  p-2 ">
@@ -125,9 +167,9 @@ export default function HiveDetails() {
 					</button>
 				</div>
 
-				{getPastInspectionsQ.isFetched && (
+				{getPastInspectionsQ.data && (
 					<div className=" container p-2">
-						<div className="flex gap-10">
+						<div className="flex justify-start gap-8 overflow-x-auto">
 							{pastInspections.map(
 								(
 									inspection
@@ -139,7 +181,14 @@ export default function HiveDetails() {
 											}
 											className=""
 										>
-											<button className="btn-secondary">
+											<button
+												onClick={() =>
+													getSelectedInspection(
+														inspection.id
+													)
+												}
+												className="btn-secondary whitespace-nowrap"
+											>
 												{
 													inspection.inspectionDate.split(
 														'T'
@@ -157,11 +206,12 @@ export default function HiveDetails() {
 				<div className="">
 					{getLastInspectionQ.isFetched && (
 						<HiveForm
-							onSubmitFn={
-								createInspectionQ.mutate
+							onSubmitAction={
+								submitHandler
 							}
 							initial={
-								getLastInspectionQ.data
+								selectedInspection ? {... selectedInspection, inspectionDate: new Date(selectedInspection.inspectionDate) } : getLastInspectionQ.data
+								
 							}
 						/>
 					)}
@@ -170,3 +220,4 @@ export default function HiveDetails() {
 		</div>
 	)
 }
+

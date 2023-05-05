@@ -87,7 +87,7 @@ export const inspectionRouter = router({
                         'No inspection found',
                 })
                 
-                return inspection 
+                return inspection
             } catch (error: any) {
                 throw new TRPCError({
                     code: 'INTERNAL_SERVER_ERROR',
@@ -127,8 +127,58 @@ export const inspectionRouter = router({
                 })
             }
         
-        })
-    
+        }),
 
+        //update inspection
+        updateInspection: protectedProcedure
+        .input(
+            z.object({
+                id: z.string(),
+                inspectionDate:dateSchema ,
+                beeEnterExitHive: z.boolean(),
+                bringingPollen: z.boolean(),
+                signsOfRobbing: z.boolean(),
+                animalDisturbing: z.boolean(),
+                beesCalmOnOpen: z.boolean(),
+                isBroodPatternGood: z.boolean(),
+                areLarvaeHealthyWhiteShiny: z.boolean(),
+                isJellyPresent: z.boolean(),
+                broodCappedUncappedCells: z.boolean(),
+                oneEggPerCell: z.boolean(),
+                antsPresent: z.boolean(),
+                mothsPresent: z.boolean(),
+                unusualNumberDeadBees: z.boolean(),
+                odor: z.boolean(),
+                tracheal: z.boolean(),
+                varroa: z.boolean(),
+                framesCoveredWithBees: z.number(),
+                framesUsedForBrood: z.number(),
+                spaceForNectar: z.boolean(),
+                comments: z.string().max(1000).optional(),
+                queenSeen: z.boolean().optional(),
+            })
+        )
+        .mutation(async ({ ctx, input }) => {
+            try {
+                const inspection = await ctx.db.inspection.update({
+                    where: { id: input.id },
+                    data: {
+                        ...input,
+                        inspectionDate: input.inspectionDate,
+                    }
+                })
+                return inspection
+            } catch (error: any) {
+                throw new TRPCError({
+                    code: 'INTERNAL_SERVER_ERROR',
+                    message:
+                        error?.message ||
+                        'Failed to update inspection',
+                })
+            }
+
+        }),
+            
+            
 
         })
