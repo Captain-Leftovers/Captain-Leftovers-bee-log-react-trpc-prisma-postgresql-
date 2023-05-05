@@ -8,13 +8,17 @@ export default function HiveForm({
 	onSubmitAction,
 	initial,
 }: {
-	onSubmitAction: (data: SubmitInspection, action:'create' | 'update') => void
-	initial:any
+	onSubmitAction: (
+		data: SubmitInspection,
+		action: 'create' | 'update'
+	) => void
+	initial: any
 }) {
 	const [state, dispatch] = useReducer(hiveFormReducer, initialData)
 	const params = useParams()
 	const hiveId = params.hiveId
 
+		
 	useEffect(() => {
 		if (initial) {
 			dispatch({
@@ -24,10 +28,9 @@ export default function HiveForm({
 		}
 	}, [initial])
 
-
 	const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const { name, value, type, checked } = e.target
-		
+
 		if (type === 'checkbox') {
 			dispatch({
 				type: 'UPDATE_CHECKBOX',
@@ -63,21 +66,17 @@ export default function HiveForm({
 		}
 	}
 
-
-
 	const submitFormHandler = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
 		//
-		
+
 		if (!hiveId) return
-		if(state.id && state.id !== undefined){
-	//TODO : fix types  and fix this  grgrgrgr
-			onSubmitAction({ ...state, hiveId } , 'update')
+		if (!!state.id) {
+			onSubmitAction({ ...state, hiveId }, 'update')
 			return
 		}
 
-
-		onSubmitAction({ ...state, hiveId } , 'create')
+		onSubmitAction({ ...state, hiveId }, 'create')
 	}
 
 	return (

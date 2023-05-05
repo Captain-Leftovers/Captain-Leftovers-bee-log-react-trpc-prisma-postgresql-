@@ -23,8 +23,8 @@ export default function HiveDetails() {
 		},
 	})
 
-	const updateInspectionQ = trpc.user.farms.hives.inspections.updateInspection.useMutation(
-		{
+	const updateInspectionQ =
+		trpc.user.farms.hives.inspections.updateInspection.useMutation({
 			onSuccess: () => {
 				trpcUtils.user.farms.hives.inspections.getLastInspection.refetch(
 					{ hiveId }
@@ -32,20 +32,17 @@ export default function HiveDetails() {
 				trpcUtils.user.farms.hives.inspections.getPastInspections.refetch(
 					{ hiveId }
 				)
+				setSelectedInspection(null)
+
 				toast('inspection updated')
 			},
-		}
-	)
-
+		})
 
 	const createInspectionQ =
 		trpc.user.farms.hives.inspections.createNewInspection.useMutation(
 			{
 				onSuccess: () => {
 					trpcUtils.user.farms.hives.inspections.getLastInspection.refetch(
-						{ hiveId }
-					)
-					trpcUtils.user.farms.hives.inspections.getPastInspections.refetch(
 						{ hiveId }
 					)
 					toast('inspection created')
@@ -64,7 +61,6 @@ export default function HiveDetails() {
 					trpcUtils.user.farms.hives.inspections.getPastInspections.refetch(
 						{ hiveId }
 					)
-					toast('last inspection loaded')
 				},
 				enabled: !!hiveId,
 				select: (data) => {
@@ -77,8 +73,7 @@ export default function HiveDetails() {
 
 					return {
 						...rest,
-						inspectionDate: new Date(
-						),
+						inspectionDate: new Date(),
 					}
 				},
 				retry: 0,
@@ -132,20 +127,20 @@ export default function HiveDetails() {
 		const selectedInspection = pastInspections.find(
 			(inspection) => inspection.id === inspectionId
 		)
-		
 
 		if (!selectedInspection) return
 		setSelectedInspection(selectedInspection)
-		
 	}
 
-	
-	const submitHandler = (data:SubmitInspection, action:'create' | 'update') => {
-	
+	const submitHandler = (
+		data: SubmitInspection,
+		action: 'create' | 'update'
+	) => {
 		if (action === 'create') {
 			createInspectionQ.mutate(data)
 		}
 		if (action === 'update') {
+			if (!data.id || data.id === undefined) return
 			updateInspectionQ.mutate(data)
 		}
 	}
@@ -210,8 +205,16 @@ export default function HiveDetails() {
 								submitHandler
 							}
 							initial={
-								selectedInspection ? {... selectedInspection, inspectionDate: new Date(selectedInspection.inspectionDate) } : getLastInspectionQ.data
-								
+								selectedInspection
+									? {
+										
+											...selectedInspection,
+											inspectionDate:
+												new Date(
+													selectedInspection.inspectionDate
+												),
+									  }
+									: getLastInspectionQ.data
 							}
 						/>
 					)}
@@ -220,4 +223,3 @@ export default function HiveDetails() {
 		</div>
 	)
 }
-

@@ -1,7 +1,14 @@
 import { Inspection, InspectionAction } from '../../types'
 
 export const initialData: Inspection = {
-	inspectionDate: new Date(new Date(Date.now()).toLocaleDateString().split('/').reverse().join('-')),
+	id: '',
+	inspectionDate: new Date(
+		new Date(Date.now())
+			.toLocaleDateString()
+			.split('/')
+			.reverse()
+			.join('-')
+	),
 	beeEnterExitHive: true,
 	bringingPollen: true,
 	signsOfRobbing: false,
@@ -32,29 +39,23 @@ export const hiveFormReducer = (
 	switch (action.type) {
 		case 'UPDATE_CHECKBOX':
 			return {
-                ...state,
-                ...action.payload
-            }
-		case 'CHANGE_DATE':
-			
-			
-			return {
-                ...state,
-                ...action.payload
-            }
-		case 'CHANGE_INPUT':
-			
-			return {
-                ...state,
-                ...action.payload
-            }
-		case 'SET_INITIAL_DATA':
-		
-			return {
-				...action.payload as Inspection,
+				...state,
+				...action.payload,
 			}
-		
-		
+		case 'CHANGE_DATE':
+			return {
+				...state,
+				...action.payload,
+			}
+		case 'CHANGE_INPUT':
+			return {
+				...state,
+				...action.payload,
+			}
+		case 'SET_INITIAL_DATA':
+			return {
+				...(action.payload as Inspection),
+			}
 
 		default:
 			return state
