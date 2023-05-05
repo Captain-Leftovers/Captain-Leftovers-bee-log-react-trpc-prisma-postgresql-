@@ -415,4 +415,3 @@ export default function HiveForm({
 		</form>
 	)
 }
-//TODO :  whole mobile layout is with some padding or margin or something bigger than the screen and it moves ot the side find and fix

@@ -145,11 +145,11 @@ export default function RootLayout() {
 					showNavFooter
 						? 'translate-y-0'
 						: 'translate-y-full'
-				} h-[5vh] bg-one text-center transition-all duration-500`}
+				} h-[5vh] bg-one text-center transition-all duration-500 flex items-center justify-center`}
 			>
-				<div className="container mx-auto flex flex-wrap items-center justify-between px-4">
-					<div className="container mx-auto flex flex-wrap items-center justify-between px-4 py-1.5">
-						<ul className="flex items-center space-x-4">
+				<div className="container mx-auto flex flex-wrap   justify-center px-4  ">
+					<div className="">
+						<ul className="flex gap-4">
 							<li>
 								<a
 									href="https://github.com/Captain-Leftovers/Captain-Leftovers-bee-log-react-trpc-prisma-postgresql-"
