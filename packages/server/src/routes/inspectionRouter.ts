@@ -82,9 +82,10 @@ export const inspectionRouter = router({
                     },
                 })
                 if(!inspection) throw new TRPCError({
-                    code: 'INTERNAL_SERVER_ERROR',
+                    code: 'NOT_FOUND',
                     message:
-                        'No inspection found',
+                        'No past inspections found',
+                    
                 })
                 
                 return inspection

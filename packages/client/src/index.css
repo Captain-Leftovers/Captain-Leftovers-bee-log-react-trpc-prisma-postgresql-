@@ -6,16 +6,14 @@
 
 	/* TODO remove debug apply */
 	
-	@apply outline-dashed outline-2 outline-lime-200;
+	/* @apply outline-dashed outline-2 outline-lime-200; */
 }
 
 html {
 	@apply w-screen h-screen;
 }
 
-.active {
-	
-}
+
 
 body{
 	@apply  text-one

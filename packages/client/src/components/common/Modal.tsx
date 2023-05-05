@@ -1,5 +1,5 @@
 // Modal.tsx
-import React, { FormEvent, useEffect } from 'react'
+import React, { useEffect } from 'react'
 
 interface ModalProps {
 	isOpen: boolean

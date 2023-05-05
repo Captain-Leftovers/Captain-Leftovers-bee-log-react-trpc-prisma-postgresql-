@@ -19,8 +19,14 @@ module.exports = {
         // flower2: "url('src/assets/flowers2Mb.png')",
 			},
 		
-		},
+		}, 
+		
 	},
+	// variants: {
+	// 	extend: {
+	// 		backgroundColor: [],
+	// 	},
+	// },
 	plugins: [],
 }
 

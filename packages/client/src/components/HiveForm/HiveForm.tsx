@@ -4,6 +4,8 @@ import { formatDateForInput } from '../../utils/commonUtils'
 import { SubmitInspection } from '../../types'
 import { useParams } from 'react-router-dom'
 
+let inspectionButton: 'Create' | 'Update'
+
 export default function HiveForm({
 	onSubmitAction,
 	initial,
@@ -17,8 +19,12 @@ export default function HiveForm({
 	const [state, dispatch] = useReducer(hiveFormReducer, initialData)
 	const params = useParams()
 	const hiveId = params.hiveId
+	if (!!initial?.id && initial.id !== undefined) {
+		inspectionButton = 'Update'
+	} else {
+		inspectionButton = 'Create'
+	}
 
-		
 	useEffect(() => {
 		if (initial) {
 			dispatch({
@@ -28,14 +34,21 @@ export default function HiveForm({
 		}
 	}, [initial])
 
-	const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-		const { name, value, type, checked } = e.target
+	const changeHandler = (
+		e:
+			| React.ChangeEvent<HTMLInputElement>
+			| React.ChangeEvent<HTMLTextAreaElement>
+	) => {
+		const { name, value, type, tagName } = e.target
 
-		if (type === 'checkbox') {
+		if (
+			e.target instanceof HTMLInputElement &&
+			type === 'checkbox'
+		) {
 			dispatch({
 				type: 'UPDATE_CHECKBOX',
 				payload: {
-					[name]: checked,
+					[name]: e.target.checked,
 				},
 			})
 		}
@@ -64,6 +77,14 @@ export default function HiveForm({
 				},
 			})
 		}
+		if (tagName === 'TEXTAREA') {
+			dispatch({
+				type: 'CHANGE_INPUT',
+				payload: {
+					[name]: value,
+				},
+			})
+		}
 	}
 
 	const submitFormHandler = (e: React.FormEvent<HTMLFormElement>) => {
@@ -83,12 +104,13 @@ export default function HiveForm({
 		<form
 			onSubmit={submitFormHandler}
 			action="POST"
-			className="mx-auto flex  flex-col flex-wrap"
+			className="mx-auto my-2  flex flex-col flex-wrap"
 		>
-			<div className="mx-auto pb-2">
-				<label htmlFor="inspectionDate">
-					inspectionDate
-				</label>
+			<div className="relative mx-auto  pb-2 ">
+				<label
+					htmlFor="inspectionDate"
+					className="absolute left-1/2 -top-0 -translate-x-1/2  whitespace-nowrap text-lg   text-one"
+				></label>
 				<input
 					onChange={changeHandler}
 					type="date"
@@ -97,14 +119,20 @@ export default function HiveForm({
 					)}
 					name="inspectionDate"
 					id="inspectionDate"
+					//TODO : add style
+					className=" mt-1 block w-full cursor-pointer rounded-md border border-gray-300 bg-white py-2  px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm "
 				/>
 			</div>
-			<div className="flex  flex-wrap pb-4 ">
-				<div className=" ">
-					<label htmlFor="beeEnterExitHive">
+			<div className="grid grid-cols-1  pb-4 ">
+				<div className="flex items-center justify-between border-b-2 border-t-2 border-one px-6 py-1 text-lg">
+					<label
+						className=""
+						htmlFor="beeEnterExitHive"
+					>
 						beeEnterExitHive
 					</label>
 					<input
+						className=" curosor-pointer align-center after:l-0 relative  inline-flex h-12 w-24 flex-shrink-0 appearance-none items-center justify-center overflow-hidden rounded-full bg-three transition duration-200 after:absolute after:left-0 after:top-0 after:h-12 after:w-12 	after:scale-90 after:rounded-full after:bg-five after:duration-200 after:content-[''] checked:bg-two checked:after:translate-x-12 checked:after:bg-green-400 focus:outline-none focus:ring-2 focus:ring-two focus:ring-offset-2"
 						onChange={changeHandler}
 						checked={state.beeEnterExitHive}
 						type="checkbox"
@@ -112,11 +140,12 @@ export default function HiveForm({
 						id="beeEnterExitHive"
 					/>
 				</div>
-				<div className="basis-1/3 ">
+				<div className="flex items-center justify-between border-b-2 border-one px-6 py-1 text-lg">
 					<label htmlFor="bringingPollen">
 						bringingPollen
 					</label>
 					<input
+						className="curosor-pointer align-center after:l-0 relative  inline-flex h-12 w-24 flex-shrink-0 appearance-none items-center justify-center overflow-hidden rounded-full bg-three transition duration-200 after:absolute after:left-0 after:top-0 after:h-12 after:w-12 	after:scale-90 after:rounded-full after:bg-five after:duration-200 after:content-[''] checked:bg-two checked:after:translate-x-12 checked:after:bg-green-400 focus:outline-none focus:ring-2 focus:ring-two focus:ring-offset-2"
 						onChange={changeHandler}
 						checked={state.bringingPollen}
 						type="checkbox"
@@ -124,11 +153,12 @@ export default function HiveForm({
 						id="bringingPollen"
 					/>
 				</div>
-				<div className="basis-1/3 ">
+				<div className="flex items-center justify-between border-b-2 border-one px-6 py-1 text-lg ">
 					<label htmlFor="signsOfRobbing">
 						signsOfRobbing
 					</label>
 					<input
+						className="curosor-pointer align-center after:l-0 relative  inline-flex h-12 w-24 flex-shrink-0 appearance-none items-center justify-center overflow-hidden rounded-full bg-three transition duration-200 after:absolute after:left-0 after:top-0 after:h-12 after:w-12 	after:scale-90 after:rounded-full after:bg-five after:duration-200 after:content-[''] checked:bg-two checked:after:translate-x-12 checked:after:bg-green-400 focus:outline-none focus:ring-2 focus:ring-two focus:ring-offset-2"
 						onChange={changeHandler}
 						checked={state.signsOfRobbing}
 						type="checkbox"
@@ -136,11 +166,12 @@ export default function HiveForm({
 						id="signsOfRobbing"
 					/>
 				</div>
-				<div className="basis-1/3 ">
+				<div className="flex items-center justify-between border-b-2 border-one px-6 py-1 text-lg ">
 					<label htmlFor="animalDisturbing">
 						animalDisturbing
 					</label>
 					<input
+						className="curosor-pointer align-center after:l-0 relative  inline-flex h-12 w-24 flex-shrink-0 appearance-none items-center justify-center overflow-hidden rounded-full bg-three transition duration-200 after:absolute after:left-0 after:top-0 after:h-12 after:w-12 	after:scale-90 after:rounded-full after:bg-five after:duration-200 after:content-[''] checked:bg-two checked:after:translate-x-12 checked:after:bg-green-400 focus:outline-none focus:ring-2 focus:ring-two focus:ring-offset-2"
 						onChange={changeHandler}
 						checked={state.animalDisturbing}
 						type="checkbox"
@@ -148,11 +179,12 @@ export default function HiveForm({
 						id="animalDisturbing"
 					/>
 				</div>
-				<div className="basis-1/3 ">
+				<div className="flex items-center justify-between border-b-2 border-one px-6 py-1 text-lg ">
 					<label htmlFor="beesCalmOnOpen">
 						beesCalmOnOpen
 					</label>
 					<input
+						className="curosor-pointer align-center after:l-0 relative  inline-flex h-12 w-24 flex-shrink-0 appearance-none items-center justify-center overflow-hidden rounded-full bg-three transition duration-200 after:absolute after:left-0 after:top-0 after:h-12 after:w-12 	after:scale-90 after:rounded-full after:bg-five after:duration-200 after:content-[''] checked:bg-two checked:after:translate-x-12 checked:after:bg-green-400 focus:outline-none focus:ring-2 focus:ring-two focus:ring-offset-2"
 						onChange={changeHandler}
 						checked={state.beesCalmOnOpen}
 						type="checkbox"
@@ -160,11 +192,12 @@ export default function HiveForm({
 						id="beesCalmOnOpen"
 					/>
 				</div>
-				<div className="basis-1/3 ">
+				<div className="flex items-center justify-between border-b-2 border-one px-6 py-1 text-lg ">
 					<label htmlFor="isBroodPatternGood">
 						isBroodPatternGood
 					</label>
 					<input
+						className="curosor-pointer align-center after:l-0 relative  inline-flex h-12 w-24 flex-shrink-0 appearance-none items-center justify-center overflow-hidden rounded-full bg-three transition duration-200 after:absolute after:left-0 after:top-0 after:h-12 after:w-12 	after:scale-90 after:rounded-full after:bg-five after:duration-200 after:content-[''] checked:bg-two checked:after:translate-x-12 checked:after:bg-green-400 focus:outline-none focus:ring-2 focus:ring-two focus:ring-offset-2"
 						onChange={changeHandler}
 						checked={
 							state.isBroodPatternGood
@@ -174,11 +207,12 @@ export default function HiveForm({
 						id="isBroodPatternGood"
 					/>
 				</div>
-				<div className="basis-1/3 ">
+				<div className="flex items-center justify-between border-b-2 border-one px-6 py-1 text-lg ">
 					<label htmlFor="areLarvaeHealthyWhiteShiny">
 						areLarvaeHealthyWhiteShiny
 					</label>
 					<input
+						className="curosor-pointer align-center after:l-0 relative  inline-flex h-12 w-24 flex-shrink-0 appearance-none items-center justify-center overflow-hidden rounded-full bg-three transition duration-200 after:absolute after:left-0 after:top-0 after:h-12 after:w-12 	after:scale-90 after:rounded-full after:bg-five after:duration-200 after:content-[''] checked:bg-two checked:after:translate-x-12 checked:after:bg-green-400 focus:outline-none focus:ring-2 focus:ring-two focus:ring-offset-2"
 						onChange={changeHandler}
 						checked={
 							state.areLarvaeHealthyWhiteShiny
@@ -188,11 +222,12 @@ export default function HiveForm({
 						id="areLarvaeHealthyWhiteShiny"
 					/>
 				</div>
-				<div className="basis-1/3 ">
+				<div className="flex items-center justify-between border-b-2 border-one px-6 py-1 text-lg ">
 					<label htmlFor="isJellyPresent">
 						isJellyPresent
 					</label>
 					<input
+						className="curosor-pointer align-center after:l-0 relative  inline-flex h-12 w-24 flex-shrink-0 appearance-none items-center justify-center overflow-hidden rounded-full bg-three transition duration-200 after:absolute after:left-0 after:top-0 after:h-12 after:w-12 	after:scale-90 after:rounded-full after:bg-five after:duration-200 after:content-[''] checked:bg-two checked:after:translate-x-12 checked:after:bg-green-400 focus:outline-none focus:ring-2 focus:ring-two focus:ring-offset-2"
 						onChange={changeHandler}
 						checked={state.isJellyPresent}
 						type="checkbox"
@@ -200,11 +235,12 @@ export default function HiveForm({
 						id="isJellyPresent"
 					/>
 				</div>
-				<div className="basis-1/3 ">
+				<div className="flex items-center justify-between border-b-2 border-one px-6 py-1 text-lg ">
 					<label htmlFor="broodCappedUncappedCells">
 						broodCappedUncappedCells
 					</label>
 					<input
+						className="curosor-pointer align-center after:l-0 relative  inline-flex h-12 w-24 flex-shrink-0 appearance-none items-center justify-center overflow-hidden rounded-full bg-three transition duration-200 after:absolute after:left-0 after:top-0 after:h-12 after:w-12 	after:scale-90 after:rounded-full after:bg-five after:duration-200 after:content-[''] checked:bg-two checked:after:translate-x-12 checked:after:bg-green-400 focus:outline-none focus:ring-2 focus:ring-two focus:ring-offset-2"
 						onChange={changeHandler}
 						checked={
 							state.broodCappedUncappedCells
@@ -214,11 +250,12 @@ export default function HiveForm({
 						id="broodCappedUncappedCells"
 					/>
 				</div>
-				<div className="basis-1/3 ">
+				<div className="flex items-center justify-between border-b-2 border-one px-6 py-1 text-lg ">
 					<label htmlFor="oneEggPerCell">
 						oneEggPerCell
 					</label>
 					<input
+						className="curosor-pointer align-center after:l-0 relative  inline-flex h-12 w-24 flex-shrink-0 appearance-none items-center justify-center overflow-hidden rounded-full bg-three transition duration-200 after:absolute after:left-0 after:top-0 after:h-12 after:w-12 	after:scale-90 after:rounded-full after:bg-five after:duration-200 after:content-[''] checked:bg-two checked:after:translate-x-12 checked:after:bg-green-400 focus:outline-none focus:ring-2 focus:ring-two focus:ring-offset-2"
 						onChange={changeHandler}
 						checked={state.oneEggPerCell}
 						type="checkbox"
@@ -226,11 +263,12 @@ export default function HiveForm({
 						id="oneEggPerCell"
 					/>
 				</div>
-				<div className="basis-1/3 ">
+				<div className="flex items-center justify-between border-b-2 border-one px-6 py-1 text-lg ">
 					<label htmlFor="antsPresent">
 						antsPresent
 					</label>
 					<input
+						className="curosor-pointer align-center after:l-0 relative  inline-flex h-12 w-24 flex-shrink-0 appearance-none items-center justify-center overflow-hidden rounded-full bg-three transition duration-200 after:absolute after:left-0 after:top-0 after:h-12 after:w-12 	after:scale-90 after:rounded-full after:bg-five after:duration-200 after:content-[''] checked:bg-two checked:after:translate-x-12 checked:after:bg-green-400 focus:outline-none focus:ring-2 focus:ring-two focus:ring-offset-2"
 						onChange={changeHandler}
 						checked={state.antsPresent}
 						type="checkbox"
@@ -238,11 +276,12 @@ export default function HiveForm({
 						id="antsPresent"
 					/>
 				</div>
-				<div className="basis-1/3 ">
+				<div className="flex items-center justify-between border-b-2 border-one px-6 py-1 text-lg ">
 					<label htmlFor="mothsPresent">
 						mothsPresent
 					</label>
 					<input
+						className="curosor-pointer align-center after:l-0 relative  inline-flex h-12 w-24 flex-shrink-0 appearance-none items-center justify-center overflow-hidden rounded-full bg-three transition duration-200 after:absolute after:left-0 after:top-0 after:h-12 after:w-12 	after:scale-90 after:rounded-full after:bg-five after:duration-200 after:content-[''] checked:bg-two checked:after:translate-x-12 checked:after:bg-green-400 focus:outline-none focus:ring-2 focus:ring-two focus:ring-offset-2"
 						onChange={changeHandler}
 						checked={state.mothsPresent}
 						type="checkbox"
@@ -250,11 +289,12 @@ export default function HiveForm({
 						id="mothsPresent"
 					/>
 				</div>
-				<div className="basis-1/3 ">
+				<div className="flex items-center justify-between border-b-2 border-one px-6 py-1 text-lg ">
 					<label htmlFor="unusualNumberDeadBees">
 						unusualNumberDeadBees
 					</label>
 					<input
+						className="curosor-pointer align-center after:l-0 relative  inline-flex h-12 w-24 flex-shrink-0 appearance-none items-center justify-center overflow-hidden rounded-full bg-three transition duration-200 after:absolute after:left-0 after:top-0 after:h-12 after:w-12 	after:scale-90 after:rounded-full after:bg-five after:duration-200 after:content-[''] checked:bg-two checked:after:translate-x-12 checked:after:bg-green-400 focus:outline-none focus:ring-2 focus:ring-two focus:ring-offset-2"
 						onChange={changeHandler}
 						checked={
 							state.unusualNumberDeadBees
@@ -264,9 +304,10 @@ export default function HiveForm({
 						id="unusualNumberDeadBees"
 					/>
 				</div>
-				<div className="basis-1/3 ">
+				<div className="flex items-center justify-between border-b-2 border-one px-6 py-1 text-lg ">
 					<label htmlFor="odor">odor</label>
 					<input
+						className="curosor-pointer align-center after:l-0 relative  inline-flex h-12 w-24 flex-shrink-0 appearance-none items-center justify-center overflow-hidden rounded-full bg-three transition duration-200 after:absolute after:left-0 after:top-0 after:h-12 after:w-12 	after:scale-90 after:rounded-full after:bg-five after:duration-200 after:content-[''] checked:bg-two checked:after:translate-x-12 checked:after:bg-green-400 focus:outline-none focus:ring-2 focus:ring-two focus:ring-offset-2"
 						onChange={changeHandler}
 						checked={state.odor}
 						type="checkbox"
@@ -274,11 +315,12 @@ export default function HiveForm({
 						id="odor"
 					/>
 				</div>
-				<div className="basis-1/3 ">
+				<div className="flex items-center justify-between border-b-2 border-one px-6 py-1 text-lg ">
 					<label htmlFor="tracheal">
 						tracheal
 					</label>
 					<input
+						className="curosor-pointer align-center after:l-0 relative  inline-flex h-12 w-24 flex-shrink-0 appearance-none items-center justify-center overflow-hidden rounded-full bg-three transition duration-200 after:absolute after:left-0 after:top-0 after:h-12 after:w-12 	after:scale-90 after:rounded-full after:bg-five after:duration-200 after:content-[''] checked:bg-two checked:after:translate-x-12 checked:after:bg-green-400 focus:outline-none focus:ring-2 focus:ring-two focus:ring-offset-2"
 						onChange={changeHandler}
 						checked={state.tracheal}
 						type="checkbox"
@@ -286,9 +328,10 @@ export default function HiveForm({
 						id="tracheal"
 					/>
 				</div>
-				<div className="basis-1/3 ">
+				<div className="flex items-center justify-between border-b-2 border-one px-6 py-1 text-lg ">
 					<label htmlFor="varroa">varroa</label>
 					<input
+						className="curosor-pointer align-center after:l-0 relative  inline-flex h-12 w-24 flex-shrink-0 appearance-none items-center justify-center overflow-hidden rounded-full bg-three transition duration-200 after:absolute after:left-0 after:top-0 after:h-12 after:w-12 	after:scale-90 after:rounded-full after:bg-five after:duration-200 after:content-[''] checked:bg-two checked:after:translate-x-12 checked:after:bg-green-400 focus:outline-none focus:ring-2 focus:ring-two focus:ring-offset-2"
 						onChange={changeHandler}
 						checked={state.varroa}
 						type="checkbox"
@@ -296,11 +339,12 @@ export default function HiveForm({
 						id="varroa"
 					/>
 				</div>
-				<div className="basis-1/3 ">
+				<div className="flex items-center justify-between border-b-2 border-one px-6 py-1 text-lg ">
 					<label htmlFor="spaceForNectar">
 						spaceForNectar
 					</label>
 					<input
+						className="curosor-poifocus:text-xlnter align-center after:l-0 relative  inline-flex h-12 w-24 flex-shrink-0 appearance-none items-center justify-center overflow-hidden rounded-full bg-three transition duration-200 after:absolute after:left-0 after:top-0 after:h-12 after:w-12 	after:scale-90 after:rounded-full after:bg-five after:duration-200 after:content-[''] checked:bg-two checked:after:translate-x-12 checked:after:bg-green-400 focus:outline-none focus:ring-2 focus:ring-two focus:ring-offset-2"
 						onChange={changeHandler}
 						checked={state.spaceForNectar}
 						type="checkbox"
@@ -308,11 +352,12 @@ export default function HiveForm({
 						id="spaceForNectar"
 					/>
 				</div>
-				<div className="basis-1/3 ">
+				<div className="flex items-center justify-between border-b-2 border-one px-6 py-1 text-lg ">
 					<label htmlFor="queenSeen">
 						queenSeen
 					</label>
 					<input
+						className="curosor-pointer align-center after:l-0 relative  inline-flex h-12 w-24 flex-shrink-0 appearance-none items-center justify-center overflow-hidden rounded-full bg-three transition duration-200 after:absolute after:left-0 after:top-0 after:h-12 after:w-12 	after:scale-90 after:rounded-full after:bg-five after:duration-200 after:content-[''] checked:bg-two checked:after:translate-x-12 checked:after:bg-green-400 focus:outline-none focus:ring-2 focus:ring-two focus:ring-offset-2"
 						onChange={changeHandler}
 						checked={state.queenSeen}
 						type="checkbox"
@@ -320,52 +365,54 @@ export default function HiveForm({
 						id="queenSeen"
 					/>
 				</div>
-				<div className="flex grow justify-center bg-two">
-					<div className="basis-1/3 ">
-						<label htmlFor="framesCoveredWithBees">
-							framesCoveredWithBees
-						</label>
-						<input
-							onChange={changeHandler}
-							value={
-								state.framesCoveredWithBees
-							}
-							type="number"
-							name="framesCoveredWithBees"
-							id="framesCoveredWithBees"
-						/>
-					</div>
-					<div className="basis-1/3 ">
-						<label htmlFor="framesUsedForBrood">
-							framesUsedForBrood
-						</label>
-						<input
-							onChange={changeHandler}
-							value={
-								state.framesUsedForBrood
-							}
-							type="number"
-							name="framesUsedForBrood"
-							id="framesUsedForBrood"
-						/>
-					</div>
+
+				<div className="flex items-center justify-between border-b-2 border-one px-6 py-1 text-lg ">
+					<label htmlFor="framesCoveredWithBees">
+						framesCoveredWithBees
+					</label>
+					<input
+						className="w-10 text-center text-2xl "
+						onChange={changeHandler}
+						value={
+							state.framesCoveredWithBees
+						}
+						type="number"
+						name="framesCoveredWithBees"
+						id="framesCoveredWithBees"
+					/>
 				</div>
+				<div className="flex items-center justify-between border-b-2 border-one px-6 py-1 text-lg ">
+					<label htmlFor="framesUsedForBrood">
+						framesUsedForBrood
+					</label>
+					<input
+						className="w-10 text-center text-2xl"
+						onChange={changeHandler}
+						value={state.framesUsedForBrood}
+						type="number"
+						name="framesUsedForBrood"
+						id="framesUsedForBrood"
+					/>
+				</div>
+
 				<div className="flex  grow flex-col  items-center  ">
 					<label htmlFor="comments">
 						comments
 					</label>
-					<input
+					<textarea
+						className="h-24 w-full rounded-lg border-2 border-one p-2"
 						onChange={changeHandler}
 						value={state.comments}
-						type="text"
 						name="comments"
 						id="comments"
 					/>
 				</div>
 			</div>
+			//TODO : add style to button
 			<button className="bg-two" type="submit">
-				Update Inspection
+				{inspectionButton}
 			</button>
 		</form>
 	)
 }
+//TODO :  whole mobile layout is with some padding or margin or something bigger than the screen and it moves ot the side find and fix

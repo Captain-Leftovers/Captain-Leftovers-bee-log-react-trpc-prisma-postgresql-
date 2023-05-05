@@ -2,6 +2,8 @@ import { toast } from 'react-hot-toast'
 
 export const errorHandler = async(error: any) => {
 
+	console.log(error.shape.message);
+	
 	if(error.data.httpStatus === 401){
 		
 		toast.error('Session expired, please login again')
@@ -20,7 +22,10 @@ export const errorHandler = async(error: any) => {
 		let message = error.data?.prismaError?.meta.target[0]
 
 		toast.error(`${message} already in use`)
-	} else {
+	} else if (error.shape.message === 'No past inspections found'){
+		toast(error.shape.message)
+	}
+	else {
 		
 		toast.error(error.message)
 		

@@ -45,6 +45,7 @@ export default function HiveDetails() {
 					trpcUtils.user.farms.hives.inspections.getLastInspection.refetch(
 						{ hiveId }
 					)
+					trpcUtils.user.farms.hives.inspections.getPastInspections.refetch({hiveId})
 					toast('inspection created')
 				},
 			}
@@ -123,7 +124,9 @@ export default function HiveDetails() {
 		})
 	}
 
-	const getSelectedInspection = (inspectionId: string) => {
+	const getSelectedInspection = ( inspectionId: string) => {
+
+		
 		const selectedInspection = pastInspections.find(
 			(inspection) => inspection.id === inspectionId
 		)
@@ -148,6 +151,14 @@ export default function HiveDetails() {
 		<div className="flex h-full  p-2 ">
 			<div className="w-full ">
 				<div className="flex justify-evenly">
+				<button
+					onClick={()=> {setSelectedInspection(null) 
+				 trpcUtils.user.farms.hives.inspections.getPastInspections.refetch({hiveId})
+				 }}
+					className="btn-secondary self-center"
+				>
+					new inspection
+				</button>
 					{!!(hiveId && hiveNumber) && (
 						<HiveSvg
 							hiveId={hiveId}
@@ -163,8 +174,8 @@ export default function HiveDetails() {
 				</div>
 
 				{getPastInspectionsQ.data && (
-					<div className=" container p-2">
-						<div className="flex justify-start gap-8 overflow-x-auto">
+					<div className=" container  my-2 ">
+						<div className="flex justify-start gap-6 overflow-x-auto p-4">
 							{pastInspections.map(
 								(
 									inspection
@@ -182,7 +193,7 @@ export default function HiveDetails() {
 														inspection.id
 													)
 												}
-												className="btn-secondary whitespace-nowrap"
+												className="active btn-secondary whitespace-nowrap"
 											>
 												{
 													inspection.inspectionDate.split(
@@ -207,7 +218,6 @@ export default function HiveDetails() {
 							initial={
 								selectedInspection
 									? {
-										
 											...selectedInspection,
 											inspectionDate:
 												new Date(
