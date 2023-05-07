@@ -45,7 +45,7 @@ export default function RootLayout() {
 	}
 
 	return (
-		<div className="relative flex min-h-screen w-screen flex-col   h-screen">
+		<div className="relative flex h-screen min-h-screen w-screen   flex-col">
 			<header
 				className={`${
 					showNavFooter
@@ -53,7 +53,7 @@ export default function RootLayout() {
 						: '-translate-y-full'
 				} flex  flex-wrap bg-six transition-all duration-500`}
 			>
-				<nav className="grow self-center bg-two p-2 ">
+				<nav className="grow self-center bg-two p-2 border-b">
 					<div className="">
 						<p className="mx-auto w-fit ">
 							BeeKeeper's Log
@@ -63,7 +63,7 @@ export default function RootLayout() {
 						<div className="flex  flex-wrap sm:gap-10">
 							<BeeIcon />
 
-							<div className="flex grow  items-center  justify-end">
+							<div className="flex grow  items-center  justify-end ">
 								<div className=" mx-auto ">
 									<div className=" px-2 hover:bg-opacity-80">
 										<NavLink
@@ -96,33 +96,33 @@ export default function RootLayout() {
 								)}
 								{isLoggedIn && (
 									<>
-										<div className=" uppercase text-three hover:opacity-80">
+										<div className=" uppercase text-three hover:opacity-80 ">
 											{isLoggedIn ? (
+												
 												<NavLink
-													className="nav-link"
-													to={
-														`user/${user?.id}` ||
-														''
-													}
+												className="nav-link  "
+												to={
+													`user/${user?.id}` ||
+													''
+												}
 												>
 													{
 														userContext
-															.user
-															?.username
+														.user
+														?.username
 													}
 												</NavLink>
 											) : null}
 										</div>
 										<div className="ml-auto px-2">
-											<NavLink
+											<button
 												className="nav-link"
-												to="/"
 												onClick={
 													handleLogout
 												}
 											>
 												Logout
-											</NavLink>
+											</button>
 										</div>
 									</>
 								)}
@@ -134,7 +134,7 @@ export default function RootLayout() {
 			<main
 				className={`${
 					showNavFooter ? 'pt-0' : 'pt-4'
-				} flex flex-grow   justify-center transition-all duration-500 overflow-auto`}
+				} flex flex-grow   justify-center overflow-auto transition-all duration-500`}
 			>
 				<div className="container flex flex-grow flex-col ">
 					<Outlet />
@@ -145,7 +145,7 @@ export default function RootLayout() {
 					showNavFooter
 						? 'translate-y-0'
 						: 'translate-y-full'
-				} h-[5vh] bg-one text-center transition-all duration-500 flex items-center justify-center`}
+				} flex h-[5vh] items-center justify-center bg-one text-center transition-all duration-500`}
 			>
 				<div className="container mx-auto flex flex-wrap   justify-center px-4  ">
 					<div className="">

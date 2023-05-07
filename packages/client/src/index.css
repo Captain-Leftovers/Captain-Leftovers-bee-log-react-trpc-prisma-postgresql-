@@ -10,7 +10,7 @@
 }
 
 html {
-	@apply w-screen h-screen;
+	@apply w-screen h-screen m-0 p-0 box-border
 }
 
 
@@ -19,7 +19,6 @@ body{
 	@apply  text-one
 	bg-gradient-to-t from-two to-three
 }
-
 
 
 

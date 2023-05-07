@@ -3,13 +3,14 @@ import ActionSVG from './common/ActionSVG'
 export default function Home() {
 	return (
 		<div className="flex h-full flex-col ">
+			
 			<section className=" py-4 sm:py-8 ">
 				<div className="container mx-auto flex flex-col items-center px-2">
 					<h2 className="text-2xl font-semibold  md:text-3xl">
 						Welcome to BeeKeepers' Log
 					</h2>
-					<ul className=''>
-						<li className='custom-li'>
+					<ul className="">
+						<li className="custom-li pr-[2rem]">
 							<p className=" md:text-xl">
 								the all-in-one
 								solution for
@@ -22,8 +23,8 @@ export default function Home() {
 						<div className="container">
 							<ActionSVG />
 						</div>
-					
-						<li className='custom-li'>
+
+						<li className="custom-li pr-[2rem]">
 							<p className=" md:text-xl">
 								Our
 								user-friendly
@@ -39,7 +40,7 @@ export default function Home() {
 								<br></br>
 							</p>
 						</li>
-						<li className='custom-li'>
+						<li className="custom-li pr-[2rem]">
 							<p>
 								With BeeKeeper's
 								log you'll have

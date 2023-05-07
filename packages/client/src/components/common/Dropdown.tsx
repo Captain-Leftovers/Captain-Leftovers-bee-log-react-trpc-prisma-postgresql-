@@ -1,16 +1,21 @@
-import  { useState } from 'react';
+import  { useEffect, useState } from 'react';
 
 type DropdownProps = {
     items: {name: string, id: string}[];
     text: string;
     callbackFn?: (id: string) => void,
     addNewOnClick?:()=>void,
+    openDropdown: boolean,
     addNewButtonText?: string
     delFn: (farmId:string)=>void
 };
 
-function Dropdown({ items, text,addNewOnClick, callbackFn, addNewButtonText, delFn }: DropdownProps ) {
+function Dropdown({ items, text,addNewOnClick, callbackFn,openDropdown, addNewButtonText, delFn }: DropdownProps ) {
   const [isOpen, setIsOpen] = useState(false);
+  useEffect(() => {
+    
+    setIsOpen(openDropdown);
+  }, [openDropdown]);
 
   const toggleDropdown = () => setIsOpen(!isOpen);
   const clickedButton = ()=>{
@@ -20,25 +25,26 @@ function Dropdown({ items, text,addNewOnClick, callbackFn, addNewButtonText, del
     setIsOpen(false)
   }
   return (
-    <div className="relative z-10">
+    <div className="relative z-10 flex flex-col  items-center  ">
+      
       <button
         onClick={toggleDropdown}
-        className="bg-three text-one px-4 py-2 rounded-lg hover:bg-opacity-80 transition-colors duration-300"
-      >
+        className="  min-w-fit bg-six text-three  px-4 py-2 rounded-lg hover:bg-opacity-80 transition-colors duration-300"
+        >
         {text}
       </button>
 
       {isOpen && (
-        <div className="absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-lg">
-          <ul className="divide-y divide-gray-200">
+        <div className="  mt-2 w-64 shadow-lg bg-gradient-to-b from-three to-two">
+          <ul className="divide-y divide-gray-200 flex flex-col ">
             {items.map((item) => (
-              <li key={item.id} className="hover:bg-gray-200 flex">
+              <li key={item.id} className="flex">
                 <button 
                   onClick={() => {
                     callbackFn?.(item.id);
                     setIsOpen(false);
                   }}
-                  className="block w-full p-2 text-left hover:bg-gray-100"
+                  className=" block w-full p-2 text-left hover:bg-six hover:bg-opacity-10 "
                 >
                   {item.name}
 
@@ -47,7 +53,7 @@ function Dropdown({ items, text,addNewOnClick, callbackFn, addNewButtonText, del
               </li>
             ))}
           </ul>
-          { !!addNewButtonText && <button onClick={clickedButton} className={` bg-four hover:bg-opacity-80 w-full text-left`}>{addNewButtonText}</button>}
+          { !!addNewButtonText && <button onClick={clickedButton} className={` bg-four hover:bg-opacity-80 w-full p-2`}>{addNewButtonText}</button>}
         </div>
       )}
     </div>

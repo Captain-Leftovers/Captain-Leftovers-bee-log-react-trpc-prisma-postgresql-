@@ -7,8 +7,8 @@ import { useState } from 'react'
 import { InspectionDb, SubmitInspection } from '../types'
 
 export default function HiveDetails() {
-	//TODO :  make upodate inspection to change past inspections and add list of past ones and add new
-	//TODO : add delete hive mutation and organazi mobile view
+	const [selectedButton, setSelectedButton] = useState<string | null>(null);
+	
 	const [pastInspections, setPastInspections] = useState<InspectionDb[]>(
 		[]
 	)
@@ -147,15 +147,25 @@ export default function HiveDetails() {
 			updateInspectionQ.mutate(data)
 		}
 	}
+
+	const handleButtonSelection = (buttonName:string) => {
+		console.log(buttonName);
+		
+		setSelectedButton(buttonName);
+	  };
 	return (
 		<div className="flex h-full  p-2 ">
 			<div className="w-full ">
 				<div className="flex justify-evenly">
 				<button
-					onClick={()=> {setSelectedInspection(null) 
+					onClick={()=> {
+						handleButtonSelection('newInspection')
+						setSelectedInspection(null) 
 				 trpcUtils.user.farms.hives.inspections.getPastInspections.refetch({hiveId})
 				 }}
-					className="btn-secondary self-center"
+					className={` ${
+						selectedButton === 'newInspection' ? 'text-three' : 'text-one'
+					  } btn-third self-center`}
 				>
 					new inspection
 				</button>
@@ -188,12 +198,14 @@ export default function HiveDetails() {
 											className=""
 										>
 											<button
-												onClick={() =>
+												onClick={(e) =>{
+													handleButtonSelection(inspection.id)
 													getSelectedInspection(
 														inspection.id
-													)
+														)
+													}
 												}
-												className="active btn-secondary whitespace-nowrap"
+												className={` ${selectedButton === inspection.id ? 'text-three' : 'text-one'} btn-third whitespace-nowrap`}
 											>
 												{
 													inspection.inspectionDate.split(

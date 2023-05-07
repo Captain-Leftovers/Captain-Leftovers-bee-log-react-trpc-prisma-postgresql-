@@ -1,7 +1,11 @@
 
 
 .nav-link {
-	@apply text-three
+	@apply text-three 
+}
+
+.active{
+	@apply border-b 
 }
 
 
@@ -9,13 +13,16 @@
 .btn-primary {
 	@apply	hover:bg-one hover:text-three 
 	rounded py-2 px-4 text-xl font-bold 
-	bg-two bg-opacity-80 hover:bg-opacity-90
+	bg-two bg-opacity-80 hover:bg-opacity-90 
 }
 
 .btn-secondary {
-	@apply text-one h-min p-2 bg-five hover:scale-105 rounded-lg
+	@apply hover:text-three text-one h-min p-2 bg-five     rounded-lg 
 }
 
+.btn-third {
+	@apply hover:text-three  h-min p-2 bg-five     rounded-lg 
+}
 .toHomeButton {
 	animation: toHomeAnimation 2s infinite;
 	opacity: 0;
@@ -163,6 +170,3 @@
   }
   
 
-  .btn-primary {
-	
-  }

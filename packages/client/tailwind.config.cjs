@@ -18,6 +18,15 @@ module.exports = {
         // flower1: "url('src/assets/flowersMb.png')",
         // flower2: "url('src/assets/flowers2Mb.png')",
 			},
+			animation: {
+				bottomBorder: 'background ease infinite',
+			  },
+			  keyframes: {
+				bottomBorder: {
+				  '0%, 100%': { backgroundPosition: '0% 50%' },
+				  '50%': { backgroundPosition: '100% 50%' },
+				},
+			  },
 		
 		}, 
 		

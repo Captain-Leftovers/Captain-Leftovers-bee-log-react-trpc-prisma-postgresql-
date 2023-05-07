@@ -50,7 +50,6 @@ export default function UserDetails() {
 	const getFarmHivesQ = trpc.user.farms.hives.getFarmhives.useQuery(
 		{ beeFarmId: ctx?.userData.pickedFarm?.id || null },
 		{
-			//TODO : think where and when to do this fetch
 			onError: (err) => {
 				errorHandler(err)
 			},
@@ -97,7 +96,6 @@ export default function UserDetails() {
 		let hiveNumber: number = nextHiveNumber(hives)
 		 if(!!addHiveNumber) hiveNumber = addHiveNumber
 		 
-		//TODO : create hiveInpuNumber to get the input number
 		createHiveQ.mutate({
 			beeFarmId: pickedFarm?.id,
 			number: hiveNumber,
@@ -114,14 +112,11 @@ export default function UserDetails() {
 		e.preventDefault()
 		closeFarmModal()
 		const inputValue = farmInput.current?.value
-		//TODO : add new farm on trpc backendfarmId:string
 		if (!inputValue) return
 		createNewFarmQ.mutate(inputValue)
 
-		//TODO : Refetch the farms to display !!!
 	}
 
-	//TODO : get farms from db and display them
 	const delFarmHandler = (id: string) => {
 		delFarmQ.mutate({ farmId: id })
 	}
@@ -135,6 +130,7 @@ export default function UserDetails() {
 						addNewOnClick={
 							addNewFarmHandler
 						}
+						openDropdown={!!!pickedFarm}
 						addNewButtonText="Add new Farm"
 						callbackFn={handlePickedFarm}
 						text="Farms"
@@ -185,23 +181,23 @@ export default function UserDetails() {
 				/>
 			</div>
 				{pickedFarm ? (
-			<div className="flex gap-4">
+			<div className="flex gap-4 relative items-center">
 					
 				<button
 					disabled={createHiveQ.isLoading} 
 					onClick={addHiveHandler}
 					className='
 					
-					 rounded-md bg-three px-4 py-2 hover:bg-opacity-80'
+					 btn-secondary'
 				>
 					{` Add Hive to ${
 						pickedFarm?.farmName ||
 						'your Farm'
 					}`}
 				</button>
-				<input onChange={(e)=> setAddHiveNumber(+(e.target.value))} className='w-10 text-center'  type="number" value={addHiveNumber} placeholder='num' min="1" step="1" />
+				<input onChange={(e)=> setAddHiveNumber(+(e.target.value))} className='absolute -right-12  w-10 text-center'  type="number" value={addHiveNumber} placeholder='num' min="1" step="1" />
 			</div>
-				):null}
+				): null}
 			<div className=" grow    overflow-auto py-2">
 				<div className="flex flex-wrap justify-center gap-2 ">
 					{hives?.map((hive) => (

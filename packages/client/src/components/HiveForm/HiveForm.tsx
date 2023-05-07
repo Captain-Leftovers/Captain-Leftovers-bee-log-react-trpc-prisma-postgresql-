@@ -1,4 +1,4 @@
-import { useEffect, useReducer } from 'react'
+import { useEffect, useReducer} from 'react'
 import { hiveFormReducer, initialData } from './hiveFormReducer'
 import { formatDateForInput } from '../../utils/commonUtils'
 import { SubmitInspection } from '../../types'
@@ -16,6 +16,7 @@ export default function HiveForm({
 	) => void
 	initial: any
 }) {
+
 	const [state, dispatch] = useReducer(hiveFormReducer, initialData)
 	const params = useParams()
 	const hiveId = params.hiveId
@@ -87,6 +88,7 @@ export default function HiveForm({
 		}
 	}
 
+
 	const submitFormHandler = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
 		//
@@ -119,14 +121,13 @@ export default function HiveForm({
 					)}
 					name="inspectionDate"
 					id="inspectionDate"
-					//TODO : add style
-					className=" mt-1 block w-full cursor-pointer rounded-md border border-gray-300 bg-white py-2  px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm "
+					className=" mt-1 block w-full cursor-pointer rounded-md border border-gray-300 bg-white py-2  px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm hover:ring-2" 
 				/>
 			</div>
 			<div className="grid grid-cols-1  pb-4 ">
-				<div className="flex items-center justify-between border-b-2 border-t-2 border-one px-6 py-1 text-lg">
+				<div className="flex hover:text-three items-center justify-between border-b-2 border-t-2 border-one px-6 py-1 text-lg hover:text-three">
 					<label
-						className=""
+						className="w-full -m-6 px-6"
 						htmlFor="beeEnterExitHive"
 					>
 						beeEnterExitHive
@@ -140,8 +141,10 @@ export default function HiveForm({
 						id="beeEnterExitHive"
 					/>
 				</div>
-				<div className="flex items-center justify-between border-b-2 border-one px-6 py-1 text-lg">
-					<label htmlFor="bringingPollen">
+				<div className="flex hover:text-three items-center justify-between border-b-2 border-one px-6 py-1 text-lg">
+					<label 
+					className=" -m-6 px-6"
+					htmlFor="bringingPollen">
 						bringingPollen
 					</label>
 					<input
@@ -153,8 +156,10 @@ export default function HiveForm({
 						id="bringingPollen"
 					/>
 				</div>
-				<div className="flex items-center justify-between border-b-2 border-one px-6 py-1 text-lg ">
-					<label htmlFor="signsOfRobbing">
+				<div className="flex hover:text-three items-center justify-between border-b-2 border-one px-6 py-1 text-lg ">
+					<label 
+					className=" -m-6 px-6"
+					htmlFor="signsOfRobbing">
 						signsOfRobbing
 					</label>
 					<input
@@ -166,8 +171,10 @@ export default function HiveForm({
 						id="signsOfRobbing"
 					/>
 				</div>
-				<div className="flex items-center justify-between border-b-2 border-one px-6 py-1 text-lg ">
-					<label htmlFor="animalDisturbing">
+				<div className="flex hover:text-three items-center justify-between border-b-2 border-one px-6 py-1 text-lg ">
+					<label 
+					className=" -m-6 px-6"
+					htmlFor="animalDisturbing">
 						animalDisturbing
 					</label>
 					<input
@@ -179,8 +186,10 @@ export default function HiveForm({
 						id="animalDisturbing"
 					/>
 				</div>
-				<div className="flex items-center justify-between border-b-2 border-one px-6 py-1 text-lg ">
-					<label htmlFor="beesCalmOnOpen">
+				<div className="flex hover:text-three items-center justify-between border-b-2 border-one px-6 py-1 text-lg ">
+					<label 
+					className=" -m-6 px-6"
+					htmlFor="beesCalmOnOpen">
 						beesCalmOnOpen
 					</label>
 					<input
@@ -192,8 +201,10 @@ export default function HiveForm({
 						id="beesCalmOnOpen"
 					/>
 				</div>
-				<div className="flex items-center justify-between border-b-2 border-one px-6 py-1 text-lg ">
-					<label htmlFor="isBroodPatternGood">
+				<div className="flex hover:text-three items-center justify-between border-b-2 border-one px-6 py-1 text-lg ">
+					<label 
+					className=" -m-6 px-6"
+					htmlFor="isBroodPatternGood">
 						isBroodPatternGood
 					</label>
 					<input
@@ -207,8 +218,10 @@ export default function HiveForm({
 						id="isBroodPatternGood"
 					/>
 				</div>
-				<div className="flex items-center justify-between border-b-2 border-one px-6 py-1 text-lg ">
-					<label htmlFor="areLarvaeHealthyWhiteShiny">
+				<div className="flex hover:text-three items-center justify-between border-b-2 border-one px-6 py-1 text-lg ">
+					<label 
+					className=" -m-6 px-6"
+					htmlFor="areLarvaeHealthyWhiteShiny">
 						areLarvaeHealthyWhiteShiny
 					</label>
 					<input
@@ -222,8 +235,10 @@ export default function HiveForm({
 						id="areLarvaeHealthyWhiteShiny"
 					/>
 				</div>
-				<div className="flex items-center justify-between border-b-2 border-one px-6 py-1 text-lg ">
-					<label htmlFor="isJellyPresent">
+				<div className="flex hover:text-three items-center justify-between border-b-2 border-one px-6 py-1 text-lg ">
+					<label 
+					className=" -m-6 px-6"
+					htmlFor="isJellyPresent">
 						isJellyPresent
 					</label>
 					<input
@@ -235,8 +250,10 @@ export default function HiveForm({
 						id="isJellyPresent"
 					/>
 				</div>
-				<div className="flex items-center justify-between border-b-2 border-one px-6 py-1 text-lg ">
-					<label htmlFor="broodCappedUncappedCells">
+				<div className="flex hover:text-three items-center justify-between border-b-2 border-one px-6 py-1 text-lg ">
+					<label 
+					className=" -m-6 px-6"
+					htmlFor="broodCappedUncappedCells">
 						broodCappedUncappedCells
 					</label>
 					<input
@@ -250,8 +267,10 @@ export default function HiveForm({
 						id="broodCappedUncappedCells"
 					/>
 				</div>
-				<div className="flex items-center justify-between border-b-2 border-one px-6 py-1 text-lg ">
-					<label htmlFor="oneEggPerCell">
+				<div className="flex hover:text-three items-center justify-between border-b-2 border-one px-6 py-1 text-lg ">
+					<label 
+					className=" -m-6 px-6"
+					htmlFor="oneEggPerCell">
 						oneEggPerCell
 					</label>
 					<input
@@ -263,8 +282,10 @@ export default function HiveForm({
 						id="oneEggPerCell"
 					/>
 				</div>
-				<div className="flex items-center justify-between border-b-2 border-one px-6 py-1 text-lg ">
-					<label htmlFor="antsPresent">
+				<div className="flex hover:text-three items-center justify-between border-b-2 border-one px-6 py-1 text-lg ">
+					<label 
+					className=" -m-6 px-6"
+					htmlFor="antsPresent">
 						antsPresent
 					</label>
 					<input
@@ -276,8 +297,10 @@ export default function HiveForm({
 						id="antsPresent"
 					/>
 				</div>
-				<div className="flex items-center justify-between border-b-2 border-one px-6 py-1 text-lg ">
-					<label htmlFor="mothsPresent">
+				<div className="flex hover:text-three items-center justify-between border-b-2 border-one px-6 py-1 text-lg ">
+					<label 
+					className=" -m-6 px-6"
+					htmlFor="mothsPresent">
 						mothsPresent
 					</label>
 					<input
@@ -289,8 +312,10 @@ export default function HiveForm({
 						id="mothsPresent"
 					/>
 				</div>
-				<div className="flex items-center justify-between border-b-2 border-one px-6 py-1 text-lg ">
-					<label htmlFor="unusualNumberDeadBees">
+				<div className="flex hover:text-three items-center justify-between border-b-2 border-one px-6 py-1 text-lg ">
+					<label 
+					className=" -m-6 px-6"
+					htmlFor="unusualNumberDeadBees">
 						unusualNumberDeadBees
 					</label>
 					<input
@@ -304,8 +329,10 @@ export default function HiveForm({
 						id="unusualNumberDeadBees"
 					/>
 				</div>
-				<div className="flex items-center justify-between border-b-2 border-one px-6 py-1 text-lg ">
-					<label htmlFor="odor">odor</label>
+				<div className="flex hover:text-three items-center justify-between border-b-2 border-one px-6 py-1 text-lg ">
+					<label 
+					className=" -m-6 px-6"
+					htmlFor="odor">odor</label>
 					<input
 						className="curosor-pointer align-center after:l-0 relative  inline-flex h-12 w-24 flex-shrink-0 appearance-none items-center justify-center overflow-hidden rounded-full bg-three transition duration-200 after:absolute after:left-0 after:top-0 after:h-12 after:w-12 	after:scale-90 after:rounded-full after:bg-five after:duration-200 after:content-[''] checked:bg-two checked:after:translate-x-12 checked:after:bg-green-400 focus:outline-none focus:ring-2 focus:ring-two focus:ring-offset-2"
 						onChange={changeHandler}
@@ -315,8 +342,10 @@ export default function HiveForm({
 						id="odor"
 					/>
 				</div>
-				<div className="flex items-center justify-between border-b-2 border-one px-6 py-1 text-lg ">
-					<label htmlFor="tracheal">
+				<div className="flex hover:text-three items-center justify-between border-b-2 border-one px-6 py-1 text-lg ">
+					<label 
+					className=" -m-6 px-6"
+					htmlFor="tracheal">
 						tracheal
 					</label>
 					<input
@@ -328,8 +357,10 @@ export default function HiveForm({
 						id="tracheal"
 					/>
 				</div>
-				<div className="flex items-center justify-between border-b-2 border-one px-6 py-1 text-lg ">
-					<label htmlFor="varroa">varroa</label>
+				<div className="flex hover:text-three items-center justify-between border-b-2 border-one px-6 py-1 text-lg ">
+					<label 
+					className=" -m-6 px-6"
+					htmlFor="varroa">varroa</label>
 					<input
 						className="curosor-pointer align-center after:l-0 relative  inline-flex h-12 w-24 flex-shrink-0 appearance-none items-center justify-center overflow-hidden rounded-full bg-three transition duration-200 after:absolute after:left-0 after:top-0 after:h-12 after:w-12 	after:scale-90 after:rounded-full after:bg-five after:duration-200 after:content-[''] checked:bg-two checked:after:translate-x-12 checked:after:bg-green-400 focus:outline-none focus:ring-2 focus:ring-two focus:ring-offset-2"
 						onChange={changeHandler}
@@ -339,8 +370,10 @@ export default function HiveForm({
 						id="varroa"
 					/>
 				</div>
-				<div className="flex items-center justify-between border-b-2 border-one px-6 py-1 text-lg ">
-					<label htmlFor="spaceForNectar">
+				<div className="flex hover:text-three items-center justify-between border-b-2 border-one px-6 py-1 text-lg ">
+					<label 
+					className=" -m-6 px-6"
+					htmlFor="spaceForNectar">
 						spaceForNectar
 					</label>
 					<input
@@ -352,8 +385,10 @@ export default function HiveForm({
 						id="spaceForNectar"
 					/>
 				</div>
-				<div className="flex items-center justify-between border-b-2 border-one px-6 py-1 text-lg ">
-					<label htmlFor="queenSeen">
+				<div className="flex hover:text-three items-center justify-between border-b-2 border-one px-6 py-1 text-lg ">
+					<label 
+					className=" -m-6 px-6"
+					htmlFor="queenSeen">
 						queenSeen
 					</label>
 					<input
@@ -367,7 +402,9 @@ export default function HiveForm({
 				</div>
 
 				<div className="flex items-center justify-between border-b-2 border-one px-6 py-1 text-lg ">
-					<label htmlFor="framesCoveredWithBees">
+					<label 
+					className=""
+					htmlFor="framesCoveredWithBees">
 						framesCoveredWithBees
 					</label>
 					<input
@@ -382,7 +419,9 @@ export default function HiveForm({
 					/>
 				</div>
 				<div className="flex items-center justify-between border-b-2 border-one px-6 py-1 text-lg ">
-					<label htmlFor="framesUsedForBrood">
+					<label 
+					className=""
+					htmlFor="framesUsedForBrood">
 						framesUsedForBrood
 					</label>
 					<input
@@ -396,7 +435,9 @@ export default function HiveForm({
 				</div>
 
 				<div className="flex  grow flex-col  items-center  ">
-					<label htmlFor="comments">
+					<label 
+					className=""
+					htmlFor="comments">
 						comments
 					</label>
 					<textarea
@@ -408,10 +449,12 @@ export default function HiveForm({
 					/>
 				</div>
 			</div>
-			//TODO : add style to button
-			<button className="bg-two" type="submit">
+			
+			<button className="btn-secondary w-3/4 mx-auto mb-10" type="submit">
 				{inspectionButton}
 			</button>
 		</form>
 	)
 }
+
+
