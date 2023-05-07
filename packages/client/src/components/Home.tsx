@@ -2,14 +2,14 @@ import ActionSVG from './common/ActionSVG'
 
 export default function Home() {
 	return (
-		<div className="flex h-full flex-col ">
+		<div className="flex h-full flex-col  ">
 			
-			<section className=" py-4 sm:py-8 ">
-				<div className="container mx-auto flex flex-col items-center px-2">
+			<section className=" py-4 sm:py-8 h-full">
+				<div className="h-full mx-auto flex flex-col items-center px-2">
 					<h2 className="text-2xl font-semibold  md:text-3xl">
 						Welcome to BeeKeepers' Log
 					</h2>
-					<ul className="">
+					<ul className="flex flex-col items-center h-full md:gap-4">
 						<li className="custom-li pr-[2rem]">
 							<p className=" md:text-xl">
 								the all-in-one
@@ -20,7 +20,7 @@ export default function Home() {
 								inspections.
 							</p>
 						</li>
-						<div className="container">
+						<div className="container md:order-last md:w-2/5">
 							<ActionSVG />
 						</div>
 
@@ -40,7 +40,7 @@ export default function Home() {
 								<br></br>
 							</p>
 						</li>
-						<li className="custom-li pr-[2rem]">
+						<li className="custom-li pr-[2rem] md:text-xl">
 							<p>
 								With BeeKeeper's
 								log you'll have
@@ -60,3 +60,6 @@ export default function Home() {
 		</div>
 	)
 }
+
+
+//TODO : add GUEST to login and register so they can see the app without having to register

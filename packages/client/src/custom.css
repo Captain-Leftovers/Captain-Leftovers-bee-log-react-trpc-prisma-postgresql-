@@ -1,27 +1,23 @@
-
-
 .nav-link {
-	@apply text-three 
+	@apply text-three;
 }
 
-.active{
-	@apply border-b 
+.active {
+	@apply border-b;
 }
-
-
 
 .btn-primary {
-	@apply	hover:bg-one hover:text-three 
-	rounded py-2 px-4 text-xl font-bold 
-	bg-two bg-opacity-80 hover:bg-opacity-90 
+	@apply rounded bg-two 
+	bg-opacity-80 py-2 px-4 text-xl font-bold 
+	hover:bg-one hover:bg-opacity-90 hover:text-three;
 }
 
 .btn-secondary {
-	@apply hover:text-three text-one h-min p-2 bg-five     rounded-lg 
+	@apply h-min rounded-lg bg-five p-2 text-one     hover:text-three;
 }
 
 .btn-third {
-	@apply hover:text-three  h-min p-2 bg-five     rounded-lg 
+	@apply h-min  rounded-lg bg-five p-2     hover:text-three;
 }
 .toHomeButton {
 	animation: toHomeAnimation 2s infinite;
@@ -34,43 +30,43 @@
 }
 
 .main {
-    transition: opacity 0.5s ease-in;
-  }
+	transition: opacity 0.5s ease-in;
+}
 
-  /* bee */
-  .bee-container {
+/* bee */
+.bee-container {
 	width: 40px;
 	height: 40px;
 	position: relative;
-  }
-  
-  .bee {
+}
+
+.bee {
 	width: 50%;
 	height: 75%;
 	position: absolute;
-	bottom:20%;
+	bottom: 20%;
 	left: 25%;
-  }
-  
-  .bee__rect {
+}
+
+.bee__rect {
 	margin: 0 auto;
 	width: 70%;
 	height: 20%;
 	background: #4d4d4d;
 	margin-top: 20%;
-  }
-  
-  .bee__oval {
+}
+
+.bee__oval {
 	width: 70%;
 	height: 20%;
 	background: #4d4d4d;
 	border-radius: 50% 50% 0 0/100% 100% 0 0;
 	margin: 0 auto;
-  }
-  
-  .bee__oval--top:after,
-  .bee__oval--top:before {
-	content: "";
+}
+
+.bee__oval--top:after,
+.bee__oval--top:before {
+	content: '';
 	position: absolute;
 	top: -10%;
 	width: 15%;
@@ -78,26 +74,26 @@
 	border: 10% solid transparent;
 	border-top-color: #474e56;
 	border-radius: 50%;
-  }
-  
-  .bee__oval--top:after {
+}
+
+.bee__oval--top:after {
 	transform: rotate(-45deg);
 	right: -15%;
-  }
-  
-  .bee__oval--top:before {
+}
+
+.bee__oval--top:before {
 	transform: rotate(45deg);
 	left: -15%;
-  }
-  
-  .bee__oval--bottom {
+}
+
+.bee__oval--bottom {
 	transform: rotate(180deg);
 	margin-top: 20%;
 	position: relative;
-  }
-  
-  .bee__oval--bottom:after {
-	content: "";
+}
+
+.bee__oval--bottom:after {
+	content: '';
 	position: absolute;
 	left: 50%;
 	bottom: 90%;
@@ -107,54 +103,50 @@
 	border-left: 10% solid transparent;
 	border-right: 10% solid transparent;
 	border-bottom: 19% solid #4d4d4d;
-  }
-  
-  .bee__wing {
+}
+
+.bee__wing {
 	position: absolute;
 	top: 25%;
 	width: 60%;
 	height: 70%;
 	background-color: #fde8cb;
 	border-radius: 50% 50% 50% 50%/65% 65% 35% 35%;
-  }
-  
-  .bee__wing--left {
+}
+
+.bee__wing--left {
 	left: -25%;
 	transform: rotate(35deg) rotateX(0);
 	animation: fly-l 0.5s infinite alternate;
-  }
-  
-  .bee__wing--right {
+}
+
+.bee__wing--right {
 	right: -25%;
 	transform: rotate(-35deg);
 	animation: fly-r 0.5s infinite alternate;
-  }
-  
-  @keyframes fly-l {
+}
+
+@keyframes fly-l {
 	100% {
-	  transform: rotate(30deg) rotateX(15deg);
+		transform: rotate(30deg) rotateX(15deg);
 	}
-  }
-  
-  @keyframes fly-r {
+}
+
+@keyframes fly-r {
 	100% {
-	  transform: rotate(-30deg) rotateX(-15deg);
+		transform: rotate(-30deg) rotateX(-15deg);
 	}
-  }
-  
+}
 
+/* li decoration daisy */
 
-  /* li decoration daisy */
-
-  .custom-li {
+.custom-li {
 	list-style-type: none;
 	position: relative;
 	padding-left: 2rem;
-	
-
 }
-  
-  .custom-li::before {
+
+.custom-li::before {
 	content: '';
 	display: inline-block;
 	position: absolute;
@@ -167,6 +159,4 @@
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: contain;
-  }
-  
-
+}

@@ -51,7 +51,7 @@ const [toHomeVisible, setToHomeVisible] = useState(false);
 
 			userContext?.setUser(user)
 
-			navigate('/')
+			navigate(`/user/${user.id}`)
 
 			toast.success(
 				` ${user.username} Logged in successfully!`

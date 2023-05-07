@@ -45,13 +45,13 @@ export default function RootLayout() {
 	}
 
 	return (
-		<div className="relative flex h-screen min-h-screen w-screen   flex-col">
+		<div className="relative flex h-screen min-h-screen w-screen   flex-col md:overflow-hidden ">
 			<header
 				className={`${
 					showNavFooter
 						? 'translate-y-0'
 						: '-translate-y-full'
-				} flex  flex-wrap bg-six transition-all duration-500`}
+				} flex  flex-wrap transition-all duration-500`}
 			>
 				<nav className="grow self-center bg-two p-2 border-b">
 					<div className="">
@@ -60,10 +60,10 @@ export default function RootLayout() {
 						</p>
 					</div>
 					<div className="">
-						<div className="flex  flex-wrap sm:gap-10">
+						<div className="flex  flex-wrap sm:px-4 md:justify-between">
 							<BeeIcon />
 
-							<div className="flex grow  items-center  justify-end ">
+							<div className="flex grow  items-center  justify-end md:grow-0 md:gap-10 ">
 								<div className=" mx-auto ">
 									<div className=" px-2 hover:bg-opacity-80">
 										<NavLink
@@ -149,7 +149,7 @@ export default function RootLayout() {
 			>
 				<div className="container mx-auto flex flex-wrap   justify-center px-4  ">
 					<div className="">
-						<ul className="flex gap-4">
+						<ul className="flex gap-4 md:gap-10">
 							<li>
 								<a
 									href="https://github.com/Captain-Leftovers/Captain-Leftovers-bee-log-react-trpc-prisma-postgresql-"

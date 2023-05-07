@@ -3,7 +3,7 @@ import HiveSvg from './common/HiveSvg'
 import { trpc } from '../utils/trpc'
 import HiveForm from './HiveForm/HiveForm'
 import { toast } from 'react-hot-toast'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { InspectionDb, SubmitInspection } from '../types'
 
 export default function HiveDetails() {
@@ -124,6 +124,7 @@ export default function HiveDetails() {
 		})
 	}
 
+
 	const getSelectedInspection = ( inspectionId: string) => {
 
 		
@@ -133,6 +134,15 @@ export default function HiveDetails() {
 
 		if (!selectedInspection) return
 		setSelectedInspection(selectedInspection)
+	}
+
+	const hiveDetailsRef = useRef<HTMLDivElement>(null)
+
+	const scrollFn = ()=>{
+		
+		if(!hiveDetailsRef.current) {toast('no ref current') 
+		return}
+		hiveDetailsRef.current.scrollIntoView({behavior:'smooth'})
 	}
 
 	const submitHandler = (
@@ -149,12 +159,13 @@ export default function HiveDetails() {
 	}
 
 	const handleButtonSelection = (buttonName:string) => {
-		console.log(buttonName);
 		
 		setSelectedButton(buttonName);
 	  };
 	return (
-		<div className="flex h-full  p-2 ">
+		<div 
+		ref = {hiveDetailsRef}
+		className="flex h-full  p-2 ">
 			<div className="w-full ">
 				<div className="flex justify-evenly">
 				<button
@@ -221,9 +232,10 @@ export default function HiveDetails() {
 					</div>
 				)}
 
-				<div className="">
+				<div className="overflow-auto">
 					{getLastInspectionQ.isFetched && (
 						<HiveForm
+							scrollFn={scrollFn}
 							onSubmitAction={
 								submitHandler
 							}
