@@ -18,9 +18,14 @@ export interface InputFieldType {
 	autoComplete?: string
 }
 
+const guestState = {
+	email:'guest@gmail.com',
+	password: 'A123456!'
+}
+
 const initialState = {
 	email: '',
-	password: 'Darkwolf128!',
+	password: '',
 }
 
 export default function Login() {
@@ -104,6 +109,13 @@ const [toHomeVisible, setToHomeVisible] = useState(false);
 			[e.target.name]: e.target.value,
 		})
 	}
+
+	const loginAsGuestHandler = () => {
+		setUserData(guestState)
+
+		//TODO : added login as guest to login page add it in to the register aswell
+	}
+
 	return (
 		<div className="flex h-full flex-col items-center justify-center ">
 			<div className={`absolute left-5 top-5 bg-three px-2 hover:bg-opacity-80 toHomeButton ${toHomeVisible ? "toHomeButtonVisible" : ''}`}>
@@ -142,6 +154,7 @@ const [toHomeVisible, setToHomeVisible] = useState(false);
 								/>
 							)
 						)}
+						<button onClick={loginAsGuestHandler}  className=" mb-2 text-right text-sm text-one hover:text-three hover:underline">Login as Guest</button>
 						<button className="btn-primary">
 							
 							Login

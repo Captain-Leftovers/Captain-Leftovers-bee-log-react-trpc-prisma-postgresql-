@@ -21,8 +21,8 @@ export interface InputFieldType {
 const initialState = {
 	username: '',
 	email: '',
-	password: 'Darkwolf128!',
-	confirmPassword: 'Darkwolf128!',
+	password: '',
+	confirmPassword: '',
 }
 
 export default function Home() {
