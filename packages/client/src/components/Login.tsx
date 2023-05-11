@@ -110,7 +110,7 @@ const [toHomeVisible, setToHomeVisible] = useState(false);
 		})
 	}
 
-	const loginAsGuestHandler = () => {
+ 	const loginAsGuestHandler = () => {
 		setUserData(guestState)
 
 		//TODO : added login as guest to login page add it in to the register aswell

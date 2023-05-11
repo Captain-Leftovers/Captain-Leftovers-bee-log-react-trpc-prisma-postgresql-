@@ -18,6 +18,11 @@ export interface InputFieldType {
 	autoComplete?: string
 }
 
+const guestState = {
+	email: 'guest@gmail.com',
+	password: 'A123456!',
+  }
+
 const initialState = {
 	username: '',
 	email: '',
@@ -43,6 +48,23 @@ export default function Home() {
 	const navigate = useNavigate()
 
 	type UserState = typeof initialState
+
+	const loginGuest = trpc.user.loginUser.useMutation({
+		onError: (error) => {
+			errorHandler(error)
+		},
+		onSuccess: (data) => {
+			const user = data.currentUser
+
+			userContext?.setUser(user)
+
+			navigate(`/user/${user.id}`)
+
+			toast.success(
+				` ${user.username} Logged in successfully!`
+			)
+		},
+	})
 
 	const { mutate } = trpc.user.registerUser.useMutation({
 		onError: (error) => {
@@ -125,6 +147,10 @@ export default function Home() {
 			[e.target.name]: e.target.value,
 		})
 	}
+
+	const loginAsGuestHandler = () => {
+		loginGuest.mutate(guestState)
+	}
 	return (
 		<div className="flex h-full flex-col items-center justify-center  text-sm">
 			<div className={`absolute left-5 top-5 bg-three px-2 hover:bg-opacity-80 toHomeButton ${toHomeVisible ? "toHomeButtonVisible" : ''}`}>
@@ -161,6 +187,7 @@ export default function Home() {
 								/>
 							)
 						)}
+						<button onClick={loginAsGuestHandler}  className=" mb-2 text-right text-sm text-one hover:text-three hover:underline">Login as Guest</button>
 						<button className="btn-primary">
 							Register
 						</button>
