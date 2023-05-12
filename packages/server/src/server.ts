@@ -23,7 +23,7 @@ const app = express()
 app.use(
 	cors({
 		//TODO : change this to the actual url
-		origin: 'http://localhost:5173',
+		origin: 'https://captain-leftovers-bee-log-react-trpc-prisma-postgresql-client.vercel.app/',
 		credentials: true,
 	})
 )
@@ -56,7 +56,6 @@ app.use(
 		createContext,
 	})
 )
-
 
 app.listen(PORT, () => {
 	console.log(
