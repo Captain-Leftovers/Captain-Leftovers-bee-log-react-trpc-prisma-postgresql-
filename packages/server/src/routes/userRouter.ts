@@ -9,7 +9,7 @@ import {
 } from '../services/authService/passwordService'
 
 import { farmsRouter } from './farmsRouter'
-import { BeekeeperUser } from '@prisma/client'
+import type { BeekeeperUser } from '@prisma/client'
 
 export const userRouter = router({
 	farms: farmsRouter,
@@ -162,7 +162,7 @@ export const userRouter = router({
 		try {
 			const users = await db.beekeeperUser.findMany()
 
-			const usersArray = users.map((user:BeekeeperUser) => {
+			const usersArray = users.map((user: BeekeeperUser) => {
 				return {
 					id: user.id,
 					username: user.userName,
