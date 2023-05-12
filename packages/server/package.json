@@ -5,7 +5,7 @@
 	"main": "server.js",
 	"scripts": {
 		"start": "tsc -w & npx nodemon ./build/server.js",
-		"build": "tsc"
+		"build": "tsc && npx prisma generate"
 	},
 	"keywords": [],
 	"author": "",
@@ -31,5 +31,8 @@
 		"express": "^4.18.2",
 		"express-session": "^1.17.3",
 		"zod": "^3.21.4"
+	},
+	"engines": {
+		"node": "16.x"
 	}
 }
