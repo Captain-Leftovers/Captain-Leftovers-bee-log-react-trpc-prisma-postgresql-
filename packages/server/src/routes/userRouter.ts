@@ -9,7 +9,14 @@ import {
 } from '../services/authService/passwordService'
 
 import { farmsRouter } from './farmsRouter'
-import type { BeekeeperUser } from '@prisma/client'
+
+type BeekeeperUser = {
+	id: string
+	userName: string
+	email: string
+	password: string
+	image: string | null
+}
 
 export const userRouter = router({
 	farms: farmsRouter,
