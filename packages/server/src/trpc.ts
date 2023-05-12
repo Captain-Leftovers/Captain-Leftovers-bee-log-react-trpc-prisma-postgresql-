@@ -33,8 +33,8 @@ const t = initTRPC.context<Context>().create({
 				prismaError:
 					error.code ===
 						'INTERNAL_SERVER_ERROR' &&
-					error.cause instanceof
-						Prisma.PrismaClientKnownRequestError
+					error.cause instanceof Prisma.PrismaClientUnknownRequestError
+					
 						? error.cause
 						: null,
 			},
