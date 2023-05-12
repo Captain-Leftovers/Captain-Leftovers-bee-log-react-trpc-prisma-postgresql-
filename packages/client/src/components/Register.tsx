@@ -43,7 +43,7 @@ export default function Home() {
 		}, 0);
 	  }, [location]);
 
-	const userContext = useContext(UserContext)
+	const userCxt = useContext(UserContext)
 
 	const navigate = useNavigate()
 
@@ -56,7 +56,7 @@ export default function Home() {
 		onSuccess: (data) => {
 			const user = data.currentUser
 
-			userContext?.setUser(user)
+			userCxt?.setUser(user)
 
 			navigate(`/user/${user.id}`)
 
@@ -75,7 +75,7 @@ export default function Home() {
 			toast.success(
 				`${user.username} registered successfully!`
 			)
-			userContext?.setUser(user)
+			userCxt?.setUser(user)
 			navigate('/')
 		},
 	})

@@ -2,12 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-* {
 
-	/* TODO remove debug apply */
-	
-	/* @apply outline-dashed outline-2 outline-lime-200; */
-}
 
 html {
 	@apply w-screen h-screen m-0 p-0 box-border

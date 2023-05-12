@@ -1,4 +1,4 @@
-import { useEffect, useReducer, useRef } from 'react'
+import { useEffect, useReducer } from 'react'
 import { hiveFormReducer, initialData } from './hiveFormReducer'
 import { formatDateForInput } from '../../utils/commonUtils'
 import { SubmitInspection } from '../../types'
@@ -36,14 +36,12 @@ export default function HiveForm({
 		}
 	}, [initial])
 
-	const textAreaRef = useRef<HTMLDivElement>(null) 
-	//TODO : fix the text area ^^ and remove the ref if not gonna use it when focused i cant scroll to top ^
-
 	const changeHandler = (
 		e:
 			| React.ChangeEvent<HTMLInputElement>
 			| React.ChangeEvent<HTMLTextAreaElement>
 	) => {
+	
 		const { name, value, type, tagName } = e.target
 
 		if (
@@ -93,7 +91,6 @@ export default function HiveForm({
 	}
 
 	const submitFormHandler = (e: React.FormEvent<HTMLFormElement>) => {
-		textAreaRef.current?.blur()
 		scrollFn()
 		e.preventDefault()
 		if (!hiveId) {
@@ -462,15 +459,17 @@ export default function HiveForm({
 					/>
 				</div>
 
-				<div
-						ref={textAreaRef}
-						className="flex  grow flex-col  items-center focus-within:text-three hover:text-three">
-					<label className="" htmlFor="comments">
+				<div 
+				className="flex flex-col  items-stretch  focus-within:text-three hover:text-three p-4 "
+				>
+					<label className=" text-center" htmlFor="comments">
 						comments
 					</label>
-					<textarea 
-						className="h-24 w-full rounded-lg border-2 border-one p-2 text-one"
-						onChange={changeHandler}
+					<textarea
+						className=" rounded-lg border-2 border-one p-2 text-one "
+						onChange={(e)=>{
+							changeHandler(e)}}
+						rows={3}
 						value={state.comments}
 						name="comments"
 						id="comments"
@@ -487,3 +486,6 @@ export default function HiveForm({
 		</form>
 	)
 }
+
+
+//TODO : when any width is given to the textarea it breaks the layout and i cant call scroll fn and event is not passive error is thrown

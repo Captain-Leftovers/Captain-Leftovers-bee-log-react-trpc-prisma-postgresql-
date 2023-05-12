@@ -61,5 +61,3 @@ export default function Home() {
 	)
 }
 
-
-//TODO : add GUEST to login and register so they can see the app without having to register

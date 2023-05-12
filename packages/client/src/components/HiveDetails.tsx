@@ -143,6 +143,7 @@ export default function HiveDetails() {
 		if(!hiveDetailsRef.current) {toast('no ref current') 
 		return}
 		hiveDetailsRef.current.scrollIntoView({behavior:'smooth'})
+		
 	}
 
 	const submitHandler = (

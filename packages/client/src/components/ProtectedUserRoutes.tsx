@@ -6,8 +6,8 @@ import Login from "./Login"
 
 
 export default function ProtectedUserRoutes (){
-    const userContext = useContext(UserContext)
-    const isLoggedIn = !!userContext?.user
+    const userCxt = useContext(UserContext)
+    const isLoggedIn = !!userCxt?.user
 
 
 

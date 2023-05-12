@@ -12,8 +12,8 @@ export default function RootLayout() {
 	const [showNavFooter, setShowNavFooter] = useState(true)
 
 	//end
-	const userContext = useContext(UserContext)
-	const isLoggedIn = !!userContext?.user
+	const userCtx = useContext(UserContext)
+	const isLoggedIn = !!userCtx?.user
 	const location = useLocation()
 
 	useEffect(() => {
@@ -27,11 +27,11 @@ export default function RootLayout() {
 		}
 	}, [location])
 
-	const user = userContext?.user ? userContext?.user : null
+	const user = userCtx?.user ? userCtx?.user : null
 	const logOutMutation = trpc.user.logoutUser.useMutation({
 		onSuccess: () => {
 			localStorage.removeItem('user')
-			userContext?.setUser(null)
+			userCtx?.setUser(null)
 			toast.success('Logged out successfully!')
 		},
 		onError: (error) => {
@@ -41,7 +41,7 @@ export default function RootLayout() {
 
 	const handleLogout = () => {
 		logOutMutation.mutate()
-		userContext?.setUserData({})
+		userCtx?.setUserData({})
 	}
 
 	return (
@@ -107,7 +107,7 @@ export default function RootLayout() {
 												}
 												>
 													{
-														userContext
+														userCtx
 														.user
 														?.username
 													}
