@@ -64,3 +64,5 @@ app.listen(PORT, () => {
 		`http://localhost:${PORT}`
 	)
 })
+
+export default app

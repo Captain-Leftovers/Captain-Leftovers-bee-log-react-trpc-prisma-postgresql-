@@ -29,7 +29,6 @@ export const userRouter = router({
 		})
 	}),
 
-	//login user
 	loginUser: publicProcedure
 		.input(
 			z.object({
