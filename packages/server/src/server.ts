@@ -7,6 +7,7 @@ import { MainRouter } from './routes/mainRouterTRPC'
 import * as trpcExpress from '@trpc/server/adapters/express'
 import { createContext } from './trpc'
 import db from './db'
+import { getHTTPStatusCode } from '@trpc/server/http'
 
 if (process.env.NODE_ENV !== 'production') {
 	dotenv.config()
@@ -22,7 +23,6 @@ const app = express()
 
 app.use(
 	cors({
-		
 		origin: 'https://captain-leftovers-bee-log-react-trpc-prisma-postgresql-client.vercel.app/',
 		credentials: true,
 	})
@@ -56,6 +56,11 @@ app.use(
 		createContext,
 	})
 )
+
+app.get('/', (req, res) => {
+	res.sendStatus(200)
+	res.send('Hello World!')
+})
 
 app.listen(PORT, () => {
 	console.log(
