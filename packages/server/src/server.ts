@@ -7,7 +7,6 @@ import { MainRouter } from './routes/mainRouterTRPC'
 import * as trpcExpress from '@trpc/server/adapters/express'
 import { createContext } from './trpc'
 import db from './db'
-import { getHTTPStatusCode } from '@trpc/server/http'
 
 if (process.env.NODE_ENV !== 'production') {
 	dotenv.config()
