@@ -22,7 +22,7 @@ const app = express()
 
 app.use(
 	cors({
-		//TODO : change this to the actual url
+		
 		origin: 'https://captain-leftovers-bee-log-react-trpc-prisma-postgresql-client.vercel.app/',
 		credentials: true,
 	})
@@ -34,8 +34,8 @@ app.use(
 			//TODO : secure === true in production for https only
 			// secure: false,
 			// httpOnly: true,
-			secure:true,
-			httpOnly: true,
+			// secure:true,
+			// httpOnly: true,
 			maxAge: 7 * 24 * 60 * 60 * 1000, //7 days
 		},
 		secret: `${process.env.SESSION_SECRET}`,
