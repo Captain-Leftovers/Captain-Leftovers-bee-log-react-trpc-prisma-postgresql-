@@ -56,10 +56,7 @@ app.use(
 	})
 )
 
-app.get('/', (req, res) => {
-	res.sendStatus(200)
-	res.send('Hello World!')
-})
+
 
 app.listen(PORT, () => {
 	console.log(
