@@ -1,4 +1,4 @@
-import { publicProcedure, router } from '../trpc'
+import { router } from '../trpc'
 import { testRouter } from './testRouter'
 import { userRouter } from './userRouter'
 
