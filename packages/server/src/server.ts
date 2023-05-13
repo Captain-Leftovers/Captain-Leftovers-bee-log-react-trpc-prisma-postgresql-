@@ -32,7 +32,7 @@ app.use(
 	expressSession({
 		cookie: {
 			//TODO : secure === true in production for https only
-			// secure: false,
+			secure: false,
 			// httpOnly: true,
 			// secure:true,
 			// httpOnly: true,
