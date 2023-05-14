@@ -32,8 +32,8 @@ app.use(
 		cookie: {
 			//TODO : secure === true in production for https only
 			// secure: false,
-			httpOnly: true,
-			secure:true,
+			// httpOnly: true,
+			// secure:true,
 			maxAge: 7 * 24 * 60 * 60 * 1000, //7 days
 		},
 		secret: `${process.env.SESSION_SECRET}`,
