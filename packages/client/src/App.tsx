@@ -27,7 +27,6 @@ export default function App() {
 					url: `${
 						import.meta.env.VITE_API_PORT
 					}/trpc`,
-					// optional
 
 					fetch(url, options) {
 						return fetch(url, {

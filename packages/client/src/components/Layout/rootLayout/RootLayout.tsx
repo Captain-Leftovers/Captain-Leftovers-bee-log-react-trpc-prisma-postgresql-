@@ -61,7 +61,7 @@ export default function RootLayout() {
 							BeeKeeper's Log
 						</p>
 					</div>
-					<div className="">
+					<div className="  md:w-4/6  md:mx-auto">
 						<div className="flex  flex-wrap sm:px-4 md:justify-between">
 							<BeeIcon />
 
@@ -69,7 +69,7 @@ export default function RootLayout() {
 								<div className=" mx-auto ">
 									<div className=" px-2 hover:bg-opacity-80">
 										<NavLink
-											className="nav-link"
+											className=" nav-link"
 											to="/"
 										>
 											Home

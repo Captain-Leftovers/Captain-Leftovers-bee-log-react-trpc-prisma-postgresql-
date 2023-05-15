@@ -1,5 +1,5 @@
 .nav-link {
-	@apply text-three;
+	@apply text-three hover:text-opacity-75
 }
 
 .active {

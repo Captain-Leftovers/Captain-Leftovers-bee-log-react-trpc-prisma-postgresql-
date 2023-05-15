@@ -22,7 +22,9 @@ const app = express()
 
 app.use(
 	cors({
-		origin: 'https://captain-leftovers-bee-log-react-trpc-prisma-postgresql-client.vercel.app',
+		origin: [
+			'https://captain-leftovers-bee-log-react-trpc-prisma-postgresql-client.vercel.app',
+		],
 		credentials: true,
 	})
 )
@@ -32,16 +34,15 @@ app.use(
 		proxy: true,
 		cookie: {
 			sameSite: 'none',
-			
 			httpOnly: true,
 			secure: true,
-			maxAge: 7 * 24 * 60 * 60 * 1000, //7 days
+			maxAge: 7 * 24 * 60 * 60 * 1000,
 		},
 		secret: `${process.env.SESSION_SECRET}`,
 		resave: true,
 		saveUninitialized: true,
 		store: new PrismaSessionStore(db, {
-			checkPeriod: 2 * 60 * 1000, //2 minutes
+			checkPeriod: 2 * 60 * 1000,
 			dbRecordIdIsSessionId: true,
 			dbRecordIdFunction: undefined,
 		}),

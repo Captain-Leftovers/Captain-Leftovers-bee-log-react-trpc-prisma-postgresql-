@@ -17,8 +17,6 @@ export default function UserDetails() {
 	const ctx = useContext(UserContext)
 	const queryUtils = trpc.useContext()
 
-	
-
 	const createNewFarmQ = trpc.user.farms.createNewFarm.useMutation({
 		onError: (error) => {
 			errorHandler(error)
@@ -68,12 +66,11 @@ export default function UserDetails() {
 			toast.success('Hive created')
 			getFarmHivesQ.refetch()
 		},
-		
 	})
 
-	
-
 	const farmInput = useRef<HTMLInputElement | null>(null)
+
+	
 
 	const pickedFarm = ctx?.userData.pickedFarm
 
@@ -84,24 +81,22 @@ export default function UserDetails() {
 		const picked = farms?.find((farm) => farm.id === id)
 		if (!picked) return
 		ctx?.setUserData({ ...ctx.userData, pickedFarm: picked })
-		
 	}
-	
+
 	const addNewFarmHandler = () => {
 		openFarmModal()
 	}
-	
+
 	const addHiveHandler = () => {
 		if (!pickedFarm) return
 		let hiveNumber: number = nextHiveNumber(hives)
-		 if(!!addHiveNumber) hiveNumber = addHiveNumber
-		 
+		if (!!addHiveNumber) hiveNumber = addHiveNumber
+
 		createHiveQ.mutate({
 			beeFarmId: pickedFarm?.id,
 			number: hiveNumber,
 		})
 		setAddHiveNumber('')
-		
 	}
 
 	const farmSubmit = (
@@ -114,9 +109,9 @@ export default function UserDetails() {
 		const inputValue = farmInput.current?.value
 		if (!inputValue) return
 		createNewFarmQ.mutate(inputValue)
-
 	}
 
+	
 	const delFarmHandler = (id: string) => {
 		delFarmQ.mutate({ farmId: id })
 	}
@@ -147,6 +142,7 @@ export default function UserDetails() {
 					</button>
 				)}
 			</div>
+			
 			<div className="">
 				<Modal
 					submitFn={farmSubmit}
@@ -180,24 +176,35 @@ export default function UserDetails() {
 					}
 				/>
 			</div>
-				{pickedFarm ? (
-			<div className="flex gap-4 relative items-center">
+			{pickedFarm ? (
+				<div className="relative flex items-center gap-4">
+					<button
+						disabled={createHiveQ.isLoading}
+						onClick={addHiveHandler}
+						className="
 					
-				<button
-					disabled={createHiveQ.isLoading} 
-					onClick={addHiveHandler}
-					className='
-					
-					 btn-secondary'
-				>
-					{` Add Hive to ${
-						pickedFarm?.farmName ||
-						'your Farm'
-					}`}
-				</button>
-				<input onChange={(e)=> setAddHiveNumber(+(e.target.value))} className='absolute -right-12  w-10 text-center'  type="number" value={addHiveNumber} placeholder='num' min="1" step="1" />
-			</div>
-				): null}
+					 btn-secondary"
+					>
+						{` Add Hive to ${
+							pickedFarm?.farmName ||
+							'your Farm'
+						}`}
+					</button>
+					<input
+						onChange={(e) =>
+							setAddHiveNumber(
+								+e.target.value
+							)
+						}
+						className="absolute -right-12  w-10 text-center"
+						type="number"
+						value={addHiveNumber}
+						placeholder="num"
+						min="1"
+						step="1"
+					/>
+				</div>
+			) : null}
 			<div className=" grow    overflow-auto py-2">
 				<div className="flex flex-wrap justify-center gap-2 ">
 					{hives?.map((hive) => (
@@ -208,7 +215,6 @@ export default function UserDetails() {
 						/>
 					))}
 				</div>
-			
 			</div>
 		</div>
 	)
