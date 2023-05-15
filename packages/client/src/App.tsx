@@ -52,3 +52,5 @@ export default function App() {
 		</trpc.Provider>
 	)
 }
+
+//TODO : add confirmation when delete farm is clicked  and fx  the  logout function to redirect to home page

@@ -32,11 +32,9 @@ app.use(
 		proxy: true,
 		cookie: {
 			sameSite: 'none',
-			//TODO : secure === true in production for https only
-			// secure: false,
+			
 			httpOnly: true,
 			secure: true,
-			// domain: 'https://captain-leftovers-bee-log-react-trpc-prisma-postgresql-client.vercel.app',
 			maxAge: 7 * 24 * 60 * 60 * 1000, //7 days
 		},
 		secret: `${process.env.SESSION_SECRET}`,

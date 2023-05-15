@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react'
-import { NavLink, Outlet, useLocation } from 'react-router-dom'
+import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom'
 import UserContext from '../../../context/UserContext'
 import { trpc } from '../../../utils/trpc'
 import { toast } from 'react-hot-toast'
@@ -12,6 +12,7 @@ export default function RootLayout() {
 	const [showNavFooter, setShowNavFooter] = useState(true)
 
 	//end
+	const navigation = useNavigate()
 	const userCtx = useContext(UserContext)
 	const isLoggedIn = !!userCtx?.user
 	const location = useLocation()
@@ -42,6 +43,7 @@ export default function RootLayout() {
 	const handleLogout = () => {
 		logOutMutation.mutate()
 		userCtx?.setUserData({})
+		navigation('/')
 	}
 
 	return (
@@ -53,7 +55,7 @@ export default function RootLayout() {
 						: '-translate-y-full'
 				} flex  flex-wrap transition-all duration-500`}
 			>
-				<nav className="grow self-center bg-two p-2 border-b">
+				<nav className="grow self-center border-b bg-two p-2">
 					<div className="">
 						<p className="mx-auto w-fit ">
 							BeeKeeper's Log
@@ -98,18 +100,17 @@ export default function RootLayout() {
 									<>
 										<div className=" uppercase text-three hover:opacity-80 ">
 											{isLoggedIn ? (
-												
 												<NavLink
-												className="nav-link  "
-												to={
-													`user/${user?.id}` ||
-													''
-												}
+													className="nav-link  "
+													to={
+														`user/${user?.id}` ||
+														''
+													}
 												>
 													{
 														userCtx
-														.user
-														?.username
+															.user
+															?.username
 													}
 												</NavLink>
 											) : null}
