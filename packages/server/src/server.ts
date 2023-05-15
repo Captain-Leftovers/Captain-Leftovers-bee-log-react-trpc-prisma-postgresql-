@@ -29,6 +29,7 @@ app.use(
 
 app.use(
 	expressSession({
+		proxy: true,
 		cookie: {
 			sameSite: 'none',
 			//TODO : secure === true in production for https only
