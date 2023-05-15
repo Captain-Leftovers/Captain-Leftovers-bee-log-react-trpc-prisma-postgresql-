@@ -22,7 +22,11 @@ const app = express()
 
 app.use(
 	cors({
-		origin: 'https://captain-leftovers-bee-log-react-trpc-prisma-postgresql-client.vercel.app',
+		origin: [
+			'https://captain-leftovers-bee-log-react-trpc-prisma-postgresql-client.vercel.app',
+			'https://www.beekeeperslog.com',
+			'https://beekeeperslog.com',
+		],
 		credentials: true,
 	})
 )
@@ -32,7 +36,7 @@ app.use(
 		proxy: true,
 		cookie: {
 			sameSite: 'none',
-			
+
 			httpOnly: true,
 			secure: true,
 			maxAge: 7 * 24 * 60 * 60 * 1000, //7 days
