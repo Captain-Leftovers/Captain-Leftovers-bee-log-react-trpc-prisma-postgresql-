@@ -30,6 +30,7 @@ app.use(
 app.use(
 	expressSession({
 		cookie: {
+			sameSite: 'none',
 			//TODO : secure === true in production for https only
 			// secure: false,
 			// httpOnly: true,
