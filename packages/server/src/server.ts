@@ -22,7 +22,7 @@ const app = express()
 
 app.use(
 	cors({
-		origin: '*',
+		origin: 'https://captain-leftovers-bee-log-react-trpc-prisma-postgresql-client.vercel.app/',
 		credentials: true,
 	})
 )
