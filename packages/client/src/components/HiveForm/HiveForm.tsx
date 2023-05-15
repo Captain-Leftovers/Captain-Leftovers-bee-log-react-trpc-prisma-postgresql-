@@ -41,7 +41,6 @@ export default function HiveForm({
 			| React.ChangeEvent<HTMLInputElement>
 			| React.ChangeEvent<HTMLTextAreaElement>
 	) => {
-	
 		const { name, value, type, tagName } = e.target
 
 		if (
@@ -132,7 +131,7 @@ export default function HiveForm({
 						className="-m-6 w-full px-6"
 						htmlFor="beeEnterExitHive"
 					>
-						beeEnterExitHive
+						Bee Enter/Exit Hive
 					</label>
 					<input
 						className=" curosor-pointer align-center after:l-0 relative  inline-flex h-12 w-24 flex-shrink-0 appearance-none items-center justify-center  rounded-full bg-three transition duration-200 after:absolute after:left-0 after:top-0 after:h-12 after:w-12 	after:scale-90 after:rounded-full after:bg-five after:duration-200 after:content-[''] checked:bg-two checked:after:translate-x-12 checked:after:bg-green-400 focus:outline-none focus:ring-2 focus:ring-two focus:ring-offset-2"
@@ -148,7 +147,7 @@ export default function HiveForm({
 						className=" -m-6 px-6"
 						htmlFor="bringingPollen"
 					>
-						bringingPollen
+						Bringing Pollen
 					</label>
 					<input
 						className="curosor-pointer align-center after:l-0 relative  inline-flex h-12 w-24 flex-shrink-0 appearance-none items-center justify-center  rounded-full bg-three transition duration-200 after:absolute after:left-0 after:top-0 after:h-12 after:w-12 	after:scale-90 after:rounded-full after:bg-five after:duration-200 after:content-[''] checked:bg-two checked:after:translate-x-12 checked:after:bg-green-400 focus:outline-none focus:ring-2 focus:ring-two focus:ring-offset-2"
@@ -164,7 +163,7 @@ export default function HiveForm({
 						className=" -m-6 px-6"
 						htmlFor="signsOfRobbing"
 					>
-						signsOfRobbing
+						Signs of Robbing
 					</label>
 					<input
 						className="curosor-pointer align-center after:l-0 relative  inline-flex h-12 w-24 flex-shrink-0 appearance-none items-center justify-center  rounded-full bg-three transition duration-200 after:absolute after:left-0 after:top-0 after:h-12 after:w-12 	after:scale-90 after:rounded-full after:bg-five after:duration-200 after:content-[''] checked:bg-two checked:after:translate-x-12 checked:after:bg-green-400 focus:outline-none focus:ring-2 focus:ring-two focus:ring-offset-2"
@@ -180,7 +179,7 @@ export default function HiveForm({
 						className=" -m-6 px-6"
 						htmlFor="animalDisturbing"
 					>
-						animalDisturbing
+						Animal Disturbance
 					</label>
 					<input
 						className="curosor-pointer align-center after:l-0 relative  inline-flex h-12 w-24 flex-shrink-0 appearance-none items-center justify-center  rounded-full bg-three transition duration-200 after:absolute after:left-0 after:top-0 after:h-12 after:w-12 	after:scale-90 after:rounded-full after:bg-five after:duration-200 after:content-[''] checked:bg-two checked:after:translate-x-12 checked:after:bg-green-400 focus:outline-none focus:ring-2 focus:ring-two focus:ring-offset-2"
@@ -196,7 +195,7 @@ export default function HiveForm({
 						className=" -m-6 px-6"
 						htmlFor="beesCalmOnOpen"
 					>
-						beesCalmOnOpen
+						Bees Calm when Hive is Open
 					</label>
 					<input
 						className="curosor-pointer align-center after:l-0 relative  inline-flex h-12 w-24 flex-shrink-0 appearance-none items-center justify-center  rounded-full bg-three transition duration-200 after:absolute after:left-0 after:top-0 after:h-12 after:w-12 	after:scale-90 after:rounded-full after:bg-five after:duration-200 after:content-[''] checked:bg-two checked:after:translate-x-12 checked:after:bg-green-400 focus:outline-none focus:ring-2 focus:ring-two focus:ring-offset-2"
@@ -212,7 +211,7 @@ export default function HiveForm({
 						className=" -m-6 px-6"
 						htmlFor="isBroodPatternGood"
 					>
-						isBroodPatternGood
+						Is the Brood Pattern Good?
 					</label>
 					<input
 						className="curosor-pointer align-center after:l-0 relative  inline-flex h-12 w-24 flex-shrink-0 appearance-none items-center justify-center  rounded-full bg-three transition duration-200 after:absolute after:left-0 after:top-0 after:h-12 after:w-12 	after:scale-90 after:rounded-full after:bg-five after:duration-200 after:content-[''] checked:bg-two checked:after:translate-x-12 checked:after:bg-green-400 focus:outline-none focus:ring-2 focus:ring-two focus:ring-offset-2"
@@ -230,7 +229,8 @@ export default function HiveForm({
 						className=" -m-6 px-6"
 						htmlFor="areLarvaeHealthyWhiteShiny"
 					>
-						areLarvaeHealthyWhiteShiny
+						Are Larvae Healthy, White, and
+						Shiny?
 					</label>
 					<input
 						className="curosor-pointer align-center after:l-0 relative  inline-flex h-12 w-24 flex-shrink-0 appearance-none items-center justify-center  rounded-full bg-three transition duration-200 after:absolute after:left-0 after:top-0 after:h-12 after:w-12 	after:scale-90 after:rounded-full after:bg-five after:duration-200 after:content-[''] checked:bg-two checked:after:translate-x-12 checked:after:bg-green-400 focus:outline-none focus:ring-2 focus:ring-two focus:ring-offset-2"
@@ -248,7 +248,7 @@ export default function HiveForm({
 						className=" -m-6 px-6"
 						htmlFor="isJellyPresent"
 					>
-						isJellyPresent
+						Is there Jelly Present?
 					</label>
 					<input
 						className="curosor-pointer align-center after:l-0 relative  inline-flex h-12 w-24 flex-shrink-0 appearance-none items-center justify-center  rounded-full bg-three transition duration-200 after:absolute after:left-0 after:top-0 after:h-12 after:w-12 	after:scale-90 after:rounded-full after:bg-five after:duration-200 after:content-[''] checked:bg-two checked:after:translate-x-12 checked:after:bg-green-400 focus:outline-none focus:ring-2 focus:ring-two focus:ring-offset-2"
@@ -264,7 +264,7 @@ export default function HiveForm({
 						className=" -m-6 px-6"
 						htmlFor="broodCappedUncappedCells"
 					>
-						broodCappedUncappedCells
+						Brood: Capped/Uncapped Cells
 					</label>
 					<input
 						className="curosor-pointer align-center after:l-0 relative  inline-flex h-12 w-24 flex-shrink-0 appearance-none items-center justify-center  rounded-full bg-three transition duration-200 after:absolute after:left-0 after:top-0 after:h-12 after:w-12 	after:scale-90 after:rounded-full after:bg-five after:duration-200 after:content-[''] checked:bg-two checked:after:translate-x-12 checked:after:bg-green-400 focus:outline-none focus:ring-2 focus:ring-two focus:ring-offset-2"
@@ -282,7 +282,7 @@ export default function HiveForm({
 						className=" -m-6 px-6"
 						htmlFor="oneEggPerCell"
 					>
-						oneEggPerCell
+						One Egg per Cell
 					</label>
 					<input
 						className="curosor-pointer align-center after:l-0 relative  inline-flex h-12 w-24 flex-shrink-0 appearance-none items-center justify-center  rounded-full bg-three transition duration-200 after:absolute after:left-0 after:top-0 after:h-12 after:w-12 	after:scale-90 after:rounded-full after:bg-five after:duration-200 after:content-[''] checked:bg-two checked:after:translate-x-12 checked:after:bg-green-400 focus:outline-none focus:ring-2 focus:ring-two focus:ring-offset-2"
@@ -298,7 +298,7 @@ export default function HiveForm({
 						className=" -m-6 px-6"
 						htmlFor="antsPresent"
 					>
-						antsPresent
+						Presence of Ants
 					</label>
 					<input
 						className="curosor-pointer align-center after:l-0 relative  inline-flex h-12 w-24 flex-shrink-0 appearance-none items-center justify-center  rounded-full bg-three transition duration-200 after:absolute after:left-0 after:top-0 after:h-12 after:w-12 	after:scale-90 after:rounded-full after:bg-five after:duration-200 after:content-[''] checked:bg-two checked:after:translate-x-12 checked:after:bg-green-400 focus:outline-none focus:ring-2 focus:ring-two focus:ring-offset-2"
@@ -314,7 +314,7 @@ export default function HiveForm({
 						className=" -m-6 px-6"
 						htmlFor="mothsPresent"
 					>
-						mothsPresent
+						Presence of Moths
 					</label>
 					<input
 						className="curosor-pointer align-center after:l-0 relative  inline-flex h-12 w-24 flex-shrink-0 appearance-none items-center justify-center  rounded-full bg-three transition duration-200 after:absolute after:left-0 after:top-0 after:h-12 after:w-12 	after:scale-90 after:rounded-full after:bg-five after:duration-200 after:content-[''] checked:bg-two checked:after:translate-x-12 checked:after:bg-green-400 focus:outline-none focus:ring-2 focus:ring-two focus:ring-offset-2"
@@ -330,7 +330,7 @@ export default function HiveForm({
 						className=" -m-6 px-6"
 						htmlFor="unusualNumberDeadBees"
 					>
-						unusualNumberDeadBees
+						Unusual Number of Dead Bees
 					</label>
 					<input
 						className="curosor-pointer align-center after:l-0 relative  inline-flex h-12 w-24 flex-shrink-0 appearance-none items-center justify-center  rounded-full bg-three transition duration-200 after:absolute after:left-0 after:top-0 after:h-12 after:w-12 	after:scale-90 after:rounded-full after:bg-five after:duration-200 after:content-[''] checked:bg-two checked:after:translate-x-12 checked:after:bg-green-400 focus:outline-none focus:ring-2 focus:ring-two focus:ring-offset-2"
@@ -348,7 +348,7 @@ export default function HiveForm({
 						className=" -m-6 px-6"
 						htmlFor="odor"
 					>
-						odor
+						Odor
 					</label>
 					<input
 						className="curosor-pointer align-center after:l-0 relative  inline-flex h-12 w-24 flex-shrink-0 appearance-none items-center justify-center  rounded-full bg-three transition duration-200 after:absolute after:left-0 after:top-0 after:h-12 after:w-12 	after:scale-90 after:rounded-full after:bg-five after:duration-200 after:content-[''] checked:bg-two checked:after:translate-x-12 checked:after:bg-green-400 focus:outline-none focus:ring-2 focus:ring-two focus:ring-offset-2"
@@ -364,7 +364,7 @@ export default function HiveForm({
 						className=" -m-6 px-6"
 						htmlFor="tracheal"
 					>
-						tracheal
+						Tracheal
 					</label>
 					<input
 						className="curosor-pointer align-center after:l-0 relative  inline-flex h-12 w-24 flex-shrink-0 appearance-none items-center justify-center  rounded-full bg-three transition duration-200 after:absolute after:left-0 after:top-0 after:h-12 after:w-12 	after:scale-90 after:rounded-full after:bg-five after:duration-200 after:content-[''] checked:bg-two checked:after:translate-x-12 checked:after:bg-green-400 focus:outline-none focus:ring-2 focus:ring-two focus:ring-offset-2"
@@ -380,7 +380,7 @@ export default function HiveForm({
 						className=" -m-6 px-6"
 						htmlFor="varroa"
 					>
-						varroa
+						Varroa
 					</label>
 					<input
 						className="curosor-pointer align-center after:l-0 relative  inline-flex h-12 w-24 flex-shrink-0 appearance-none items-center justify-center  rounded-full bg-three transition duration-200 after:absolute after:left-0 after:top-0 after:h-12 after:w-12 	after:scale-90 after:rounded-full after:bg-five after:duration-200 after:content-[''] checked:bg-two checked:after:translate-x-12 checked:after:bg-green-400 focus:outline-none focus:ring-2 focus:ring-two focus:ring-offset-2"
@@ -396,7 +396,7 @@ export default function HiveForm({
 						className=" -m-6 px-6"
 						htmlFor="spaceForNectar"
 					>
-						spaceForNectar
+						Is there Space for Nectar?
 					</label>
 					<input
 						className="curosor-poifocus:text-xlnter align-center after:l-0 relative  inline-flex h-12 w-24 flex-shrink-0 appearance-none items-center justify-center  rounded-full bg-three transition duration-200 after:absolute after:left-0 after:top-0 after:h-12 after:w-12 	after:scale-90 after:rounded-full after:bg-five after:duration-200 after:content-[''] checked:bg-two checked:after:translate-x-12 checked:after:bg-green-400 focus:outline-none focus:ring-2 focus:ring-two focus:ring-offset-2"
@@ -412,7 +412,7 @@ export default function HiveForm({
 						className=" -m-6 px-6"
 						htmlFor="queenSeen"
 					>
-						queenSeen
+						Queen Seen
 					</label>
 					<input
 						className="curosor-pointer align-center after:l-0 relative  inline-flex h-12 w-24 flex-shrink-0 appearance-none items-center justify-center  rounded-full bg-three transition duration-200 after:absolute after:left-0 after:top-0 after:h-12 after:w-12 	after:scale-90 after:rounded-full after:bg-five after:duration-200 after:content-[''] checked:bg-two checked:after:translate-x-12 checked:after:bg-green-400 focus:outline-none focus:ring-2 focus:ring-two focus:ring-offset-2"
@@ -429,7 +429,7 @@ export default function HiveForm({
 						className=""
 						htmlFor="framesCoveredWithBees"
 					>
-						framesCoveredWithBees
+						Frames Covered with Bees
 					</label>
 					<input
 						className="w-10 text-center text-2xl text-one "
@@ -447,7 +447,7 @@ export default function HiveForm({
 						className=""
 						htmlFor="framesUsedForBrood"
 					>
-						framesUsedForBrood
+						Frames Used for Brood
 					</label>
 					<input
 						className="w-10 text-center text-2xl text-one"
@@ -459,16 +459,18 @@ export default function HiveForm({
 					/>
 				</div>
 
-				<div 
-				className="flex flex-col  items-stretch  focus-within:text-three hover:text-three p-4 "
-				>
-					<label className=" text-center" htmlFor="comments">
-						comments
+				<div className="flex flex-col  items-stretch  p-4 focus-within:text-three hover:text-three ">
+					<label
+						className=" text-center"
+						htmlFor="comments"
+					>
+						Comments
 					</label>
 					<textarea
 						className=" rounded-lg border-2 border-one p-2 text-one "
-						onChange={(e)=>{
-							changeHandler(e)}}
+						onChange={(e) => {
+							changeHandler(e)
+						}}
 						rows={3}
 						value={state.comments}
 						name="comments"
@@ -488,4 +490,3 @@ export default function HiveForm({
 }
 
 
-//TODO : when any width is given to the textarea it breaks the layout and i cant call scroll fn and event is not passive error is thrown
