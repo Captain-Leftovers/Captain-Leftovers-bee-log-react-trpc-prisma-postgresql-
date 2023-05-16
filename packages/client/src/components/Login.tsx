@@ -111,6 +111,10 @@ export default function Login() {
 
 	const loginAsGuestHandler = () => {
 		setUserData(guestState)
+		mutate({
+			email: guestState.email,
+			password: guestState.password,
+		})
 	}
 
 	return (
