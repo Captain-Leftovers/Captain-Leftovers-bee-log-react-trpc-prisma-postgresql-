@@ -5,7 +5,7 @@ import { errorHandler } from '../utils/errorHandler'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { toast } from 'react-hot-toast'
 import UserContext from '../context/UserContext'
-import {NavLink} from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 export interface InputFieldType {
 	id: number
 	type: string
@@ -19,8 +19,8 @@ export interface InputFieldType {
 }
 
 const guestState = {
-	email:'guest@gmail.com',
-	password: 'A123456!'
+	email: 'guest@gmail.com',
+	password: 'A123456!',
 }
 
 const initialState = {
@@ -31,21 +31,22 @@ const initialState = {
 export default function Login() {
 	const [userData, setUserData] = useState(initialState)
 
-	const location = useLocation();
-const [toHomeVisible, setToHomeVisible] = useState(false);
+	console.log(userData)
+
+	const location = useLocation()
+	const [toHomeVisible, setToHomeVisible] = useState(false)
 
 	const userContext = useContext(UserContext)
 
 	useEffect(() => {
-		setToHomeVisible(false);
+		setToHomeVisible(false)
 		setTimeout(() => {
-		  setToHomeVisible(true);
-		}, 0);
-	  }, [location]);
+			setToHomeVisible(true)
+		}, 0)
+	}, [location])
 	const navigate = useNavigate()
 
 	type UserState = typeof initialState
-
 
 	const { mutate } = trpc.user.loginUser.useMutation({
 		onError: (error) => {
@@ -74,9 +75,7 @@ const [toHomeVisible, setToHomeVisible] = useState(false);
 			label: 'Email',
 			name: 'email',
 			errorMessage: 'It should be a valid email address!',
-			pattern: "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,4}$",
-			
-
+			pattern: '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,4}$',
 		},
 		{
 			id: 3,
@@ -110,17 +109,23 @@ const [toHomeVisible, setToHomeVisible] = useState(false);
 		})
 	}
 
- 	const loginAsGuestHandler = () => {
+	const loginAsGuestHandler = () => {
 		setUserData(guestState)
-
 	}
 
 	return (
 		<div className="flex h-full flex-col items-center justify-center ">
-			<div className={`absolute left-5 top-5 bg-three px-2 hover:bg-opacity-80 toHomeButton ${toHomeVisible ? "toHomeButtonVisible" : ''}`}>
-				<NavLink className="text-2xl" to="/">&#8592;</NavLink>
+			<div
+				className={`toHomeButton absolute left-5 top-5 bg-three px-2 hover:bg-opacity-80 ${
+					toHomeVisible
+						? 'toHomeButtonVisible'
+						: ''
+				}`}
+			>
+				<NavLink className="text-2xl" to="/">
+					&#8592;
+				</NavLink>
 			</div>
-			
 
 			<div className="container   max-w-lg  rounded-md bg-two bg-opacity-10 px-6 py-8   shadow-xl">
 				<div className="">
@@ -153,9 +158,19 @@ const [toHomeVisible, setToHomeVisible] = useState(false);
 								/>
 							)
 						)}
-						<button onClick={loginAsGuestHandler}  className=" mb-2 text-right text-sm text-one hover:text-three hover:underline">Login as Guest</button>
-						<button className="btn-primary">
-							
+						<button
+							type="button"
+							onClick={
+								loginAsGuestHandler
+							}
+							className=" mb-2 text-right text-sm text-one hover:text-three hover:underline"
+						>
+							Login as Guest
+						</button>
+						<button
+							type="submit"
+							className="btn-primary"
+						>
 							Login
 						</button>
 					</form>
