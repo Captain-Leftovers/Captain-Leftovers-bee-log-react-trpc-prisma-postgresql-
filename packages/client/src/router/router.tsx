@@ -15,24 +15,35 @@ import CronPing from '../components/CronPing'
 
 const router = createBrowserRouter(
 	createRoutesFromElements(
-		<Route
-			path="/"
-			element={<RootLayout />}
-			ErrorBoundary={ErrorLayout}
-		>
-			<Route path="/" element={<Home />} />
-			<Route path="/cron" element={<CronPing/>} />
-			<Route path="/login" element={<Login />} />
-			<Route path="/register" element={<Register />} />
-			<Route path="user" element={<ProtectedUserRoutes />}>
-				<Route path=":id" element={<UserDetails />} />
+		<>
+			<Route
+				path="/"
+				element={<RootLayout />}
+				ErrorBoundary={ErrorLayout}
+			>
+				<Route path="/" element={<Home />} />
+				<Route path="/cron" element={<CronPing />} />
+				<Route path="/login" element={<Login />} />
 				<Route
-					path=":id/details/:hiveId/:hiveNumber"
-					element={<HiveDetails/>}
+					path="/register"
+					element={<Register />}
 				/>
+				<Route
+					path="user"
+					element={<ProtectedUserRoutes />}
+				>
+					<Route
+						path=":id"
+						element={<UserDetails />}
+					/>
+					<Route
+						path=":id/details/:hiveId/:hiveNumber"
+						element={<HiveDetails />}
+					/>
+				</Route>
 			</Route>
 			<Route path="/*" element={<Home />} />
-		</Route>
+		</>
 	)
 )
 
