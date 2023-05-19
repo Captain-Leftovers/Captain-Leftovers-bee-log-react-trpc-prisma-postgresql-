@@ -26,7 +26,6 @@ app.use(
 			'https://captain-leftovers-bee-log-react-trpc-prisma-postgresql-client.vercel.app',
 			'https://www.beekeeperslog.com',
 			'https://beekeeperslog.com',
-			'https://master--visionary-travesseiro-e25380.netlify.app/',
 			'https://master--visionary-travesseiro-e25380.netlify.app',
 		],
 		credentials: true,
