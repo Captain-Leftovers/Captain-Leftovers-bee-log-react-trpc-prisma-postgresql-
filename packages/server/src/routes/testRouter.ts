@@ -1,10 +1,17 @@
 import { publicProcedure, router } from '../trpc'
 
 export const testRouter = router({
-	test: publicProcedure.query(({}) => {
-		// let ctxJ = JSON.stringify(ctx.session.user)
+	test: publicProcedure.query(async ({ ctx }) => {
+		let testUser = await ctx.db.beekeeperUser.findFirst({
+			where: {
+				userName: {
+					equals: 'Guest',
+				},
+			},
+			select: { userName: true },
+		})
 		return {
-			message: ` test trpc route here`,
+			message: `Hello ${testUser?.userName}!`,
 		}
 	}),
 })
