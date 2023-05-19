@@ -1,8 +1,19 @@
 {
 	"rewrites": [
 	  {
-		"source": "/(?!@vite/client|@vite/env|src|favicon.ico)(.*)",
+		"source": "/:path*",
 		"destination": "/index.html"
+	  }
+	],
+	"headers": [
+	  {
+		"source": "/src/:path*",
+		"headers": [
+		  {
+			"key": "Content-Type",
+			"value": "application/javascript"
+		  }
+		]
 	  }
 	]
   }
