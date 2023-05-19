@@ -1,8 +1,9 @@
 {
 	"rewrites": [
-		{
-			"source": "/(.*)",
-			"destination": "/"
-		}
+	  {
+		"source": "/(?!@vite/client|@vite/env|src|favicon.ico)(.*)",
+		"destination": "/index.html"
+	  }
 	]
-}
+  }
+  
