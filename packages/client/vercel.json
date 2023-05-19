@@ -1,15 +1,8 @@
 {
-	"routes": [
+	"rewrites": [
 		{
-			"src": "/(.*).(js|css|svg|png)$",
-			"headers": {
-				"Cache-Control": "public, max-age=31536000, immutable"
-			},
-			"continue": true
-		},
-		{
-			"src": "/(.*)",
-			"dest": "/index.html"
+			"source": "/(.*)",
+			"destination": "/"
 		}
 	]
 }
