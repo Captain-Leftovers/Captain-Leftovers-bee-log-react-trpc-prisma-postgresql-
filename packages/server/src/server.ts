@@ -27,6 +27,7 @@ app.use(
 			'https://www.beekeeperslog.com',
 			'https://beekeeperslog.com',
 			'https://master--visionary-travesseiro-e25380.netlify.app/',
+			'https://master--visionary-travesseiro-e25380.netlify.app',
 		],
 		credentials: true,
 	})
