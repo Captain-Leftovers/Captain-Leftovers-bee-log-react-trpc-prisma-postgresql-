@@ -15,7 +15,6 @@ import CronPing from '../components/CronPing'
 
 const router = createBrowserRouter(
 	createRoutesFromElements(
-		<>
 			<Route
 				path="/"
 				element={<RootLayout />}
@@ -41,9 +40,8 @@ const router = createBrowserRouter(
 						element={<HiveDetails />}
 					/>
 				</Route>
-			</Route>
 			<Route path="/*" element={<Home />} />
-		</>
+			</Route>
 	)
 )
 
