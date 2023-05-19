@@ -11,6 +11,7 @@ import RootLayout from '../components/Layout/rootLayout/RootLayout'
 import ProtectedUserRoutes from '../components/ProtectedUserRoutes'
 import UserDetails from '../components/UserDetails'
 import HiveDetails from '../components/HiveDetails'
+import CronPing from '../components/CronPing'
 
 const router = createBrowserRouter(
 	createRoutesFromElements(
@@ -20,6 +21,7 @@ const router = createBrowserRouter(
 			ErrorBoundary={ErrorLayout}
 		>
 			<Route path="/" element={<Home />} />
+			<Route path="/cron" element={<CronPing/>} />
 			<Route path="/login" element={<Login />} />
 			<Route path="/register" element={<Register />} />
 			<Route path="user" element={<ProtectedUserRoutes />}>

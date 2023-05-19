@@ -4,7 +4,7 @@ export const testRouter = router({
 	test: publicProcedure.query(({}) => {
 		// let ctxJ = JSON.stringify(ctx.session.user)
 		return {
-			message: ` test trpc routew here`,
+			message: ` test trpc route here`,
 		}
 	}),
 })
