@@ -27,6 +27,8 @@ app.use(
 			'https://beekeeperslog.com',
 			'https://master--visionary-travesseiro-e25380.netlify.app',
 			'https://visionary-travesseiro-e25380.netlify.app',
+			'http://localhost:5173',
+			'https://cron-job.org/',
 		],
 		credentials: true,
 	})
@@ -60,6 +62,14 @@ app.use(
 		createContext,
 	})
 )
+
+app.get('/cron', async (req, res) => {
+	const data = await db.beekeeperUser.findFirst({
+		where: { userName: 'Guest' },
+	})
+
+	res.json(data)
+})
 
 app.listen(PORT, () => {
 	console.log(
